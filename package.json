@@ -1,0 +1,15 @@
+{
+  "description": "Prototype of scoreboard lighting for 'As One'",
+  "dependencies": {
+    "mqtt": "^2.5.0",
+    "readline": "^1.3.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.3.2",
+    "babel-preset-es2015": "^6.24.0",
+    "webpack": "^2.3.2"
+  }
+}
