@@ -6,16 +6,21 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
+var scoreboard = new Scoreboard();
+scoreboard.start();
+
 var ask = function() {
-  rl.question('BPM A? ', (answer) => {
+  rl.question('L BPM? ', (answer) => {
     if(answer === ''){
       rl.close();
     } else {
-      rl.question('BPM B? ', (answer) => {
+      scoreboard.setLeft(answer);
+      rl.question('R BPM ? ', (answer) => {
         if(answer === ''){
           rl.close();
         } else {
-          setImmediate(ask);
+          scoreboard.setRight(answer);
+          setTimeout(ask, 1000);
         }
       });
     }

@@ -77,11 +77,95 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Scoreboard = function Scoreboard() {
-  _classCallCheck(this, Scoreboard);
-};
+var Scoreboard = function () {
+  function Scoreboard() {
+    _classCallCheck(this, Scoreboard);
+
+    this.leftScore = 0;
+    this.rightScore = 0;
+
+    this.fps = 30; // frames per second
+    this.leftNextFrameTime = 0;
+    this.rightNextFrameTime = 0;
+
+    this.running = false;
+
+    this.main = this.main.bind(this);
+  }
+
+  _createClass(Scoreboard, [{
+    key: "setLeft",
+    value: function setLeft(score) {
+      this.leftScore = score;
+    }
+  }, {
+    key: "setRight",
+    value: function setRight(score) {
+      this.leftScore = score;
+    }
+  }, {
+    key: "start",
+    value: function start() {
+      console.log("STARTING SCOREBOARD UPDATES");
+      this.running = true;
+      setImmediate(this.main);
+    }
+  }, {
+    key: "stop",
+    value: function stop() {
+      this.running = false;
+    }
+  }, {
+    key: "frameDuration",
+    value: function frameDuration() {
+      // in milliseconds
+      return 1000 / this.fps;
+    }
+  }, {
+    key: "main",
+    value: function main() {
+      if (!this.running) {
+        console.log("stopped");
+        return;
+      }
+      var now = new Date().getTime();
+
+      if (this.leftNextFrameTime <= now) {
+        this.updateLeft();
+      } else {
+        if (this.rightNextFrameTime <= now) {
+          this.updateRight();
+        }
+      }
+
+      var msTilNextUpdate = Math.min(this.leftNextFrameTime, this.rightNextFrameTime) - now;
+
+      setTimeout(this.main, msTilNextUpdate);
+    }
+  }, {
+    key: "updateLeft",
+    value: function updateLeft() {
+      var now = new Date().getTime();
+      this.leftNextFrameTime = now + this.frameDuration();
+
+      console.log("LEFT " + this.leftScore);
+    }
+  }, {
+    key: "updateRight",
+    value: function updateRight() {
+      var now = new Date().getTime();
+      this.rightNextFrameTime = now + this.frameDuration();
+
+      console.log("RIGHT " + this.rightScore);
+    }
+  }]);
+
+  return Scoreboard;
+}();
 
 exports.default = Scoreboard;
 
@@ -111,16 +195,21 @@ var rl = readline.createInterface({
   output: process.stdout
 });
 
+var scoreboard = new _Scoreboard2.default();
+scoreboard.start();
+
 var ask = function ask() {
-  rl.question('BPM A? ', function (answer) {
+  rl.question('L BPM? ', function (answer) {
     if (answer === '') {
       rl.close();
     } else {
-      rl.question('BPM B? ', function (answer) {
+      scoreboard.setLeft(answer);
+      rl.question('R BPM ? ', function (answer) {
         if (answer === '') {
           rl.close();
         } else {
-          setImmediate(ask);
+          scoreboard.setRight(answer);
+          setTimeout(ask, 1000);
         }
       });
     }
