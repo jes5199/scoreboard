@@ -4,7 +4,7 @@ module.exports = {
     entry: './src/ConsoleDriver.js',
     target: 'node',
     output: {
-        path: path.resolve(__dirname, 'bin'),
+        path: path.resolve(__dirname, '../bin'),
         filename: 'tty.js',
     },
     module: {
