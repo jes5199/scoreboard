@@ -1,4 +1,4 @@
-import Scoreboard from './Scoreboard.js'
+import WiringDiagram from './WiringDiagram.js'
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -6,7 +6,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-var scoreboard = new Scoreboard();
+var scoreboard = (new WiringDiagram()).scoreboard;
 scoreboard.start();
 
 var ask = function() {

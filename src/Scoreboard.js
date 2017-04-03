@@ -1,13 +1,18 @@
+import NumberDisplay from './NumberDisplay.js'
+
 class Scoreboard {
-  constructor() {
+  constructor(leftDisplay, rightDisplay) {
     this.leftScore = 0;
     this.rightScore = 0;
 
-    this.fps = 30; // frames per second
+    this.fps = 32; // frames per second
     this.leftNextFrameTime = 0;
     this.rightNextFrameTime = 0;
 
     this.running = false;
+
+    this.leftDisplay = leftDisplay;
+    this.rightDisplay = rightDisplay;
 
     this.main = this.main.bind(this);
   }
@@ -60,15 +65,13 @@ class Scoreboard {
   updateLeft() {
     let now = (new Date()).getTime();
     this.leftNextFrameTime = now + this.frameDuration();
-
-    console.log("LEFT " + this.leftScore);
+    this.leftDisplay.update(this.leftScore);
   }
 
   updateRight() {
     let now = (new Date()).getTime();
     this.rightNextFrameTime = now + this.frameDuration();
-
-    console.log("RIGHT " + this.rightScore);
+    this.rightDisplay.update(this.rightScore);
   }
 }
 
