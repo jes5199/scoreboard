@@ -7,7 +7,7 @@ class Scoreboard {
 
     this.fps = 32; // frames per second
     this.leftNextFrameTime = 0;
-    this.rightNextFrameTime = 0;
+    this.rightNextFrameTime = (new Date()).getTime() + 500;
 
     this.running = false;
 
