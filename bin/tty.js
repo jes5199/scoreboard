@@ -348,8 +348,9 @@ var OpcHost = function () {
       var size_high = colors.length / 256;
       var size_low = colors.length % 256;
       var header = new Buffer([channel, command, size_high, size_low]);
-      this.client.write(header);
-      this.client.write(new Buffer(colors));
+      // Apparently node doesn't have an explicit "flush"
+      // so let's try to do one big write per message
+      this.client.write(Buffer.concat([header, new Buffer(colors)]));
     }
   }, {
     key: "connect",
