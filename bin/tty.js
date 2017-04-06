@@ -411,7 +411,7 @@ var Scoreboard = function () {
 
     this.fps = 32; // frames per second
     this.leftNextFrameTime = 0;
-    this.rightNextFrameTime = new Date().getTime() + 500;
+    this.rightNextFrameTime = new Date().getTime() + 500 / this.fps; // offset by half a frame
 
     this.running = false;
 

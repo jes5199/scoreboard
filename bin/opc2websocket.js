@@ -34,7 +34,7 @@ function sendWebsocketFrames() {
   }
 
   var frameSize = buffer[2] * 256 + buffer[3] + 4;
-  if(frameSize >= buffer.length) {
+  if(frameSize <= buffer.length) {
     frames += 1;
     if(ws) {
       var frame = buffer.slice(0, frameSize);
@@ -45,6 +45,8 @@ function sendWebsocketFrames() {
       ws.send(frame);
     }
     buffer = buffer.slice(frameSize);
+  } else {
+    console.log("Incomplete buffer " + buffer.length + " / " + frameSize);
   }
 }
 
