@@ -699,6 +699,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var SevenSegment = {
+  "0": 63,
+  "1": 6,
+  "2": 91,
+  "3": 79,
+  "4": 102,
+  "5": 109,
+  "6": 125,
+  "7": 7,
+  "8": 127,
+  "9": 111
+};
+
 var Numeric = function () {
   function Numeric(numberDisplay) {
     _classCallCheck(this, Numeric);
@@ -707,12 +720,43 @@ var Numeric = function () {
   }
 
   _createClass(Numeric, [{
-    key: 'render',
+    key: "render",
     value: function render(time) {
       var pixels = new _Pixels2.default();
-      this.numberDisplay.segments[Math.floor(time) % 16].paint(pixels, function (x, y) {
-        return [Math.random(), Math.random(), Math.random(), 1.0];
+      var number = this.numberDisplay.number;
+      var color = [0, 0, 0, 1];
+      if (number >= 100) {
+        color = [1, 1, 1, 1];
+      }
+      this.numberDisplay.segments[0].paint(pixels, function (x, y) {
+        return color;
       });
+      this.numberDisplay.segments[1].paint(pixels, function (x, y) {
+        return color;
+      });
+
+      var digit1 = Math.floor(number / 10) % 10;
+      var bits = SevenSegment[digit1];
+      for (var i = 0; i < 7; i++) {
+        var color = [0, 0, 0, 1];
+        if (bits >> i & 1) {
+          color = [1, 1, 1, 1];
+        }
+        this.numberDisplay.segments[i + 2].paint(pixels, function (x, y) {
+          return color;
+        });
+      }
+      var digit2 = number % 10;
+      var bits = SevenSegment[digit2];
+      for (var i = 0; i < 7; i++) {
+        var color = [0, 0, 0, 1];
+        if (bits >> i & 1) {
+          color = [1, 1, 1, 1];
+        }
+        this.numberDisplay.segments[i + 9].paint(pixels, function (x, y) {
+          return color;
+        });
+      }
       return pixels;
     }
   }]);
