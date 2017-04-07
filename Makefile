@@ -6,3 +6,6 @@ websocket:
 
 bin/tty.js : src/*.js src/patterns/*.js
 	./node_modules/.bin/webpack --config config/tty.webpack.config.js
+
+public/emulator.js : src/*.js src/patterns/*.js
+	./node_modules/.bin/webpack --config config/browser.webpack.config.js

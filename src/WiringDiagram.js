@@ -1,12 +1,11 @@
 import Scoreboard from './Scoreboard.js'
-import OpcHost from './OpcHost.js'
 import OpcChannel from './OpcChannel.js'
 import Segment from './Segment.js'
 import NumberDisplay from './NumberDisplay.js'
 
 class WiringDiagram {
-  constructor() {
-    this.opcHost = new OpcHost("localhost", 7890);
+  constructor(opcHost) {
+    this.opcHost = opcHost;
     this.leftOpcChannel = new OpcChannel(this.opcHost, 0, 368);
     this.rightOpcChannel = new OpcChannel(this.opcHost, 1, 368);
 

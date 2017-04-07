@@ -1,0 +1,218 @@
+<html>
+<script src="emulator.js"></script>
+<script>
+
+var coordinates = [];
+
+function verticalPixels(x,y) {
+  coordinates.push(
+    x + 1, y + 2,
+    x + 1, y + 3,
+    x + 1, y + 4,
+    x + 1, y + 5,
+    x + 1, y + 6,
+    x + 1, y + 7,
+    x + 1, y + 8,
+
+    x + 2, y + 9,
+    x + 2, y + 8,
+    x + 2, y + 7,
+    x + 2, y + 6,
+    x + 2, y + 5,
+    x + 2, y + 4,
+    x + 2, y + 3,
+    x + 2, y + 2,
+    x + 2, y + 1,
+
+    x + 3, y + 2,
+    x + 3, y + 3,
+    x + 3, y + 4,
+    x + 3, y + 5,
+    x + 3, y + 6,
+    x + 3, y + 7,
+    x + 3, y + 8
+  );
+}
+
+function horizontalPixels(x,y) {
+  coordinates.push(
+    x + 2, y + 1,
+    x + 3, y + 1,
+    x + 4, y + 1,
+    x + 5, y + 1,
+    x + 6, y + 1,
+    x + 7, y + 1,
+    x + 8, y + 1,
+
+    x + 9, y + 2,
+    x + 8, y + 2,
+    x + 7, y + 2,
+    x + 6, y + 2,
+    x + 5, y + 2,
+    x + 4, y + 2,
+    x + 3, y + 2,
+    x + 2, y + 2,
+    x + 1, y + 2,
+
+    x + 2, y + 3,
+    x + 3, y + 3,
+    x + 4, y + 3,
+    x + 5, y + 3,
+    x + 6, y + 3,
+    x + 7, y + 3,
+    x + 8, y + 3
+  );
+}
+
+verticalPixels(0, 4);
+verticalPixels(0, 14);
+
+horizontalPixels(9, 2);
+verticalPixels(18, 4);
+verticalPixels(18, 14);
+horizontalPixels(9, 22);
+verticalPixels(6, 14);
+verticalPixels(6, 4);
+horizontalPixels(9, 12);
+
+horizontalPixels(27, 2);
+verticalPixels(36, 4);
+verticalPixels(36, 14);
+horizontalPixels(27, 22);
+verticalPixels(24, 14);
+verticalPixels(24, 4);
+horizontalPixels(27, 12);
+
+for(i = 0; i < 368; i++) {
+  document.leftColors.push(255,0,200);
+  document.rightColors.push(0,200,255);
+}
+
+var gl;
+var program;
+var canvas;
+
+function begin() {
+  canvas = document.getElementById("glcanvas");
+  gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+  var vertex_shader = gl.createShader(gl.VERTEX_SHADER);
+  gl.shaderSource(vertex_shader, document.getElementById('vertex-shader').text);
+  gl.compileShader(vertex_shader);
+  var success = gl.getShaderParameter(vertex_shader, gl.COMPILE_STATUS);
+  if (!success) {
+    console.log(gl.getShaderInfoLog(vertex_shader));
+  }
+
+  var fragment_shader = gl.createShader(gl.FRAGMENT_SHADER);
+  gl.shaderSource(fragment_shader, document.getElementById('fragment-shader').text);
+  gl.compileShader(fragment_shader);
+  var success = gl.getShaderParameter(fragment_shader, gl.COMPILE_STATUS);
+  if (!success) {
+    console.log(gl.getShaderInfoLog(fragment_shader));
+  }
+
+  program = gl.createProgram();
+  gl.attachShader(program, vertex_shader);
+  gl.attachShader(program, fragment_shader);
+  gl.linkProgram(program);
+  var success = gl.getProgramParameter(program, gl.LINK_STATUS);
+  if (!success) {
+    console.log(gl.getProgramInfoLog(program));
+  }
+
+  gl.useProgram(program);
+
+  var positions = [
+    0, 0, 1, 1, 0, 1,
+    0, 0, 1, 1, 1, 0,
+  ];
+  var positionAttribute = gl.getAttribLocation(program, "position");
+  var positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(positionAttribute);
+  gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
+
+  draw();
+}
+
+function draw() {
+  document.setLeft(document.getElementById('leftInput').value);
+  document.setRight(document.getElementById('rightInput').value);
+
+  gl.uniform2fv(
+    gl.getUniformLocation(program, "coordinates"),
+    coordinates
+  );
+
+  gl.uniform3fv(
+    gl.getUniformLocation(program, "colors"),
+    document.leftColors
+  );
+
+  gl.viewport(50, -50, 400, 400);
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+  gl.uniform3fv(
+    gl.getUniformLocation(program, "colors"),
+    document.rightColors
+  );
+
+  gl.viewport(50 + canvas.width / 2, -50, 400, 400);
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+  setTimeout(draw, 1000 / 20);
+}
+
+</script>
+<script id="vertex-shader" type="x-shader/x-vertex">
+  precision highp float;
+  attribute vec4 position;
+
+  varying vec2 pos;
+
+  void main() {
+    pos = vec2(position.x, (1. - position.y) );
+    gl_Position = position * 2. - 1.;
+  }
+</script>
+<script id="fragment-shader" type="x-shader/x-fragment">
+  precision highp float;
+  varying vec2 pos;
+  uniform vec2 coordinates[368];
+  uniform vec3 colors[368];
+
+  const float nearx = 0.014;
+  const float neary = 0.014;
+
+  void main() {
+    float dist = 0.;
+    for(int i = 0; i<368; i++) {
+      vec2 coord = coordinates[i] / 40.;
+      if(abs(pos.x - coord.x) < nearx && abs(pos.y - coord.y) < neary) {
+        dist = distance(pos, coord);
+        gl_FragColor.rgb += cos(dist * 100.) * colors[i] / 255.;
+        gl_FragColor.a = 1.;
+      } else {
+        //gl_FragColor.r = pos.x;
+        //gl_FragColor.b = pos.y;
+      }
+    }
+  }
+</script>
+<style>
+  body {
+    background-color: black;
+    text-align: center;
+  }
+  canvas {
+    border: 1px solid green;
+  }
+</style>
+<body onload="begin()">
+  <canvas id="glcanvas" width=1000 height=400></canvas>
+  <div>
+    <input id="leftInput" type="number" value="40" min="0"/> <input type="number" id="rightInput" value="89" min="0"/>
+    </div
+</body>
+</html>

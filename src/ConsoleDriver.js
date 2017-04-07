@@ -1,12 +1,14 @@
 import WiringDiagram from './WiringDiagram.js'
 const readline = require('readline');
+import OpcHost from './OpcHost.js'
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
-var scoreboard = (new WiringDiagram()).scoreboard;
+var opcHost = new OpcHost("localhost", 7890)
+var scoreboard = (new WiringDiagram(opcHost)).scoreboard;
 scoreboard.start();
 
 var ask = function() {
