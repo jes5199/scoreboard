@@ -1,6 +1,7 @@
 import NumberDisplay from './NumberDisplay.js'
 import Numeric from './patterns/Numeric.js'
 import TechnicolorSnow from './patterns/TechnicolorSnow.js'
+import Fireflow from './patterns/Fireflow.js'
 import MergePatterns from './patterns/MergePatterns.js'
 import MaskPattern from './patterns/MaskPattern.js'
 
@@ -19,7 +20,7 @@ class Scoreboard {
     this.rightDisplay = rightDisplay;
 
     this.pattern = new MaskPattern(
-     new TechnicolorSnow(this),
+     new Fireflow(this),
      new MergePatterns([
        new Numeric(this.leftDisplay), new Numeric(this.rightDisplay)
      ])

@@ -205,6 +205,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // o o o
 // o o o
 //   o
+
+var SegmentOffset = [[0, 3], [0, 13], [11, 0], [20, 3], [20, 13], [11, 22], [8, 13], [8, 3], [11, 11], [22, 0], [31, 3], [31, 13], [22, 22], [19, 13], [19, 3], [22, 11]];
+
 var NumberDisplay = function () {
   // current assumption is that each NumberDisplay is on a single, unique OPC segment
   // and all NumberDisplays are on the same OPC device
@@ -224,6 +227,16 @@ var NumberDisplay = function () {
     key: "update",
     value: function update(number) {
       this.number = number;
+    }
+  }, {
+    key: "paint",
+    value: function paint(pixels, f) {
+      for (var i = 0; i < this.segmentCount; i++) {
+        this.segments[i].paint(pixels, function (x, y) {
+          var offset = SegmentOffset[i];
+          return f(x + offset[0], y + offset[1]);
+        });
+      }
     }
   }]);
 
@@ -425,7 +438,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var net = __webpack_require__(13);
+var net = __webpack_require__(14);
 
 var OpcHost = function () {
   function OpcHost(host, port) {
@@ -505,19 +518,23 @@ var _NumberDisplay = __webpack_require__(1);
 
 var _NumberDisplay2 = _interopRequireDefault(_NumberDisplay);
 
-var _Numeric = __webpack_require__(11);
+var _Numeric = __webpack_require__(12);
 
 var _Numeric2 = _interopRequireDefault(_Numeric);
 
-var _TechnicolorSnow = __webpack_require__(12);
+var _TechnicolorSnow = __webpack_require__(13);
 
 var _TechnicolorSnow2 = _interopRequireDefault(_TechnicolorSnow);
 
-var _MergePatterns = __webpack_require__(10);
+var _Fireflow = __webpack_require__(9);
+
+var _Fireflow2 = _interopRequireDefault(_Fireflow);
+
+var _MergePatterns = __webpack_require__(11);
 
 var _MergePatterns2 = _interopRequireDefault(_MergePatterns);
 
-var _MaskPattern = __webpack_require__(9);
+var _MaskPattern = __webpack_require__(10);
 
 var _MaskPattern2 = _interopRequireDefault(_MaskPattern);
 
@@ -541,7 +558,7 @@ var Scoreboard = function () {
     this.leftDisplay = leftDisplay;
     this.rightDisplay = rightDisplay;
 
-    this.pattern = new _MaskPattern2.default(new _TechnicolorSnow2.default(this), new _MergePatterns2.default([new _Numeric2.default(this.leftDisplay), new _Numeric2.default(this.rightDisplay)]));
+    this.pattern = new _MaskPattern2.default(new _Fireflow2.default(this), new _MergePatterns2.default([new _Numeric2.default(this.leftDisplay), new _Numeric2.default(this.rightDisplay)]));
 
     this.main = this.main.bind(this);
   }
@@ -762,6 +779,56 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var Fireflow = function () {
+  function Fireflow(scoreboard) {
+    _classCallCheck(this, Fireflow);
+
+    this.scoreboard = scoreboard;
+  }
+
+  _createClass(Fireflow, [{
+    key: 'render',
+    value: function render(time) {
+      var pixels = new _Pixels2.default();
+      var numberDisplays = [this.scoreboard.leftDisplay, this.scoreboard.rightDisplay];
+      for (var d = 0; d < numberDisplays.length; d++) {
+        var numberDisplay = numberDisplays[d];
+        var number = numberDisplay.number;
+        numberDisplay.paint(pixels, function (x, y) {
+          var red = 0.75 + Math.max(0, Math.sin(y + time * number / 10)); //numberDisplay.number
+          return [red, red - 1., 0, 1];
+        });
+      }
+      return pixels;
+    }
+  }]);
+
+  return Fireflow;
+}();
+
+exports.default = Fireflow;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Pixels = __webpack_require__(0);
+
+var _Pixels2 = _interopRequireDefault(_Pixels);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var MaskPattern = function () {
   function MaskPattern(pattern, mask) {
     _classCallCheck(this, MaskPattern);
@@ -785,7 +852,7 @@ var MaskPattern = function () {
 exports.default = MaskPattern;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -830,7 +897,7 @@ var MergePatterns = function () {
 exports.default = MergePatterns;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -918,7 +985,7 @@ var Numeric = function () {
 exports.default = Numeric;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -968,7 +1035,7 @@ var TechnicolorSnow = function () {
 exports.default = TechnicolorSnow;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("net");
