@@ -4,6 +4,7 @@
 var coordinates = [];
 
 var websocket;
+var reader = new FileReader();
 
 function verticalPixels(x,y) {
   coordinates.push(
@@ -111,6 +112,9 @@ function processOpc(message) {
     rightColors = colors;
   }
 }
+reader.onload = function() {
+    processOpc(new Uint8Array(reader.result));
+}
 
 function begin() {
   canvas = document.getElementById("glcanvas");
@@ -165,10 +169,6 @@ function connect() {
   websocket = new WebSocket("ws://localhost:8099/");
 
   websocket.onmessage = function(msg) {
-    var reader = new FileReader();
-    reader.onload = function() {
-        processOpc(new Uint8Array(reader.result));
-    }
     reader.readAsArrayBuffer(msg.data);
   };
   setTimeout(connect, 2000);

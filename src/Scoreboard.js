@@ -1,5 +1,8 @@
 import NumberDisplay from './NumberDisplay.js'
 import Numeric from './patterns/Numeric.js'
+import TechnicolorSnow from './patterns/TechnicolorSnow.js'
+import MergePatterns from './patterns/MergePatterns.js'
+import MaskPattern from './patterns/MaskPattern.js'
 
 class Scoreboard {
   constructor(leftDisplay, rightDisplay) {
@@ -15,7 +18,12 @@ class Scoreboard {
     this.leftDisplay = leftDisplay;
     this.rightDisplay = rightDisplay;
 
-    this.pattern = new Numeric(this.leftDisplay);
+    this.pattern = new MaskPattern(
+     new TechnicolorSnow(this),
+     new MergePatterns([
+       new Numeric(this.leftDisplay), new Numeric(this.rightDisplay)
+     ])
+    );
 
     this.main = this.main.bind(this);
   }
@@ -26,7 +34,7 @@ class Scoreboard {
   }
 
   setRight(score) {
-    this.leftScore = score;
+    this.rightScore = score;
     this.rightDisplay.update(this.rightScore);
   }
 

@@ -63,11 +63,124 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Pixels = function () {
+  function Pixels() {
+    _classCallCheck(this, Pixels);
+
+    this.dataByChannel = {};
+  }
+
+  _createClass(Pixels, [{
+    key: "set",
+    value: function set(ch, n, rgba) {
+      if (this.dataByChannel[ch] === undefined) {
+        this.dataByChannel[ch] = [];
+      }
+      var channelData = this.dataByChannel[ch];
+
+      channelData[n] = rgba;
+    }
+  }, {
+    key: "mask",
+    value: function mask(that) {
+      var result = new Pixels();
+      for (var ch in this.dataByChannel) {
+        if (ch in that.dataByChannel) {
+          var len = Math.min(this.dataByChannel[ch].length, that.dataByChannel[ch].length);
+          for (var i = 0; i < len; i++) {
+            var thisC = this.dataByChannel[ch][i];
+            var thatC = that.dataByChannel[ch][i];
+            if (thisC && thatC) {
+              var alpha = thisC[3];
+              var r = thatC[0] * alpha;
+              var g = thatC[1] * alpha;
+              var b = thatC[2] * alpha;
+              var a = alpha;
+              result.set(ch, i, [r, g, b, a]);
+            }
+          }
+        }
+      }
+      return result;
+    }
+  }, {
+    key: "combine",
+    value: function combine(that) {
+      var result = new Pixels();
+      for (var ch in this.dataByChannel) {
+        if (!(ch in that.dataByChannel)) {
+          result.dataByChannel[ch] = this.dataByChannel[ch];
+        } else {
+          var len = Math.max(this.dataByChannel[ch].length, that.dataByChannel[ch].length);
+          for (var i = 0; i < len; i++) {
+            var thisC = this.dataByChannel[ch][i];
+            var thatC = this.dataByChannel[ch][i];
+            if (!thisC) {
+              result.set(ch, i, thatC);
+            } else if (!thatC) {
+              result.set(ch, i, thisC);
+            } else {
+              var alpha = thisC[3];
+              var r = thisC[0] * alpha + thatC[0] * (1 - alpha);
+              var g = thisC[1] * alpha + thatC[1] * (1 - alpha);
+              var b = thisC[2] * alpha + thatC[2] * (1 - alpha);
+              var a = thatC[3];
+              result.set(ch, i, [r, g, b, a]);
+            }
+          }
+        }
+      }
+      for (ch in that.dataByChannel) {
+        if (!(ch in this.dataByChannel)) {
+          result.dataByChannel[ch] = that.dataByChannel[ch];
+        }
+      }
+      return result;
+    }
+  }, {
+    key: "write",
+    value: function write(channels) {
+      for (var ch in this.dataByChannel) {
+        var channel = channels[ch];
+        var data = this.dataByChannel[ch];
+        if (channel) {
+          for (var i = 0; i < data.length; i++) {
+            if (data[i]) {
+              channel.colors[i * 3 + 0] = data[i][0] * 255;
+              channel.colors[i * 3 + 1] = data[i][1] * 255;
+              channel.colors[i * 3 + 2] = data[i][2] * 255;
+            }
+          }
+        }
+      }
+    }
+  }]);
+
+  return Pixels;
+}();
+
+exports.default = Pixels;
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -120,7 +233,7 @@ var NumberDisplay = function () {
 exports.default = NumberDisplay;
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -134,11 +247,11 @@ var _Scoreboard = __webpack_require__(7);
 
 var _Scoreboard2 = _interopRequireDefault(_Scoreboard);
 
-var _OpcHost = __webpack_require__(5);
+var _OpcHost = __webpack_require__(6);
 
 var _OpcHost2 = _interopRequireDefault(_OpcHost);
 
-var _OpcChannel = __webpack_require__(4);
+var _OpcChannel = __webpack_require__(5);
 
 var _OpcChannel2 = _interopRequireDefault(_OpcChannel);
 
@@ -146,7 +259,7 @@ var _Segment = __webpack_require__(8);
 
 var _Segment2 = _interopRequireDefault(_Segment);
 
-var _NumberDisplay = __webpack_require__(0);
+var _NumberDisplay = __webpack_require__(1);
 
 var _NumberDisplay2 = _interopRequireDefault(_NumberDisplay);
 
@@ -189,25 +302,25 @@ var WiringDiagram = function WiringDiagram() {
 exports.default = WiringDiagram;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = require("readline");
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _WiringDiagram = __webpack_require__(1);
+var _WiringDiagram = __webpack_require__(2);
 
 var _WiringDiagram2 = _interopRequireDefault(_WiringDiagram);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var readline = __webpack_require__(2);
+var readline = __webpack_require__(3);
 
 var rl = readline.createInterface({
   input: process.stdin,
@@ -238,7 +351,7 @@ var ask = function ask() {
 ask();
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -298,7 +411,7 @@ var OpcChannel = function () {
 exports.default = OpcChannel;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -312,7 +425,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var net = __webpack_require__(10);
+var net = __webpack_require__(13);
 
 var OpcHost = function () {
   function OpcHost(host, port) {
@@ -376,68 +489,6 @@ var OpcHost = function () {
 exports.default = OpcHost;
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Pixels = function () {
-  function Pixels() {
-    _classCallCheck(this, Pixels);
-
-    this.dataByChannel = {};
-  }
-
-  _createClass(Pixels, [{
-    key: "set",
-    value: function set(ch, n, rgba) {
-      if (this.dataByChannel[ch] === undefined) {
-        this.dataByChannel[ch] = [];
-      }
-      var channelData = this.dataByChannel[ch];
-
-      channelData[n] = rgba;
-    }
-  }, {
-    key: "mask",
-    value: function mask(pixels) {}
-  }, {
-    key: "combile",
-    value: function combile(pixels) {}
-  }, {
-    key: "write",
-    value: function write(channels) {
-      for (var ch in this.dataByChannel) {
-        var channel = channels[ch];
-        var data = this.dataByChannel[ch];
-        if (channel) {
-          for (var i = 0; i < data.length; i++) {
-            if (data[i]) {
-              channel.colors[i * 3 + 0] = data[i][0] * 255;
-              channel.colors[i * 3 + 1] = data[i][1] * 255;
-              channel.colors[i * 3 + 2] = data[i][2] * 255;
-            }
-          }
-        }
-      }
-    }
-  }]);
-
-  return Pixels;
-}();
-
-exports.default = Pixels;
-
-/***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -450,13 +501,25 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _NumberDisplay = __webpack_require__(0);
+var _NumberDisplay = __webpack_require__(1);
 
 var _NumberDisplay2 = _interopRequireDefault(_NumberDisplay);
 
-var _Numeric = __webpack_require__(9);
+var _Numeric = __webpack_require__(11);
 
 var _Numeric2 = _interopRequireDefault(_Numeric);
+
+var _TechnicolorSnow = __webpack_require__(12);
+
+var _TechnicolorSnow2 = _interopRequireDefault(_TechnicolorSnow);
+
+var _MergePatterns = __webpack_require__(10);
+
+var _MergePatterns2 = _interopRequireDefault(_MergePatterns);
+
+var _MaskPattern = __webpack_require__(9);
+
+var _MaskPattern2 = _interopRequireDefault(_MaskPattern);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -478,7 +541,7 @@ var Scoreboard = function () {
     this.leftDisplay = leftDisplay;
     this.rightDisplay = rightDisplay;
 
-    this.pattern = new _Numeric2.default(this.leftDisplay);
+    this.pattern = new _MaskPattern2.default(new _TechnicolorSnow2.default(this), new _MergePatterns2.default([new _Numeric2.default(this.leftDisplay), new _Numeric2.default(this.rightDisplay)]));
 
     this.main = this.main.bind(this);
   }
@@ -492,7 +555,7 @@ var Scoreboard = function () {
   }, {
     key: 'setRight',
     value: function setRight(score) {
-      this.leftScore = score;
+      this.rightScore = score;
       this.rightDisplay.update(this.rightScore);
     }
   }, {
@@ -691,7 +754,95 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Pixels = __webpack_require__(6);
+var _Pixels = __webpack_require__(0);
+
+var _Pixels2 = _interopRequireDefault(_Pixels);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var MaskPattern = function () {
+  function MaskPattern(pattern, mask) {
+    _classCallCheck(this, MaskPattern);
+
+    this.pattern = pattern;
+    this.mask = mask;
+  }
+
+  _createClass(MaskPattern, [{
+    key: 'render',
+    value: function render(time) {
+      var colorPixels = this.pattern.render(time);
+      var maskPixels = this.mask.render(time);
+      return maskPixels.mask(colorPixels);
+    }
+  }]);
+
+  return MaskPattern;
+}();
+
+exports.default = MaskPattern;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Pixels = __webpack_require__(0);
+
+var _Pixels2 = _interopRequireDefault(_Pixels);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var MergePatterns = function () {
+  function MergePatterns(patterns) {
+    _classCallCheck(this, MergePatterns);
+
+    this.patterns = patterns;
+  }
+
+  _createClass(MergePatterns, [{
+    key: 'render',
+    value: function render(time) {
+      var pixels = new _Pixels2.default();
+      for (var i = 0; i < this.patterns.length; i++) {
+        var newPixels = this.patterns[i].render(time);
+        pixels = newPixels.combine(pixels);
+      }
+      return pixels;
+    }
+  }]);
+
+  return MergePatterns;
+}();
+
+exports.default = MergePatterns;
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Pixels = __webpack_require__(0);
 
 var _Pixels2 = _interopRequireDefault(_Pixels);
 
@@ -724,7 +875,7 @@ var Numeric = function () {
     value: function render(time) {
       var pixels = new _Pixels2.default();
       var number = this.numberDisplay.number;
-      var color = [0, 0, 0, 1];
+      var color = [0, 0, 0, 0];
       if (number >= 100) {
         color = [1, 1, 1, 1];
       }
@@ -738,7 +889,7 @@ var Numeric = function () {
       var digit1 = Math.floor(number / 10) % 10;
       var bits = SevenSegment[digit1];
       for (var i = 0; i < 7; i++) {
-        var color = [0, 0, 0, 1];
+        var color = [0, 0, 0, 0];
         if (bits >> i & 1) {
           color = [1, 1, 1, 1];
         }
@@ -749,7 +900,7 @@ var Numeric = function () {
       var digit2 = number % 10;
       var bits = SevenSegment[digit2];
       for (var i = 0; i < 7; i++) {
-        var color = [0, 0, 0, 1];
+        var color = [0, 0, 0, 0];
         if (bits >> i & 1) {
           color = [1, 1, 1, 1];
         }
@@ -767,7 +918,57 @@ var Numeric = function () {
 exports.default = Numeric;
 
 /***/ }),
-/* 10 */
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Pixels = __webpack_require__(0);
+
+var _Pixels2 = _interopRequireDefault(_Pixels);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var TechnicolorSnow = function () {
+  function TechnicolorSnow(scoreboard) {
+    _classCallCheck(this, TechnicolorSnow);
+
+    this.scoreboard = scoreboard;
+  }
+
+  _createClass(TechnicolorSnow, [{
+    key: 'render',
+    value: function render(time) {
+      var pixels = new _Pixels2.default();
+      var numberDisplays = [this.scoreboard.leftDisplay, this.scoreboard.rightDisplay];
+      for (var d = 0; d < numberDisplays.length; d++) {
+        var numberDisplay = numberDisplays[d];
+        for (var i = 0; i < 16; i++) {
+          numberDisplay.segments[i].paint(pixels, function (x, y) {
+            return [Math.random(), Math.random(), Math.random(), 1];
+          });
+        }
+      }
+      return pixels;
+    }
+  }]);
+
+  return TechnicolorSnow;
+}();
+
+exports.default = TechnicolorSnow;
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = require("net");

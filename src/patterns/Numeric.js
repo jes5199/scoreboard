@@ -21,7 +21,7 @@ class Numeric {
   render(time) {
     let pixels = new Pixels();
     let number = this.numberDisplay.number;
-    var color = [0,0,0,1];
+    var color = [0,0,0,0];
     if(number >= 100) {
       color = [1,1,1,1];
     }
@@ -35,7 +35,7 @@ class Numeric {
     var digit1 = Math.floor(number / 10) % 10;
     var bits = SevenSegment[digit1];
     for(var i = 0; i < 7; i++) {
-      var color = [0,0,0,1];
+      var color = [0,0,0,0];
       if((bits >> i) & 1) {
         color = [1,1,1,1];
       }
@@ -46,7 +46,7 @@ class Numeric {
     var digit2 = number % 10;
     var bits = SevenSegment[digit2];
     for(var i = 0; i < 7; i++) {
-      var color = [0,0,0,1];
+      var color = [0,0,0,0];
       if((bits >> i) & 1) {
         color = [1,1,1,1];
       }
