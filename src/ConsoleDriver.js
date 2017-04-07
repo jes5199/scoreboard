@@ -20,7 +20,7 @@ var ask = function() {
           rl.close();
         } else {
           scoreboard.setRight(answer);
-          setTimeout(ask, 1000);
+          setTimeout(ask, 100);
         }
       });
     }

@@ -7,7 +7,7 @@ class Scoreboard {
 
     this.fps = 32; // frames per second
     this.leftNextFrameTime = 0;
-    this.rightNextFrameTime = (new Date()).getTime() + 500 / this.fps; // offset by half a frame
+    this.rightNextFrameTime = (new Date()).getTime() + this.frameDuration() / 2; // interlace left and right updates
 
     this.running = false;
 
