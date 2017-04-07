@@ -111,12 +111,6 @@ var NumberDisplay = function () {
     key: "update",
     value: function update(number) {
       this.number = number;
-
-      this.segments.forEach(function (segment) {
-        segment.solidColor(Math.random() * 255, Math.random() * 255, Math.random() * 255);
-      });
-
-      this.channel.sendPixels();
     }
   }]);
 
@@ -136,7 +130,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Scoreboard = __webpack_require__(6);
+var _Scoreboard = __webpack_require__(7);
 
 var _Scoreboard2 = _interopRequireDefault(_Scoreboard);
 
@@ -148,7 +142,7 @@ var _OpcChannel = __webpack_require__(4);
 
 var _OpcChannel2 = _interopRequireDefault(_OpcChannel);
 
-var _Segment = __webpack_require__(7);
+var _Segment = __webpack_require__(8);
 
 var _Segment2 = _interopRequireDefault(_Segment);
 
@@ -171,23 +165,23 @@ var WiringDiagram = function WiringDiagram() {
 
   this.leftDisplay = new _NumberDisplay2.default(this.leftOpcChannel, [
   // 100s
-  new _Segment2.default(this.leftOpcChannel, 0 * ledsInSegment), new _Segment2.default(this.leftOpcChannel, 1 * ledsInSegment),
+  new _Segment2.default(this.leftOpcChannel, 0 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 1 * ledsInSegment, true),
 
   // 10s
-  new _Segment2.default(this.leftOpcChannel, 2 * ledsInSegment), new _Segment2.default(this.leftOpcChannel, 3 * ledsInSegment), new _Segment2.default(this.leftOpcChannel, 4 * ledsInSegment), new _Segment2.default(this.leftOpcChannel, 5 * ledsInSegment), new _Segment2.default(this.leftOpcChannel, 6 * ledsInSegment), new _Segment2.default(this.leftOpcChannel, 7 * ledsInSegment), new _Segment2.default(this.leftOpcChannel, 8 * ledsInSegment),
+  new _Segment2.default(this.leftOpcChannel, 2 * ledsInSegment, false), new _Segment2.default(this.leftOpcChannel, 3 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 4 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 5 * ledsInSegment, false), new _Segment2.default(this.leftOpcChannel, 6 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 7 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 8 * ledsInSegment, false),
 
   // 1s
-  new _Segment2.default(this.leftOpcChannel, 9 * ledsInSegment), new _Segment2.default(this.leftOpcChannel, 10 * ledsInSegment), new _Segment2.default(this.leftOpcChannel, 11 * ledsInSegment), new _Segment2.default(this.leftOpcChannel, 12 * ledsInSegment), new _Segment2.default(this.leftOpcChannel, 13 * ledsInSegment), new _Segment2.default(this.leftOpcChannel, 14 * ledsInSegment), new _Segment2.default(this.leftOpcChannel, 15 * ledsInSegment)]);
+  new _Segment2.default(this.leftOpcChannel, 9 * ledsInSegment, false), new _Segment2.default(this.leftOpcChannel, 10 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 11 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 12 * ledsInSegment, false), new _Segment2.default(this.leftOpcChannel, 13 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 14 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 15 * ledsInSegment, false)]);
 
   this.rightDisplay = new _NumberDisplay2.default(this.rightOpcChannel, [
   // 100s
-  new _Segment2.default(this.rightOpcChannel, 0 * ledsInSegment), new _Segment2.default(this.rightOpcChannel, 1 * ledsInSegment),
+  new _Segment2.default(this.rightOpcChannel, 0 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 1 * ledsInSegment, true),
 
   // 10s
-  new _Segment2.default(this.rightOpcChannel, 2 * ledsInSegment), new _Segment2.default(this.rightOpcChannel, 3 * ledsInSegment), new _Segment2.default(this.rightOpcChannel, 4 * ledsInSegment), new _Segment2.default(this.rightOpcChannel, 5 * ledsInSegment), new _Segment2.default(this.rightOpcChannel, 6 * ledsInSegment), new _Segment2.default(this.rightOpcChannel, 7 * ledsInSegment), new _Segment2.default(this.rightOpcChannel, 8 * ledsInSegment),
+  new _Segment2.default(this.rightOpcChannel, 2 * ledsInSegment, false), new _Segment2.default(this.rightOpcChannel, 3 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 4 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 5 * ledsInSegment, false), new _Segment2.default(this.rightOpcChannel, 6 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 7 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 8 * ledsInSegment, false),
 
   // 1s
-  new _Segment2.default(this.rightOpcChannel, 9 * ledsInSegment), new _Segment2.default(this.rightOpcChannel, 10 * ledsInSegment), new _Segment2.default(this.rightOpcChannel, 11 * ledsInSegment), new _Segment2.default(this.rightOpcChannel, 12 * ledsInSegment), new _Segment2.default(this.rightOpcChannel, 13 * ledsInSegment), new _Segment2.default(this.rightOpcChannel, 14 * ledsInSegment), new _Segment2.default(this.rightOpcChannel, 15 * ledsInSegment)]);
+  new _Segment2.default(this.rightOpcChannel, 9 * ledsInSegment, false), new _Segment2.default(this.rightOpcChannel, 10 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 11 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 12 * ledsInSegment, false), new _Segment2.default(this.rightOpcChannel, 13 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 14 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 15 * ledsInSegment, false)]);
 
   this.scoreboard = new _Scoreboard2.default(this.leftDisplay, this.rightDisplay);
 };
@@ -318,7 +312,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var net = __webpack_require__(8);
+var net = __webpack_require__(10);
 
 var OpcHost = function () {
   function OpcHost(host, port) {
@@ -394,9 +388,75 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Pixels = function () {
+  function Pixels() {
+    _classCallCheck(this, Pixels);
+
+    this.dataByChannel = {};
+  }
+
+  _createClass(Pixels, [{
+    key: "set",
+    value: function set(ch, n, rgba) {
+      if (this.dataByChannel[ch] === undefined) {
+        this.dataByChannel[ch] = [];
+      }
+      var channelData = this.dataByChannel[ch];
+
+      channelData[n] = rgba;
+    }
+  }, {
+    key: "mask",
+    value: function mask(pixels) {}
+  }, {
+    key: "combile",
+    value: function combile(pixels) {}
+  }, {
+    key: "write",
+    value: function write(channels) {
+      for (var ch in this.dataByChannel) {
+        var channel = channels[ch];
+        var data = this.dataByChannel[ch];
+        if (channel) {
+          for (var i = 0; i < data.length; i++) {
+            if (data[i]) {
+              channel.colors[i * 3 + 0] = data[i][0] * 255;
+              channel.colors[i * 3 + 1] = data[i][1] * 255;
+              channel.colors[i * 3 + 2] = data[i][2] * 255;
+            }
+          }
+        }
+      }
+    }
+  }]);
+
+  return Pixels;
+}();
+
+exports.default = Pixels;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _NumberDisplay = __webpack_require__(0);
 
 var _NumberDisplay2 = _interopRequireDefault(_NumberDisplay);
+
+var _Numeric = __webpack_require__(9);
+
+var _Numeric2 = _interopRequireDefault(_Numeric);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -418,39 +478,52 @@ var Scoreboard = function () {
     this.leftDisplay = leftDisplay;
     this.rightDisplay = rightDisplay;
 
+    this.pattern = new _Numeric2.default(this.leftDisplay);
+
     this.main = this.main.bind(this);
   }
 
   _createClass(Scoreboard, [{
-    key: "setLeft",
+    key: 'setLeft',
     value: function setLeft(score) {
       this.leftScore = score;
+      this.leftDisplay.update(this.leftScore);
     }
   }, {
-    key: "setRight",
+    key: 'setRight',
     value: function setRight(score) {
       this.leftScore = score;
+      this.rightDisplay.update(this.rightScore);
     }
   }, {
-    key: "start",
+    key: 'start',
     value: function start() {
       console.log("STARTING SCOREBOARD UPDATES");
       this.running = true;
       setImmediate(this.main);
     }
   }, {
-    key: "stop",
+    key: 'stop',
     value: function stop() {
       this.running = false;
     }
   }, {
-    key: "frameDuration",
+    key: 'frameDuration',
     value: function frameDuration() {
       // in milliseconds
       return 1000 / this.fps;
     }
   }, {
-    key: "main",
+    key: 'renderPattern',
+    value: function renderPattern() {
+      var pixels = this.pattern.render(new Date().getTime() / 1000);
+      pixels.write({
+        "0": this.leftDisplay.channel,
+        "1": this.rightDisplay.channel
+      });
+    }
+  }, {
+    key: 'main',
     value: function main() {
       if (!this.running) {
         console.log("stopped");
@@ -458,11 +531,15 @@ var Scoreboard = function () {
       }
       var now = new Date().getTime();
 
+      this.renderPattern();
+
       if (this.leftNextFrameTime <= now) {
         this.updateLeft();
+        this.leftDisplay.channel.sendPixels();
       } else {
         if (this.rightNextFrameTime <= now) {
           this.updateRight();
+          this.rightDisplay.channel.sendPixels();
         }
       }
 
@@ -471,18 +548,16 @@ var Scoreboard = function () {
       setTimeout(this.main, msTilNextUpdate);
     }
   }, {
-    key: "updateLeft",
+    key: 'updateLeft',
     value: function updateLeft() {
       var now = new Date().getTime();
       this.leftNextFrameTime = now + this.frameDuration();
-      this.leftDisplay.update(this.leftScore);
     }
   }, {
-    key: "updateRight",
+    key: 'updateRight',
     value: function updateRight() {
       var now = new Date().getTime();
       this.rightNextFrameTime = now + this.frameDuration();
-      this.rightDisplay.update(this.rightScore);
     }
   }]);
 
@@ -492,7 +567,7 @@ var Scoreboard = function () {
 exports.default = Scoreboard;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -509,30 +584,92 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // Represents a segment in a NumberDisplay
 
 var Segment = function () {
-  function Segment(channel, offset) {
+  function Segment(channel, offset, is_vertical) {
     _classCallCheck(this, Segment);
 
     this.channel = channel;
     this.offset = offset;
+    this.is_vertical = is_vertical;
+
     this.colorCount = 3;
     this.pixelCount = 7 + 9 + 7;
-    this.colors = new Uint8ClampedArray(this.pixelCount * this.colorCount);
   }
 
   _createClass(Segment, [{
-    key: "setChannelPixels",
-    value: function setChannelPixels() {
-      this.channel.setPixels(this.offset, this.colors);
+    key: "width",
+    value: function width() {
+      if (this.is_vertical) {
+        return 3;
+      } else {
+        return 9;
+      }
     }
   }, {
-    key: "solidColor",
-    value: function solidColor(r, g, b) {
-      for (var i = 0; i < this.pixelCount; i++) {
-        this.colors[i * this.colorCount + 0] = r;
-        this.colors[i * this.colorCount + 1] = g;
-        this.colors[i * this.colorCount + 2] = b;
+    key: "height",
+    value: function height() {
+      if (this.is_vertical) {
+        return 9;
+      } else {
+        return 3;
       }
-      this.setChannelPixels();
+    }
+  }, {
+    key: "livePixel",
+    value: function livePixel(x, y) {
+      var bottom = this.height() - 1;
+      var right = this.width() - 1;
+
+      if (x == 0 && y == 0) {
+        return false;
+      }
+      if (x == right && y == 0) {
+        return false;
+      }
+      if (x == 0 && y == bottom) {
+        return false;
+      }
+      if (x == right && y == bottom) {
+        return false;
+      }
+
+      return true;
+    }
+  }, {
+    key: "channelNumber",
+    value: function channelNumber() {
+      return this.channel.channelNumber;
+    }
+  }, {
+    key: "pixelIdForXY",
+    value: function pixelIdForXY(x, y) {
+      if (this.is_vertical) {
+        if (x == 0) {
+          return this.offset + y - 1;
+        } else if (x == 1) {
+          return this.offset + 15 - y;
+        } else if (x == 2) {
+          return this.offset + y + 15;
+        }
+      } else {
+        if (y == 0) {
+          return this.offset + x - 1;
+        } else if (y == 1) {
+          return this.offset + 15 - x;
+        } else if (y == 2) {
+          return this.offset + x + 15;
+        }
+      }
+    }
+  }, {
+    key: "paint",
+    value: function paint(pixels, f) {
+      for (var x = 0; x < this.width(); x++) {
+        for (var y = 0; y < this.height(); y++) {
+          if (this.livePixel(x, y)) {
+            pixels.set(this.channelNumber(), this.pixelIdForXY(x, y), f(x, y));
+          }
+        }
+      }
     }
   }]);
 
@@ -542,7 +679,51 @@ var Segment = function () {
 exports.default = Segment;
 
 /***/ }),
-/* 8 */
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Pixels = __webpack_require__(6);
+
+var _Pixels2 = _interopRequireDefault(_Pixels);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Numeric = function () {
+  function Numeric(numberDisplay) {
+    _classCallCheck(this, Numeric);
+
+    this.numberDisplay = numberDisplay;
+  }
+
+  _createClass(Numeric, [{
+    key: 'render',
+    value: function render(time) {
+      var pixels = new _Pixels2.default();
+      this.numberDisplay.segments[Math.floor(time) % 16].paint(pixels, function (x, y) {
+        return [Math.random(), Math.random(), Math.random(), 1.0];
+      });
+      return pixels;
+    }
+  }]);
+
+  return Numeric;
+}();
+
+exports.default = Numeric;
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("net");

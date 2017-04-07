@@ -1,4 +1,5 @@
 import NumberDisplay from './NumberDisplay.js'
+import Numeric from './patterns/Numeric.js'
 
 class Scoreboard {
   constructor(leftDisplay, rightDisplay) {
@@ -13,6 +14,8 @@ class Scoreboard {
 
     this.leftDisplay = leftDisplay;
     this.rightDisplay = rightDisplay;
+
+    this.pattern = new Numeric(this.leftDisplay);
 
     this.main = this.main.bind(this);
   }
@@ -41,6 +44,14 @@ class Scoreboard {
     return 1000 / this.fps;
   }
 
+  renderPattern() {
+    var pixels = this.pattern.render(new Date().getTime() / 1000);
+    pixels.write({
+      "0": this.leftDisplay.channel,
+      "1": this.rightDisplay.channel,
+    });
+  }
+
   main() {
     if( ! this.running ) {
       console.log("stopped");
@@ -48,11 +59,15 @@ class Scoreboard {
     }
     let now = (new Date()).getTime();
 
+    this.renderPattern();
+
     if(this.leftNextFrameTime <= now) {
       this.updateLeft();
+      this.leftDisplay.channel.sendPixels();
     } else {
       if(this.rightNextFrameTime <= now) {
         this.updateRight()
+        this.rightDisplay.channel.sendPixels();
       }
     }
 
