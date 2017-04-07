@@ -206,7 +206,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // o o o
 //   o
 
-var SegmentOffset = [[0, 3], [0, 13], [11, 0], [20, 3], [20, 13], [11, 22], [8, 13], [8, 3], [11, 11], [22, 0], [31, 3], [31, 13], [22, 22], [19, 13], [19, 3], [22, 11]];
+var SegmentOffset = [[0, 3], [0, 13], [11, 0], [20, 3], [20, 13], [11, 21], [8, 13], [8, 3], [11, 11], [22, 0], [31, 3], [31, 13], [22, 21], [19, 13], [19, 3], [22, 11]];
 
 var NumberDisplay = function () {
   // current assumption is that each NumberDisplay is on a single, unique OPC segment
