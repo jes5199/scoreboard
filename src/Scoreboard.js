@@ -19,10 +19,12 @@ class Scoreboard {
 
   setLeft(score) {
     this.leftScore = score;
+    this.leftDisplay.update(this.leftScore);
   }
 
   setRight(score) {
     this.leftScore = score;
+    this.rightDisplay.update(this.rightScore);
   }
 
   start() {
@@ -65,13 +67,11 @@ class Scoreboard {
   updateLeft() {
     let now = (new Date()).getTime();
     this.leftNextFrameTime = now + this.frameDuration();
-    this.leftDisplay.update(this.leftScore);
   }
 
   updateRight() {
     let now = (new Date()).getTime();
     this.rightNextFrameTime = now + this.frameDuration();
-    this.rightDisplay.update(this.rightScore);
   }
 }
 

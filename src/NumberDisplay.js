@@ -24,12 +24,6 @@ class NumberDisplay {
 
   update(number) {
     this.number = number;
-
-    this.segments.forEach(function(segment){
-      segment.solidColor(Math.random() * 255, Math.random() * 255, Math.random() * 255);
-    })
-
-    this.channel.sendPixels();
   }
 }
 
