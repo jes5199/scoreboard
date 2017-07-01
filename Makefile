@@ -9,3 +9,9 @@ bin/tty.js : src/*.js src/patterns/*.js
 
 public/emulator.js : src/*.js src/patterns/*.js
 	./node_modules/.bin/webpack --config config/browser.webpack.config.js
+
+bin/mqtt.js : src/*.js src/patterns/*.js
+	./node_modules/.bin/webpack --config config/mqtt.webpack.config.js
+
+laptop: bin/mqtt.js
+	node bin/opc2websocket.js & node bin/mqtt.js

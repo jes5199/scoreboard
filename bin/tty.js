@@ -268,15 +268,22 @@ var OpcHost = function () {
 
     this.host = host;
     this.port = port;
-    this.client = new net.Socket();
 
     this.connected = false;
     this.connecting = false;
+    this.reconnecting = true;
 
     this.onConnected = this.onConnected.bind(this);
     this.onClose = this.onClose.bind(this);
+    this.onConnectError = this.onClose.bind(this);
+    this.reconnect = this.reconnect.bind(this);
+
+    this.client = new net.Socket();
+    this.client.on("error", this.onConnectError);
+    this.client.on("connect", this.onConnected);
 
     this.connect();
+    this.reconnect();
   }
 
   _createClass(OpcHost, [{
@@ -292,7 +299,20 @@ var OpcHost = function () {
       var header = new Buffer([channel, command, size_high, size_low]);
       // Apparently node doesn't have an explicit "flush"
       // so let's try to do one big write per message
-      this.client.write(Buffer.concat([header, new Buffer(colors)]));
+      try {
+        this.client.write(Buffer.concat([header, new Buffer(colors)]));
+      } catch (e) {
+        this.connected = false;
+      }
+    }
+  }, {
+    key: "reconnect",
+    value: function reconnect() {
+      if (this.reconnecting) {
+        return;
+      }
+      this.connect();
+      setTimeout(this.reconnect, 1000);
     }
   }, {
     key: "connect",
@@ -301,8 +321,13 @@ var OpcHost = function () {
         return;
       }
       this.connecting = true;
-      console.log("Connecting to " + this.host + ":" + this.port);
-      this.client.connect(this.port, this.host, this.onConnected);
+      //console.log("Connecting to " + this.host + ":" + this.port);
+      this.client.connect(this.port, this.host);
+    }
+  }, {
+    key: "onConnectError",
+    value: function onConnectError() {
+      this.connecting = false;
     }
   }, {
     key: "onConnected",
