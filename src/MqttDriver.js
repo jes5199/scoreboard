@@ -11,6 +11,8 @@ var scoreboard = (new WiringDiagram(opcHost)).scoreboard;
 scoreboard.start();
 
 client.on('message', function (topic, message) {
+  message = message.toString();
+  console.log([topic, message]);
   if(topic == "asOne/leftBpm") {
     scoreboard.setLeft(message);
   } else if(topic == "asOne/rightBpm") {
