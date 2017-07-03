@@ -8,82 +8,82 @@ var reader = new FileReader();
 
 function verticalPixels(x,y) {
   coordinates.push(
-    x + 1, y + 2,
-    x + 1, y + 3,
-    x + 1, y + 4,
-    x + 1, y + 5,
-    x + 1, y + 6,
-    x + 1, y + 7,
-    x + 1, y + 8,
+    x + 1, y + 2 * 1.5,
+    x + 1, y + 3 * 1.5,
+    x + 1, y + 4 * 1.5,
+    x + 1, y + 5 * 1.5,
+    x + 1, y + 6 * 1.5,
+    x + 1, y + 7 * 1.5,
+    x + 1, y + 8 * 1.5,
 
-    x + 2, y + 9,
-    x + 2, y + 8,
-    x + 2, y + 7,
-    x + 2, y + 6,
-    x + 2, y + 5,
-    x + 2, y + 4,
-    x + 2, y + 3,
-    x + 2, y + 2,
-    x + 2, y + 1,
+    x + 2, y + 9 * 1.5,
+    x + 2, y + 8 * 1.5,
+    x + 2, y + 7 * 1.5,
+    x + 2, y + 6 * 1.5,
+    x + 2, y + 5 * 1.5,
+    x + 2, y + 4 * 1.5,
+    x + 2, y + 3 * 1.5,
+    x + 2, y + 2 * 1.5,
+    x + 2, y + 1 * 1.5,
 
-    x + 3, y + 2,
-    x + 3, y + 3,
-    x + 3, y + 4,
-    x + 3, y + 5,
-    x + 3, y + 6,
-    x + 3, y + 7,
-    x + 3, y + 8
+    x + 3, y + 2 * 1.5,
+    x + 3, y + 3 * 1.5,
+    x + 3, y + 4 * 1.5,
+    x + 3, y + 5 * 1.5,
+    x + 3, y + 6 * 1.5,
+    x + 3, y + 7 * 1.5,
+    x + 3, y + 8 * 1.5
   );
 }
 
 function horizontalPixels(x,y) {
   coordinates.push(
-    x + 2, y + 1,
-    x + 3, y + 1,
-    x + 4, y + 1,
-    x + 5, y + 1,
-    x + 6, y + 1,
-    x + 7, y + 1,
-    x + 8, y + 1,
+    x + 2 * 1.5, y + 1,
+    x + 3 * 1.5, y + 1,
+    x + 4 * 1.5, y + 1,
+    x + 5 * 1.5, y + 1,
+    x + 6 * 1.5, y + 1,
+    x + 7 * 1.5, y + 1,
+    x + 8 * 1.5, y + 1,
 
-    x + 9, y + 2,
-    x + 8, y + 2,
-    x + 7, y + 2,
-    x + 6, y + 2,
-    x + 5, y + 2,
-    x + 4, y + 2,
-    x + 3, y + 2,
-    x + 2, y + 2,
-    x + 1, y + 2,
+    x + 9 * 1.5, y + 2,
+    x + 8 * 1.5, y + 2,
+    x + 7 * 1.5, y + 2,
+    x + 6 * 1.5, y + 2,
+    x + 5 * 1.5, y + 2,
+    x + 4 * 1.5, y + 2,
+    x + 3 * 1.5, y + 2,
+    x + 2 * 1.5, y + 2,
+    x + 1 * 1.5, y + 2,
 
-    x + 2, y + 3,
-    x + 3, y + 3,
-    x + 4, y + 3,
-    x + 5, y + 3,
-    x + 6, y + 3,
-    x + 7, y + 3,
-    x + 8, y + 3
+    x + 2 * 1.5, y + 3,
+    x + 3 * 1.5, y + 3,
+    x + 4 * 1.5, y + 3,
+    x + 5 * 1.5, y + 3,
+    x + 6 * 1.5, y + 3,
+    x + 7 * 1.5, y + 3,
+    x + 8 * 1.5, y + 3
   );
 }
 
-verticalPixels(0, 4);
-verticalPixels(0, 14);
+verticalPixels(1, 4);
+verticalPixels(1, 19);
 
-horizontalPixels(9, 2);
-verticalPixels(18, 4);
-verticalPixels(18, 14);
-horizontalPixels(9, 22);
-verticalPixels(6, 14);
+horizontalPixels(7.5, 2);
+verticalPixels(20, 4);
+verticalPixels(20, 19);
+horizontalPixels(7.5, 17);
+verticalPixels(6, 19);
 verticalPixels(6, 4);
-horizontalPixels(9, 12);
+horizontalPixels(7.5, 32);
 
-horizontalPixels(27, 2);
-verticalPixels(36, 4);
-verticalPixels(36, 14);
-horizontalPixels(27, 22);
-verticalPixels(24, 14);
-verticalPixels(24, 4);
-horizontalPixels(27, 12);
+horizontalPixels(26.5, 2);
+verticalPixels(39, 4);
+verticalPixels(39, 19);
+horizontalPixels(26.5, 17);
+verticalPixels(25, 19);
+verticalPixels(25, 4);
+horizontalPixels(26.5, 32);
 
 var leftColors = [];
 var rightColors = [];
@@ -185,7 +185,7 @@ function draw() {
     leftColors
   );
 
-  gl.viewport(50, -50, 400, 400);
+  gl.viewport(0, 0, 490, 490);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
 
   gl.uniform3fv(
@@ -193,7 +193,7 @@ function draw() {
     rightColors
   );
 
-  gl.viewport(50 + canvas.width / 2, -50, 400, 400);
+  gl.viewport(50 + canvas.width / 2, 0, 490, 490);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
 
   setTimeout(draw, 1000 / 20);
@@ -223,10 +223,12 @@ function draw() {
   void main() {
     float dist = 0.;
     for(int i = 0; i<368; i++) {
-      vec2 coord = coordinates[i] / 40.;
+      vec2 coord = coordinates[i] / 47.;
       if(abs(pos.x - coord.x) < nearx && abs(pos.y - coord.y) < neary) {
-        dist = distance(pos, coord);
-        gl_FragColor.rgb += cos(dist * 100.) * colors[i] / 255.;
+        dist = distance(pos, coord) * 60.;
+        float strength = (colors[i].r + colors[i].g + colors[i].b) / 3. / 255.;
+        float size = max(0., 1. - dist) * (0.7 + strength);
+        gl_FragColor.rgb = max(gl_FragColor.rgb, size * colors[i] / 255.);
         gl_FragColor.a = 1.;
       } else {
         //gl_FragColor.r = pos.x;
@@ -248,6 +250,6 @@ function draw() {
   }
 </style>
 <body onload="begin()">
-  <canvas id="glcanvas" width=1000 height=400></canvas>
+  <canvas id="glcanvas" width=1000 height=500></canvas>
 </body>
 </html>
