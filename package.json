@@ -1,6 +1,7 @@
 {
   "description": "Prototype of scoreboard lighting for 'As One'",
   "dependencies": {
+    "commander": "^2.11.0",
     "mqtt": "^2.5.0",
     "readline": "^1.3.0",
     "ws": "^2.2.3"
