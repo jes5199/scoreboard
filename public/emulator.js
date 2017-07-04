@@ -132,7 +132,7 @@ var Pixels = function () {
           var len = Math.max(this.dataByChannel[ch].length, that.dataByChannel[ch].length);
           for (var i = 0; i < len; i++) {
             var thisC = this.dataByChannel[ch][i];
-            var thatC = this.dataByChannel[ch][i];
+            var thatC = that.dataByChannel[ch][i];
             if (!thisC) {
               result.set(ch, i, thatC);
             } else if (!thatC) {
@@ -206,7 +206,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 // o o o
 //   o
 
-var SegmentOffset = [[0, 3], [0, 13], [11, 0], [20, 3], [20, 13], [11, 21], [8, 13], [8, 3], [11, 11], [22, 0], [31, 3], [31, 13], [22, 21], [19, 13], [19, 3], [22, 11]];
+var SegmentOffset = [[0, 3], [0, 13], [11, 0], [20, 3], [20, 13], [11, 21], [8, 13], [8, 3], [11, 11], [27, 0], [36, 3], [36, 13], [27, 21], [24, 13], [24, 3], [27, 11]];
 
 var NumberDisplay = function () {
   // current assumption is that each NumberDisplay is on a single, unique OPC segment
@@ -426,23 +426,35 @@ var _NumberDisplay = __webpack_require__(1);
 
 var _NumberDisplay2 = _interopRequireDefault(_NumberDisplay);
 
-var _Numeric = __webpack_require__(10);
+var _Numeric = __webpack_require__(11);
 
 var _Numeric2 = _interopRequireDefault(_Numeric);
 
-var _TechnicolorSnow = __webpack_require__(11);
+var _TechnicolorSnow = __webpack_require__(13);
 
 var _TechnicolorSnow2 = _interopRequireDefault(_TechnicolorSnow);
 
-var _Fireflow = __webpack_require__(7);
+var _Fireflow = __webpack_require__(8);
 
 var _Fireflow2 = _interopRequireDefault(_Fireflow);
 
-var _MergePatterns = __webpack_require__(9);
+var _DifferenceShader = __webpack_require__(7);
+
+var _DifferenceShader2 = _interopRequireDefault(_DifferenceShader);
+
+var _WhiteSpark = __webpack_require__(14);
+
+var _WhiteSpark2 = _interopRequireDefault(_WhiteSpark);
+
+var _RedCells = __webpack_require__(12);
+
+var _RedCells2 = _interopRequireDefault(_RedCells);
+
+var _MergePatterns = __webpack_require__(10);
 
 var _MergePatterns2 = _interopRequireDefault(_MergePatterns);
 
-var _MaskPattern = __webpack_require__(8);
+var _MaskPattern = __webpack_require__(9);
 
 var _MaskPattern2 = _interopRequireDefault(_MaskPattern);
 
@@ -466,7 +478,7 @@ var Scoreboard = function () {
     this.leftDisplay = leftDisplay;
     this.rightDisplay = rightDisplay;
 
-    this.pattern = new _MaskPattern2.default(new _Fireflow2.default(this), new _MergePatterns2.default([new _Numeric2.default(this.leftDisplay), new _Numeric2.default(this.rightDisplay)]));
+    this.pattern = new _MaskPattern2.default(new _MergePatterns2.default([new _Fireflow2.default(this), new _DifferenceShader2.default(this), new _RedCells2.default(this), new _WhiteSpark2.default(this)]), new _MergePatterns2.default([new _Numeric2.default(this.leftDisplay), new _Numeric2.default(this.rightDisplay)]));
 
     this.main = this.main.bind(this);
   }
@@ -553,7 +565,7 @@ var Scoreboard = function () {
 }();
 
 exports.default = Scoreboard;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17).setImmediate))
 
 /***/ }),
 /* 6 */
@@ -688,14 +700,82 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var DifferenceShader = function () {
+  function DifferenceShader(scoreboard) {
+    _classCallCheck(this, DifferenceShader);
+
+    this.scoreboard = scoreboard;
+    var nowMillis = new Date().getTime();
+    this.lastMillis = [nowMillis, nowMillis];
+  }
+
+  _createClass(DifferenceShader, [{
+    key: 'render',
+    value: function render(time) {
+      var pixels = new _Pixels2.default();
+      var numberDisplays = [this.scoreboard.leftDisplay, this.scoreboard.rightDisplay];
+      var difference = this.scoreboard.leftDisplay.number - this.scoreboard.rightDisplay.number;
+      for (var d = 0; d < numberDisplays.length; d++) {
+        var numberDisplay = numberDisplays[d];
+        var nowMillis = new Date().getTime();
+        var t = Math.min(1, Math.abs(difference) / 60) * Math.sign(difference);
+        if (d) {
+          t = -t;
+        }
+        numberDisplay.paint(pixels, function (x, y) {
+          return [Math.max(0, t) + Math.max(0, -t * 0.5), 0, Math.max(0, -t), Math.abs(t * 0.75)];
+        });
+      }
+      return pixels;
+    }
+  }]);
+
+  return DifferenceShader;
+}();
+
+exports.default = DifferenceShader;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Pixels = __webpack_require__(0);
+
+var _Pixels2 = _interopRequireDefault(_Pixels);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var Fireflow = function () {
   function Fireflow(scoreboard) {
     _classCallCheck(this, Fireflow);
 
     this.scoreboard = scoreboard;
+    this.offsets = [0, 0];
+    var nowMillis = new Date().getTime();
+    this.lastMillis = [nowMillis, nowMillis];
   }
 
   _createClass(Fireflow, [{
+    key: 'moveOffset',
+    value: function moveOffset(n, bpm) {
+      var nowMillis = new Date().getTime();
+      var diffMillis = nowMillis - this.lastMillis[n];
+      this.offsets[n] += bpm / 60 * diffMillis / 1000 / 2;
+      this.lastMillis[n] = nowMillis;
+      this.offsets[n] %= 1.0;
+    }
+  }, {
     key: 'render',
     value: function render(time) {
       var pixels = new _Pixels2.default();
@@ -703,9 +783,15 @@ var Fireflow = function () {
       for (var d = 0; d < numberDisplays.length; d++) {
         var numberDisplay = numberDisplays[d];
         var number = numberDisplay.number;
+        var angle = 0.30 * Math.PI / 2 * (d * 2 - 1);
+        this.moveOffset(d, number);
+        var offset = this.offsets[d];
         numberDisplay.paint(pixels, function (x, y) {
-          var red = 0.75 + Math.max(0, Math.sin(y + time * number / 10)); //numberDisplay.number
-          return [red, red - 1., 0, 1];
+          //var ty = (Math.sin(angle) * x + Math.cos(angle) * y) / 4 + time * Math.PI * number / 60;
+          var ty = (Math.sin(angle) * x + Math.cos(angle) * y) / 4 + offset * Math.PI * 2;
+          //var red = 0.85 + Math.sin(ty + time * number / 10) + Math.sin(ty + time * number / 10 + Math.PI / 4);
+          var red = 0.55 + Math.pow(Math.sin(ty), 2) + Math.sin(ty + Math.PI / 3) * 0.3;
+          return [Math.max(0, red) + 0.01, Math.max(0, red - 1.) * 0.8 + 0.01, Math.max(0, 1 - red * 1.5) + 0.01, 1];
         });
       }
       return pixels;
@@ -718,7 +804,7 @@ var Fireflow = function () {
 exports.default = Fireflow;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -761,7 +847,7 @@ var MaskPattern = function () {
 exports.default = MaskPattern;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -806,7 +892,7 @@ var MergePatterns = function () {
 exports.default = MergePatterns;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -894,7 +980,96 @@ var Numeric = function () {
 exports.default = Numeric;
 
 /***/ }),
-/* 11 */
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Pixels = __webpack_require__(0);
+
+var _Pixels2 = _interopRequireDefault(_Pixels);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var RedCells = function () {
+  function RedCells(scoreboard) {
+    _classCallCheck(this, RedCells);
+
+    this.scoreboard = scoreboard;
+    this.d = 0;
+    this.x = 0;
+    this.y = 20;
+    this.lastMillis = 0;
+    this.leftCells = [];
+    this.rightCells = [];
+    for (var i = 0; i < 20; i++) {
+      this.leftCells.push([Math.random() * 30, Math.random() * 18, 0.5 + 0.5 * Math.random(), 0.5 * Math.random()]);
+      this.rightCells.push([Math.random() * 30, Math.random() * 18, 0.5 + 0.5 * Math.random(), 0.5 * Math.random()]);
+    }
+    this.lastMillis = [0, 0];
+  }
+
+  _createClass(RedCells, [{
+    key: 'moveCells',
+    value: function moveCells(d, bpm) {
+      var cells = d ? this.rightCells : this.leftCells;
+      var nowMillis = new Date().getTime();
+      if (nowMillis >= this.lastMillis[d] + 1000 / bpm) {
+        this.lastMillis[d] = nowMillis;
+
+        for (var i = 0; i < cells.length; i++) {
+          var cell = cells[i];
+          cell[0] += Math.random() * (d ? -1 : 1);
+          cell[1] -= Math.random() * 0.5;
+          cell[0] += 30;
+          cell[0] %= 30;
+          if (cell[1] <= 0) {
+            cell[1] = 18;
+          }
+        }
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render(time) {
+      var pixels = new _Pixels2.default();
+      var numberDisplays = [this.scoreboard.leftDisplay, this.scoreboard.rightDisplay];
+      var cellpos = this;
+      for (var d = 0; d < numberDisplays.length; d++) {
+        this.moveCells(d, numberDisplays[this.d].number);
+        var numberDisplay = numberDisplays[d];
+        var number = numberDisplay.number;
+        var angle = 0.25 * Math.PI / 2 * (d * 2 - 1);
+        var cells = d ? this.rightCells : this.leftCells;
+        numberDisplay.paint(pixels, function (x, y) {
+          for (var i = 0; i < cells.length; i++) {
+            if (x == Math.round(cells[i][0]) && y == Math.round(cells[i][1])) {
+              return [cells[i][2], 0, cells[i][3], 0.8];
+            }
+          }
+          return [0, 0, 0, 0];
+        });
+      }
+      return pixels;
+    }
+  }]);
+
+  return RedCells;
+}();
+
+exports.default = RedCells;
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -944,7 +1119,85 @@ var TechnicolorSnow = function () {
 exports.default = TechnicolorSnow;
 
 /***/ }),
-/* 12 */
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Pixels = __webpack_require__(0);
+
+var _Pixels2 = _interopRequireDefault(_Pixels);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var WhiteSpark = function () {
+  function WhiteSpark(scoreboard) {
+    _classCallCheck(this, WhiteSpark);
+
+    this.scoreboard = scoreboard;
+    this.d = 0;
+    this.x = 0;
+    this.y = 20;
+    this.lastMillis = 0;
+  }
+
+  _createClass(WhiteSpark, [{
+    key: 'moveSpark',
+    value: function moveSpark(bpm) {
+      var nowMillis = new Date().getTime();
+      if (nowMillis >= this.lastMillis + 1000 / bpm) {
+        this.lastMillis = nowMillis;
+        this.x += Math.random() * (this.d ? -1 : 1);
+        this.y -= Math.random() * 0.5;
+        //this.d = 1;
+        //this.x = 20;
+        //this.y = 6;
+      }
+      if (this.y <= 0) {
+        this.d = this.d ? 0 : 1;
+        this.x = this.d ? 30 : 0;
+        this.y = 18;
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render(time) {
+      var pixels = new _Pixels2.default();
+      var numberDisplays = [this.scoreboard.leftDisplay, this.scoreboard.rightDisplay];
+      var whitespark = this;
+      this.moveSpark(numberDisplays[this.d].number);
+      for (var d = 0; d < numberDisplays.length; d++) {
+        var numberDisplay = numberDisplays[d];
+        var number = numberDisplay.number;
+        var angle = 0.25 * Math.PI / 2 * (d * 2 - 1);
+        numberDisplay.paint(pixels, function (x, y) {
+          if (d == whitespark.d && x == Math.round(whitespark.x) && y == Math.round(whitespark.y)) {
+            return [1, 1, 1, 0.5];
+          } else {
+            return [0, 0, 0, 0];
+          };
+        });
+      }
+      return pixels;
+    }
+  }]);
+
+  return WhiteSpark;
+}();
+
+exports.default = WhiteSpark;
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1130,7 +1383,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -1320,10 +1573,10 @@ process.umask = function() { return 0; };
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15), __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(15)))
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -1376,13 +1629,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(13);
+__webpack_require__(16);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, exports) {
 
 var g;
