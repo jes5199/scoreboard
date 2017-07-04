@@ -10,8 +10,6 @@ program
 
 if(!program.mqtt) {program.mqtt = "localhost";}
 if(!program.opc) {program.opc = "localhost";}
-console.log(program.mqtt);
-console.log(program.opc);
 
 var mqtt = require('mqtt');
 var client = mqtt.connect('mqtt://' + program.mqtt);
