@@ -15,19 +15,19 @@ client.on('connect', function () {
 });
 
 function measureHearts() {
-  leftBpm += Math.random() * 10 - 5;
+  leftBpm += (Math.random() * 2 - 1) * 2 + 0.5;
   leftBpm = Math.max(40, leftBpm);
-  leftBpm = Math.min(180, leftBpm);
+  leftBpm = Math.min(128, leftBpm);
   leftBpm = Math.round(leftBpm);
 
-  rightBpm += Math.random() * 10 - 5;
+  rightBpm += (Math.random() * 2 - 1) * 3 + 2;
   rightBpm = Math.max(40, rightBpm);
-  rightBpm = Math.min(180, rightBpm);
+  rightBpm = Math.min(128, rightBpm);
   rightBpm = Math.round(rightBpm);
 
   client.publish("asOne/leftBpm", ""+leftBpm);
   client.publish("asOne/rightBpm", ""+rightBpm);
-  setTimeout(measureHearts, 500);
+  setTimeout(measureHearts, 1000);
 }
 
 //setTimeout(function(){

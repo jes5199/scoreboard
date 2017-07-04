@@ -43,7 +43,7 @@ class Pixels {
         let len = Math.max(this.dataByChannel[ch].length, that.dataByChannel[ch].length);
         for(var i = 0; i < len; i++) {
           let thisC = this.dataByChannel[ch][i];
-          let thatC = this.dataByChannel[ch][i];
+          let thatC = that.dataByChannel[ch][i];
           if(! thisC) {
             result.set(ch, i, thatC);
           } else if(! thatC) {
