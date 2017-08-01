@@ -13,8 +13,8 @@ if(!program.opc) {program.opc = "localhost";}
 
 var mqtt = require('mqtt');
 var client = mqtt.connect('mqtt://' + program.mqtt);
-client.subscribe("asOne/leftBpm")
-client.subscribe("asOne/rightBpm")
+client.subscribe("asOne/score/leftBPM")
+client.subscribe("asOne/score/rightBPM")
 
 var opcHost = new OpcHost(program.opc, 7890)
 var scoreboard = (new WiringDiagram(opcHost)).scoreboard;
@@ -23,9 +23,9 @@ scoreboard.start();
 client.on('message', function (topic, message) {
   message = message.toString();
   console.log([topic, message]);
-  if(topic == "asOne/leftBpm") {
+  if(topic == "asOne/score/leftBPM") {
     scoreboard.setLeft(message);
-  } else if(topic == "asOne/rightBpm") {
+  } else if(topic == "asOne/score/rightBPM") {
     scoreboard.setRight(message);
   }
 });

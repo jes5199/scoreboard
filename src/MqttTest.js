@@ -25,8 +25,8 @@ function measureHearts() {
   rightBpm = Math.min(128, rightBpm);
   rightBpm = Math.round(rightBpm);
 
-  client.publish("asOne/leftBpm", ""+leftBpm);
-  client.publish("asOne/rightBpm", ""+rightBpm);
+  client.publish("asOne/score/leftBPM", ""+leftBpm);
+  client.publish("asOne/score/rightBPM", ""+rightBpm);
   setTimeout(measureHearts, 1000);
 }
 
