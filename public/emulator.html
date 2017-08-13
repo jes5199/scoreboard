@@ -183,6 +183,16 @@ function draw() {
   document.setRight(document.getElementById('rightInput').value);
   document.setTimer(60 - (Math.floor(Date.now() / 1000) % 60));
 
+  var rainbow = Math.floor(Date.now() / 7000) % 6;
+  switch(rainbow){
+    case 0: document.setLogoColor([255,0,0]); break;
+    case 1: document.setLogoColor([255,255,0]); break;
+    case 2: document.setLogoColor([0,255,0]); break;
+    case 3: document.setLogoColor([0,255,255]); break;
+    case 4: document.setLogoColor([0,0,255]); break;
+    case 5: document.setLogoColor([255,0,255]); break;
+  }
+
   gl.uniform2fv(
     gl.getUniformLocation(program, "coordinates"),
     coordinates

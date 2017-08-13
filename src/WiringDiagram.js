@@ -5,6 +5,7 @@ import ThinDigit from './ThinDigit.js'
 import ThinOne from './ThinOne.js'
 import TinyNumberDisplay from './TinyNumberDisplay.js'
 import TinyDigit from './TinyDigit.js'
+import LogoDisplay from './LogoDisplay.js'
 
 class WiringDiagram {
   constructor(opcHost) {
@@ -54,9 +55,9 @@ class WiringDiagram {
       ]
     );
 
-    // TODO: logo and timer
+    this.logoDisplay = new LogoDisplay(this.logoOpcChannel);
 
-    this.scoreboard = new Scoreboard(this.leftDisplay, this.rightDisplay, this.timerDisplay);
+    this.scoreboard = new Scoreboard(this.leftDisplay, this.rightDisplay, this.timerDisplay, this.logoDisplay);
   }
 }
 

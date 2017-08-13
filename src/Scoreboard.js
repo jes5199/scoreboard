@@ -9,6 +9,8 @@ import MergePatterns from './patterns/MergePatterns.js'
 import MaskPattern from './patterns/MaskPattern.js'
 import ThinNumeric from './patterns/ThinNumeric.js'
 import TinyNumeric from './patterns/TinyNumeric.js'
+import BlinkyTimer from './patterns/BlinkyTimer.js'
+import HueFade from './patterns/HueFade.js'
 
 class Scoreboard {
   constructor(leftDisplay, rightDisplay, timerDisplay, logoDisplay) {
@@ -26,12 +28,19 @@ class Scoreboard {
     this.timerDisplay = timerDisplay;
     this.logoDisplay = logoDisplay;
 
-    this.pattern = new MaskPattern(
-     new MergePatterns([ new Fireflow(this), new DifferenceShader(this), new TinyNumeric(this.timerDisplay)]),
-     new MergePatterns([
-       new ThinNumeric(this.leftDisplay), new ThinNumeric(this.rightDisplay), new TinyNumeric(this.timerDisplay)
-     ])
+    let bpmPattern = new MaskPattern(
+      new MergePatterns([ new Fireflow(this), new DifferenceShader(this)]),
+      new MergePatterns([ new ThinNumeric(this.leftDisplay), new ThinNumeric(this.rightDisplay) ])
     );
+
+    let timerPattern = new MaskPattern(
+      new BlinkyTimer(this.timerDisplay),
+      new TinyNumeric(this.timerDisplay)
+    );
+
+    let logoPattern = new HueFade(this.logoDisplay);
+
+    this.pattern = new MergePatterns([ bpmPattern, timerPattern, logoPattern ]);
 
     this.main = this.main.bind(this);
   }
@@ -48,6 +57,10 @@ class Scoreboard {
 
   setTimer(seconds) {
     this.timerDisplay.update(seconds);
+  }
+
+  setLogoColor(color) {
+    this.logoDisplay.update(color);
   }
 
   start() {
@@ -69,6 +82,7 @@ class Scoreboard {
 
     pixels.write({
       "0": this.rightDisplay.channel,
+      "1": this.logoDisplay.channel,
       "2": this.timerDisplay.channel,
       "3": this.leftDisplay.channel,
     });
@@ -91,6 +105,7 @@ class Scoreboard {
       if(this.rightNextFrameTime <= now) {
         this.updateRight()
         this.rightDisplay.channel.sendPixels();
+        this.logoDisplay.channel.sendPixels();
       }
     }
 

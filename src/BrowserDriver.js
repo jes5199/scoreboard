@@ -24,3 +24,7 @@ document.setRight = function(x) {
 document.setTimer = function(x) {
   scoreboard.setTimer(x);
 }
+
+document.setLogoColor = function(x) {
+  scoreboard.setLogoColor(x);
+}

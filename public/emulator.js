@@ -190,33 +190,37 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Scoreboard = __webpack_require__(5);
+var _Scoreboard = __webpack_require__(6);
 
 var _Scoreboard2 = _interopRequireDefault(_Scoreboard);
 
-var _OpcChannel = __webpack_require__(4);
+var _OpcChannel = __webpack_require__(5);
 
 var _OpcChannel2 = _interopRequireDefault(_OpcChannel);
 
-var _ThinNumberDisplay = __webpack_require__(7);
+var _ThinNumberDisplay = __webpack_require__(8);
 
 var _ThinNumberDisplay2 = _interopRequireDefault(_ThinNumberDisplay);
 
-var _ThinDigit = __webpack_require__(6);
+var _ThinDigit = __webpack_require__(7);
 
 var _ThinDigit2 = _interopRequireDefault(_ThinDigit);
 
-var _ThinOne = __webpack_require__(8);
+var _ThinOne = __webpack_require__(9);
 
 var _ThinOne2 = _interopRequireDefault(_ThinOne);
 
-var _TinyNumberDisplay = __webpack_require__(10);
+var _TinyNumberDisplay = __webpack_require__(11);
 
 var _TinyNumberDisplay2 = _interopRequireDefault(_TinyNumberDisplay);
 
-var _TinyDigit = __webpack_require__(9);
+var _TinyDigit = __webpack_require__(10);
 
 var _TinyDigit2 = _interopRequireDefault(_TinyDigit);
+
+var _LogoDisplay = __webpack_require__(3);
+
+var _LogoDisplay2 = _interopRequireDefault(_LogoDisplay);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -259,9 +263,9 @@ var WiringDiagram = function WiringDiagram(opcHost) {
   // 10s
   new _TinyDigit2.default(this.timerOpcChannel, 13)]);
 
-  // TODO: logo and timer
+  this.logoDisplay = new _LogoDisplay2.default(this.logoOpcChannel);
 
-  this.scoreboard = new _Scoreboard2.default(this.leftDisplay, this.rightDisplay, this.timerDisplay);
+  this.scoreboard = new _Scoreboard2.default(this.leftDisplay, this.rightDisplay, this.timerDisplay, this.logoDisplay);
 };
 
 exports.default = WiringDiagram;
@@ -304,8 +308,65 @@ document.setTimer = function (x) {
   scoreboard.setTimer(x);
 };
 
+document.setLogoColor = function (x) {
+  scoreboard.setLogoColor(x);
+};
+
 /***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var LogoDisplay = function () {
+  function LogoDisplay(channel) {
+    _classCallCheck(this, LogoDisplay);
+
+    this.channel = channel;
+    this.color = [255, 0, 0];
+    this.width = 5;
+    this.height = 3;
+  }
+
+  _createClass(LogoDisplay, [{
+    key: "update",
+    value: function update(color) {
+      this.color = color;
+    }
+  }, {
+    key: "pixelIdForXY",
+    value: function pixelIdForXY(x, y) {
+      var pixels = [[14, 9, 8, 3, 2], [13, 10, 7, 4, 1], [12, 11, 6, 5, 0]];
+
+      return pixels[y][x];
+    }
+  }, {
+    key: "paint",
+    value: function paint(pixels, f) {
+      for (var x = 0; x < this.width; x++) {
+        for (var y = 0; y < this.height; y++) {
+          pixels.set(this.channel.channelNumber, this.pixelIdForXY(x, y), f(x, y));
+        }
+      }
+    }
+  }]);
+
+  return LogoDisplay;
+}();
+
+exports.default = LogoDisplay;
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -371,7 +432,7 @@ var NumberDisplay = function () {
 exports.default = NumberDisplay;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -431,7 +492,7 @@ var OpcChannel = function () {
 exports.default = OpcChannel;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -443,49 +504,57 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _NumberDisplay = __webpack_require__(3);
+var _NumberDisplay = __webpack_require__(4);
 
 var _NumberDisplay2 = _interopRequireDefault(_NumberDisplay);
 
-var _Numeric = __webpack_require__(15);
+var _Numeric = __webpack_require__(18);
 
 var _Numeric2 = _interopRequireDefault(_Numeric);
 
-var _TechnicolorSnow = __webpack_require__(17);
+var _TechnicolorSnow = __webpack_require__(20);
 
 var _TechnicolorSnow2 = _interopRequireDefault(_TechnicolorSnow);
 
-var _Fireflow = __webpack_require__(12);
+var _Fireflow = __webpack_require__(14);
 
 var _Fireflow2 = _interopRequireDefault(_Fireflow);
 
-var _DifferenceShader = __webpack_require__(11);
+var _DifferenceShader = __webpack_require__(13);
 
 var _DifferenceShader2 = _interopRequireDefault(_DifferenceShader);
 
-var _WhiteSpark = __webpack_require__(20);
+var _WhiteSpark = __webpack_require__(23);
 
 var _WhiteSpark2 = _interopRequireDefault(_WhiteSpark);
 
-var _RedCells = __webpack_require__(16);
+var _RedCells = __webpack_require__(19);
 
 var _RedCells2 = _interopRequireDefault(_RedCells);
 
-var _MergePatterns = __webpack_require__(14);
+var _MergePatterns = __webpack_require__(17);
 
 var _MergePatterns2 = _interopRequireDefault(_MergePatterns);
 
-var _MaskPattern = __webpack_require__(13);
+var _MaskPattern = __webpack_require__(16);
 
 var _MaskPattern2 = _interopRequireDefault(_MaskPattern);
 
-var _ThinNumeric = __webpack_require__(18);
+var _ThinNumeric = __webpack_require__(21);
 
 var _ThinNumeric2 = _interopRequireDefault(_ThinNumeric);
 
-var _TinyNumeric = __webpack_require__(19);
+var _TinyNumeric = __webpack_require__(22);
 
 var _TinyNumeric2 = _interopRequireDefault(_TinyNumeric);
+
+var _BlinkyTimer = __webpack_require__(12);
+
+var _BlinkyTimer2 = _interopRequireDefault(_BlinkyTimer);
+
+var _HueFade = __webpack_require__(15);
+
+var _HueFade2 = _interopRequireDefault(_HueFade);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -509,7 +578,13 @@ var Scoreboard = function () {
     this.timerDisplay = timerDisplay;
     this.logoDisplay = logoDisplay;
 
-    this.pattern = new _MaskPattern2.default(new _MergePatterns2.default([new _Fireflow2.default(this), new _DifferenceShader2.default(this), new _TinyNumeric2.default(this.timerDisplay)]), new _MergePatterns2.default([new _ThinNumeric2.default(this.leftDisplay), new _ThinNumeric2.default(this.rightDisplay), new _TinyNumeric2.default(this.timerDisplay)]));
+    var bpmPattern = new _MaskPattern2.default(new _MergePatterns2.default([new _Fireflow2.default(this), new _DifferenceShader2.default(this)]), new _MergePatterns2.default([new _ThinNumeric2.default(this.leftDisplay), new _ThinNumeric2.default(this.rightDisplay)]));
+
+    var timerPattern = new _MaskPattern2.default(new _BlinkyTimer2.default(this.timerDisplay), new _TinyNumeric2.default(this.timerDisplay));
+
+    var logoPattern = new _HueFade2.default(this.logoDisplay);
+
+    this.pattern = new _MergePatterns2.default([bpmPattern, timerPattern, logoPattern]);
 
     this.main = this.main.bind(this);
   }
@@ -530,6 +605,11 @@ var Scoreboard = function () {
     key: 'setTimer',
     value: function setTimer(seconds) {
       this.timerDisplay.update(seconds);
+    }
+  }, {
+    key: 'setLogoColor',
+    value: function setLogoColor(color) {
+      this.logoDisplay.update(color);
     }
   }, {
     key: 'start',
@@ -556,6 +636,7 @@ var Scoreboard = function () {
 
       pixels.write({
         "0": this.rightDisplay.channel,
+        "1": this.logoDisplay.channel,
         "2": this.timerDisplay.channel,
         "3": this.leftDisplay.channel
       });
@@ -579,6 +660,7 @@ var Scoreboard = function () {
         if (this.rightNextFrameTime <= now) {
           this.updateRight();
           this.rightDisplay.channel.sendPixels();
+          this.logoDisplay.channel.sendPixels();
         }
       }
 
@@ -604,10 +686,10 @@ var Scoreboard = function () {
 }();
 
 exports.default = Scoreboard;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(23).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26).setImmediate))
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -685,7 +767,7 @@ var ThinDigit = function () {
 exports.default = ThinDigit;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -736,7 +818,7 @@ var ThinNumberDisplay = function () {
 exports.default = ThinNumberDisplay;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -806,7 +888,7 @@ var ThinOne = function () {
 exports.default = ThinOne;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -881,7 +963,7 @@ var TinyDigit = function () {
 exports.default = TinyDigit;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -931,7 +1013,67 @@ var TinyNumberDisplay = function () {
 exports.default = TinyNumberDisplay;
 
 /***/ }),
-/* 11 */
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Pixels = __webpack_require__(0);
+
+var _Pixels2 = _interopRequireDefault(_Pixels);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var BlinkyTimer = function () {
+  function BlinkyTimer(numberDisplay) {
+    _classCallCheck(this, BlinkyTimer);
+
+    this.numberDisplay = numberDisplay;
+    this.changedAt = 0;
+    this.lastValue = -1;
+  }
+
+  _createClass(BlinkyTimer, [{
+    key: 'render',
+    value: function render(time) {
+      var pixels = new _Pixels2.default();
+      var number = this.numberDisplay.number;
+
+      if (number != this.lastValue) {
+        this.lastValue = number;
+        this.changedAt = time;
+      }
+
+      var d = 1 - (time - this.changedAt);
+      var n = 9 * d / 10 + 0.1;
+
+      var color = [n, n, 0, 1];
+
+      for (var i = 0; i < 2; i++) {
+        this.numberDisplay.digits[i].paint(pixels, function (x, y) {
+          return color;
+        });
+      }
+      return pixels;
+    }
+  }]);
+
+  return BlinkyTimer;
+}();
+
+exports.default = BlinkyTimer;
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -987,7 +1129,7 @@ var DifferenceShader = function () {
 exports.default = DifferenceShader;
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1055,7 +1197,66 @@ var Fireflow = function () {
 exports.default = Fireflow;
 
 /***/ }),
-/* 13 */
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Pixels = __webpack_require__(0);
+
+var _Pixels2 = _interopRequireDefault(_Pixels);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var HueFade = function () {
+  function HueFade(logoDisplay) {
+    _classCallCheck(this, HueFade);
+
+    this.logoDisplay = logoDisplay;
+    this.color = [0, 0, 255];
+    this.step = 1;
+  }
+
+  _createClass(HueFade, [{
+    key: 'render',
+    value: function render(time) {
+      var pixels = new _Pixels2.default();
+
+      var destColor = this.logoDisplay.color;
+
+      var color = this.color;
+      for (var i = 0; i < 3; i++) {
+        if (color[i] > destColor[i]) {
+          color[i] -= this.step;
+        } else if (color[i] < destColor[i]) {
+          color[i] += this.step;
+        }
+      }
+
+      this.logoDisplay.paint(pixels, function (x, y) {
+        return [color[0] / 255, color[1] / 255, color[2] / 255, 1]; // RGBA
+      });
+
+      return pixels;
+    }
+  }]);
+
+  return HueFade;
+}();
+
+exports.default = HueFade;
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1098,7 +1299,7 @@ var MaskPattern = function () {
 exports.default = MaskPattern;
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1143,7 +1344,7 @@ var MergePatterns = function () {
 exports.default = MergePatterns;
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1231,7 +1432,7 @@ var Numeric = function () {
 exports.default = Numeric;
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1320,7 +1521,7 @@ var RedCells = function () {
 exports.default = RedCells;
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1370,7 +1571,7 @@ var TechnicolorSnow = function () {
 exports.default = TechnicolorSnow;
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1460,7 +1661,7 @@ var ThinNumeric = function () {
 exports.default = ThinNumeric;
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1541,7 +1742,7 @@ var TinyNumeric = function () {
 exports.default = TinyNumeric;
 
 /***/ }),
-/* 20 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1619,7 +1820,7 @@ var WhiteSpark = function () {
 exports.default = WhiteSpark;
 
 /***/ }),
-/* 21 */
+/* 24 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1805,7 +2006,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 22 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -1995,10 +2196,10 @@ process.umask = function() { return 0; };
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(24), __webpack_require__(21)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27), __webpack_require__(24)))
 
 /***/ }),
-/* 23 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -2051,13 +2252,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(22);
+__webpack_require__(25);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 24 */
+/* 27 */
 /***/ (function(module, exports) {
 
 var g;
