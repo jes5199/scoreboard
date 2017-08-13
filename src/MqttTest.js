@@ -25,10 +25,10 @@ function measureHearts() {
   rightBpm = Math.min(128, rightBpm);
   rightBpm = Math.round(rightBpm);
 
-  client.publish("asOne/score/leftBPM", leftBpm);
-  client.publish("asOne/score/rightBPM", rightBpm);
-  client.publish("asOne/score/timer", 51);
-  client.publish("asOne/score/logo", [255, 255, 0]);
+  client.publish("asOne/score/leftBPM", new Buffer([leftBpm]));
+  client.publish("asOne/score/rightBPM", new Buffer([rightBpm]));
+  client.publish("asOne/score/timer", new Buffer([51]));
+  client.publish("asOne/score/logo", new Buffer([255, 255, 0]));
   setTimeout(measureHearts, 1000);
 }
 
