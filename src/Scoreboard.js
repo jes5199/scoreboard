@@ -8,9 +8,10 @@ import RedCells from './patterns/RedCells.js'
 import MergePatterns from './patterns/MergePatterns.js'
 import MaskPattern from './patterns/MaskPattern.js'
 import ThinNumeric from './patterns/ThinNumeric.js'
+import TinyNumeric from './patterns/TinyNumeric.js'
 
 class Scoreboard {
-  constructor(leftDisplay, rightDisplay) {
+  constructor(leftDisplay, rightDisplay, timerDisplay, logoDisplay) {
     this.leftScore = 0;
     this.rightScore = 0;
 
@@ -22,11 +23,13 @@ class Scoreboard {
 
     this.leftDisplay = leftDisplay;
     this.rightDisplay = rightDisplay;
+    this.timerDisplay = timerDisplay;
+    this.logoDisplay = logoDisplay;
 
     this.pattern = new MaskPattern(
-     new MergePatterns([ new Fireflow(this), new DifferenceShader(this) ]),
+     new MergePatterns([ new Fireflow(this), new DifferenceShader(this), new TinyNumeric(this.timerDisplay)]),
      new MergePatterns([
-       new ThinNumeric(this.leftDisplay), new ThinNumeric(this.rightDisplay)
+       new ThinNumeric(this.leftDisplay), new ThinNumeric(this.rightDisplay), new TinyNumeric(this.timerDisplay)
      ])
     );
 
@@ -41,6 +44,10 @@ class Scoreboard {
   setRight(score) {
     this.rightScore = score;
     this.rightDisplay.update(this.rightScore);
+  }
+
+  setTimer(seconds) {
+    this.timerDisplay.update(seconds);
   }
 
   start() {
@@ -62,6 +69,7 @@ class Scoreboard {
 
     pixels.write({
       "0": this.rightDisplay.channel,
+      "2": this.timerDisplay.channel,
       "3": this.leftDisplay.channel,
     });
   }
@@ -78,6 +86,7 @@ class Scoreboard {
     if(this.leftNextFrameTime <= now) {
       this.updateLeft();
       this.leftDisplay.channel.sendPixels();
+      this.timerDisplay.channel.sendPixels();
     } else {
       if(this.rightNextFrameTime <= now) {
         this.updateRight()

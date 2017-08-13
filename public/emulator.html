@@ -121,12 +121,12 @@ for(i = 0; i < 47; i++) {
 
 for(i = 0; i < 26; i++) {
   // timer
-  pixels[1].push(255,255,255);
+  pixels[2].push(255,255,255);
 }
 
 for(i = 0; i < 15; i++) {
   // logo
-  pixels[2].push(255,255,255);
+  pixels[1].push(255,255,255);
 }
 
 
@@ -181,6 +181,7 @@ function begin() {
 function draw() {
   document.setLeft(document.getElementById('leftInput').value);
   document.setRight(document.getElementById('rightInput').value);
+  document.setTimer(60 - (Math.floor(Date.now() / 1000) % 60));
 
   gl.uniform2fv(
     gl.getUniformLocation(program, "coordinates"),

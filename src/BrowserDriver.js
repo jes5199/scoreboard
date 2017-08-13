@@ -20,3 +20,7 @@ document.setLeft = function(x) {
 document.setRight = function(x) {
   scoreboard.setRight(x);
 }
+
+document.setTimer = function(x) {
+  scoreboard.setTimer(x);
+}

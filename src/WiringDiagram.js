@@ -3,6 +3,8 @@ import OpcChannel from './OpcChannel.js'
 import ThinNumberDisplay from './ThinNumberDisplay.js'
 import ThinDigit from './ThinDigit.js'
 import ThinOne from './ThinOne.js'
+import TinyNumberDisplay from './TinyNumberDisplay.js'
+import TinyDigit from './TinyDigit.js'
 
 class WiringDiagram {
   constructor(opcHost) {
@@ -41,9 +43,20 @@ class WiringDiagram {
       ]
     );
 
+    this.timerDisplay = new TinyNumberDisplay(
+      this.timerOpcChannel,
+      [
+        // 1s
+        new TinyDigit(this.timerOpcChannel, 0),
+
+        // 10s
+        new TinyDigit(this.timerOpcChannel, 13),
+      ]
+    );
+
     // TODO: logo and timer
 
-    this.scoreboard = new Scoreboard(this.leftDisplay, this.rightDisplay);
+    this.scoreboard = new Scoreboard(this.leftDisplay, this.rightDisplay, this.timerDisplay);
   }
 }
 
