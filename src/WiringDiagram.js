@@ -10,7 +10,7 @@ class WiringDiagram {
     this.opcHost = opcHost;
     this.rightOpcChannel = new OpcChannel(this.opcHost, 0, 47);
     this.logoOpcChannel = new OpcChannel(this.opcHost, 1, 15);
-    this.timerOpcChannel = new OpcChannel(this.opcHost, 2, 15);
+    this.timerOpcChannel = new OpcChannel(this.opcHost, 2, 26);
     this.leftOpcChannel = new OpcChannel(this.opcHost, 3, 47);
 
     this.leftDisplay = new ThinNumberDisplay(

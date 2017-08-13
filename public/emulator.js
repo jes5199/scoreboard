@@ -221,7 +221,7 @@ var WiringDiagram = function WiringDiagram(opcHost) {
   this.opcHost = opcHost;
   this.rightOpcChannel = new _OpcChannel2.default(this.opcHost, 0, 47);
   this.logoOpcChannel = new _OpcChannel2.default(this.opcHost, 1, 15);
-  this.timerOpcChannel = new _OpcChannel2.default(this.opcHost, 2, 15);
+  this.timerOpcChannel = new _OpcChannel2.default(this.opcHost, 2, 26);
   this.leftOpcChannel = new _OpcChannel2.default(this.opcHost, 3, 47);
 
   this.leftDisplay = new _ThinNumberDisplay2.default(this.leftOpcChannel, [
@@ -622,7 +622,7 @@ var ThinDigit = function () {
       if ((x == 1 || x == 2) && (y == 1 || y == 2)) {
         return false;
       }
-      if ((x == 4 || x == 5) && (y == 1 || y == 2)) {
+      if ((x == 1 || x == 2) && (y == 4 || y == 5)) {
         return false;
       }
 

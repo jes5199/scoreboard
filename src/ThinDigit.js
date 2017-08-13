@@ -19,7 +19,7 @@ class ThinDigit {
 
     // two blank 2x2 squares inside the 8s
     if( (x==1 || x==2) && (y == 1 || y == 2) ) { return false; }
-    if( (x==4 || x==5) && (y == 1 || y == 2) ) { return false; }
+    if( (x==1 || x==2) && (y == 4 || y == 5) ) { return false; }
 
     return true;
   }
