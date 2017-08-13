@@ -192,7 +192,7 @@ function draw() {
     [].concat.apply([], pixels) // I hate javascript
   );
 
-  gl.viewport(0, 0, 800, 800);
+  gl.viewport(0, -400, 800, 800);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
 
   setTimeout(draw, 1000 / 20);
@@ -244,7 +244,7 @@ function draw() {
   }
 </style>
 <body onload="begin()">
-  <canvas id="glcanvas" width=800 height=800></canvas>
+  <canvas id="glcanvas" width=800 height=400></canvas>
   <div>
     <input id="leftInput" type="number" value="40" min="0"/> <input type="number" id="rightInput" value="89" min="0"/>
     </div
