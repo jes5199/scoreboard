@@ -524,11 +524,9 @@ var Scoreboard = function () {
     value: function renderPattern() {
       var pixels = this.pattern.render(new Date().getTime() / 1000);
 
-      console.log(pixels);
-
       pixels.write({
-        "3": this.leftDisplay.channel,
-        "0": this.rightDisplay.channel
+        "0": this.rightDisplay.channel,
+        "3": this.leftDisplay.channel
       });
     }
   }, {
