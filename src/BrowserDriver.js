@@ -1,16 +1,11 @@
 import WiringDiagram from './WiringDiagram.js'
 
-document.leftColors = [];
-document.rightColors = [];
-
 var fakeHost = {
   connect: function(){},
   sendPixels: function(channel, colors) {
     colors = Array.from(colors);
-    if(channel == 0) {
-      document.leftColors = colors;
-    } else {
-      document.rightColors = colors;
+    for(let i = 0; i < document.pixels[channel].length; i++) {
+      document.pixels[channel][i] = colors[i];
     }
   }
 }

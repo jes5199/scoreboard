@@ -7,6 +7,7 @@ import WhiteSpark from './patterns/WhiteSpark.js'
 import RedCells from './patterns/RedCells.js'
 import MergePatterns from './patterns/MergePatterns.js'
 import MaskPattern from './patterns/MaskPattern.js'
+import ThinNumeric from './patterns/ThinNumeric.js'
 
 class Scoreboard {
   constructor(leftDisplay, rightDisplay) {
@@ -23,9 +24,9 @@ class Scoreboard {
     this.rightDisplay = rightDisplay;
 
     this.pattern = new MaskPattern(
-     new MergePatterns([ new Fireflow(this), new DifferenceShader(this), new RedCells(this), new WhiteSpark(this) ]),
+     new MergePatterns([ new Fireflow(this), new DifferenceShader(this) ]),
      new MergePatterns([
-       new Numeric(this.leftDisplay), new Numeric(this.rightDisplay)
+       new ThinNumeric(this.leftDisplay), new ThinNumeric(this.rightDisplay)
      ])
     );
 
@@ -58,9 +59,12 @@ class Scoreboard {
 
   renderPattern() {
     var pixels = this.pattern.render(new Date().getTime() / 1000);
+
+    console.log(pixels);
+
     pixels.write({
-      "0": this.leftDisplay.channel,
-      "1": this.rightDisplay.channel,
+      "3": this.leftDisplay.channel,
+      "0": this.rightDisplay.channel,
     });
   }
 

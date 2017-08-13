@@ -4,89 +4,131 @@
 
 var coordinates = [];
 
-function verticalPixels(x,y) {
+function numericFigure(x,y) {
   coordinates.push(
-    x + 1, y + 2,
+    x + 3, y + 3,
+    x + 2, y + 3,
     x + 1, y + 3,
-    x + 1, y + 4,
-    x + 1, y + 5,
+    x + 0, y + 3,
+
+    x + 0, y + 4,
+    x + 0, y + 5,
+    x + 0, y + 6,
+
     x + 1, y + 6,
-    x + 1, y + 7,
-    x + 1, y + 8,
-
-    x + 2, y + 9,
-    x + 2, y + 8,
-    x + 2, y + 7,
     x + 2, y + 6,
-    x + 2, y + 5,
-    x + 2, y + 4,
-    x + 2, y + 3,
-    x + 2, y + 2,
-    x + 2, y + 1,
-
-    x + 3, y + 2,
-    x + 3, y + 3,
-    x + 3, y + 4,
-    x + 3, y + 5,
     x + 3, y + 6,
-    x + 3, y + 7,
-    x + 3, y + 8
-  );
-}
 
-function horizontalPixels(x,y) {
-  coordinates.push(
-    x + 2, y + 1,
-    x + 3, y + 1,
-    x + 4, y + 1,
-    x + 5, y + 1,
-    x + 6, y + 1,
-    x + 7, y + 1,
-    x + 8, y + 1,
-
-    x + 9, y + 2,
-    x + 8, y + 2,
-    x + 7, y + 2,
-    x + 6, y + 2,
-    x + 5, y + 2,
-    x + 4, y + 2,
+    x + 3, y + 5,
+    x + 3, y + 4,
     x + 3, y + 2,
-    x + 2, y + 2,
-    x + 1, y + 2,
+    x + 3, y + 1,
+    x + 3, y + 0,
 
-    x + 2, y + 3,
-    x + 3, y + 3,
-    x + 4, y + 3,
-    x + 5, y + 3,
-    x + 6, y + 3,
-    x + 7, y + 3,
-    x + 8, y + 3
+    x + 2, y + 0,
+    x + 1, y + 0,
+    x + 0, y + 0,
+
+    x + 0, y + 1,
+    x + 0, y + 2,
   );
 }
 
-verticalPixels(0, 4);
-verticalPixels(0, 14);
-
-horizontalPixels(9, 2);
-verticalPixels(18, 4);
-verticalPixels(18, 14);
-horizontalPixels(9, 22);
-verticalPixels(6, 14);
-verticalPixels(6, 4);
-horizontalPixels(9, 12);
-
-horizontalPixels(27, 2);
-verticalPixels(36, 4);
-verticalPixels(36, 14);
-horizontalPixels(27, 22);
-verticalPixels(24, 14);
-verticalPixels(24, 4);
-horizontalPixels(27, 12);
-
-for(i = 0; i < 368; i++) {
-  document.leftColors.push(255,0,200);
-  document.rightColors.push(0,200,255);
+function oneFigure(x, y) {
+  coordinates.push(
+    x, y + 0,
+    x, y + 1,
+    x, y + 2,
+    x, y + 3,
+    x, y + 4,
+    x, y + 5,
+    x, y + 6,
+  );
 }
+
+// rightBPM
+numericFigure(27, 2);
+numericFigure(22, 2);
+oneFigure(20, 2);
+
+// logo
+coordinates.push(
+  17, 10,
+  17, 9,
+  17, 8,
+  16, 8,
+  16, 9,
+  16, 10,
+  15, 10,
+  15, 9,
+  15, 8,
+  14, 8,
+  14, 9,
+  14, 10,
+  13, 10,
+  13, 9,
+  13, 8,
+);
+
+// timer
+coordinates.push(
+  18, 3,
+  17, 3,
+  16, 3,
+  16, 4,
+  16, 5,
+  17, 5,
+  18, 5,
+  18, 4,
+  18, 2,
+  18, 1,
+  17, 1,
+  16, 1,
+  16, 2,
+);
+
+coordinates.push(
+  14, 3,
+  13, 3,
+  12, 3,
+  12, 4,
+  12, 5,
+  13, 5,
+  14, 5,
+  14, 4,
+  14, 2,
+  14, 1,
+  13, 1,
+  12, 1,
+  12, 2,
+);
+
+// leftBPM
+numericFigure(7, 2);
+numericFigure(2, 2);
+oneFigure(0, 2);
+
+let pixels = [
+  [], [], [], []
+]
+
+document.pixels = pixels;
+
+for(i = 0; i < 47; i++) {
+  pixels[0].push(255,255,255);
+  pixels[3].push(255,255,255);
+}
+
+for(i = 0; i < 26; i++) {
+  // timer
+  pixels[1].push(255,255,255);
+}
+
+for(i = 0; i < 15; i++) {
+  // logo
+  pixels[2].push(255,255,255);
+}
+
 
 var gl;
 var program;
@@ -147,18 +189,10 @@ function draw() {
 
   gl.uniform3fv(
     gl.getUniformLocation(program, "colors"),
-    document.leftColors
+    [].concat.apply([], pixels) // I hate javascript
   );
 
-  gl.viewport(50, -50, 400, 400);
-  gl.drawArrays(gl.TRIANGLES, 0, 6);
-
-  gl.uniform3fv(
-    gl.getUniformLocation(program, "colors"),
-    document.rightColors
-  );
-
-  gl.viewport(50 + canvas.width / 2, -50, 400, 400);
+  gl.viewport(0, 0, 800, 800);
   gl.drawArrays(gl.TRIANGLES, 0, 6);
 
   setTimeout(draw, 1000 / 20);
@@ -179,16 +213,16 @@ function draw() {
 <script id="fragment-shader" type="x-shader/x-fragment">
   precision highp float;
   varying vec2 pos;
-  uniform vec2 coordinates[368];
-  uniform vec3 colors[368];
+  uniform vec2 coordinates[135];
+  uniform vec3 colors[135];
 
   const float nearx = 0.014;
   const float neary = 0.014;
 
   void main() {
     float dist = 0.;
-    for(int i = 0; i<368; i++) {
-      vec2 coord = coordinates[i] / 40.;
+    for(int i = 0; i<135; i++) {
+      vec2 coord = (coordinates[i] + 2.) / 33.;
       if(abs(pos.x - coord.x) < nearx && abs(pos.y - coord.y) < neary) {
         dist = distance(pos, coord);
         gl_FragColor.rgb += cos(dist * 100.) * colors[i] / 255.;
@@ -210,7 +244,7 @@ function draw() {
   }
 </style>
 <body onload="begin()">
-  <canvas id="glcanvas" width=1000 height=400></canvas>
+  <canvas id="glcanvas" width=800 height=800></canvas>
   <div>
     <input id="leftInput" type="number" value="40" min="0"/> <input type="number" id="rightInput" value="89" min="0"/>
     </div

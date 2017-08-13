@@ -1,69 +1,47 @@
 import Scoreboard from './Scoreboard.js'
 import OpcChannel from './OpcChannel.js'
-import Segment from './Segment.js'
-import NumberDisplay from './NumberDisplay.js'
+import ThinNumberDisplay from './ThinNumberDisplay.js'
+import ThinDigit from './ThinDigit.js'
+import ThinOne from './ThinOne.js'
 
 class WiringDiagram {
   constructor(opcHost) {
+    // TODO: MQTT/OPC shared driver
     this.opcHost = opcHost;
-    this.leftOpcChannel = new OpcChannel(this.opcHost, 0, 368);
-    this.rightOpcChannel = new OpcChannel(this.opcHost, 1, 368);
+    this.rightOpcChannel = new OpcChannel(this.opcHost, 0, 47);
+    this.logoOpcChannel = new OpcChannel(this.opcHost, 1, 15);
+    this.timerOpcChannel = new OpcChannel(this.opcHost, 2, 15);
+    this.leftOpcChannel = new OpcChannel(this.opcHost, 3, 47);
 
-    let ledsInSegment = 7 + 9 + 7;
-
-    this.leftDisplay = new NumberDisplay(
+    this.leftDisplay = new ThinNumberDisplay(
       this.leftOpcChannel,
       [
-        // 100s
-        new Segment(this.leftOpcChannel, 0 * ledsInSegment, true),
-        new Segment(this.leftOpcChannel, 1 * ledsInSegment, true),
+        // 1s
+        new ThinDigit(this.leftOpcChannel, 0),
 
         // 10s
-        new Segment(this.leftOpcChannel, 2 * ledsInSegment, false),
-        new Segment(this.leftOpcChannel, 3 * ledsInSegment, true),
-        new Segment(this.leftOpcChannel, 4 * ledsInSegment, true),
-        new Segment(this.leftOpcChannel, 5 * ledsInSegment, false),
-        new Segment(this.leftOpcChannel, 6 * ledsInSegment, true),
-        new Segment(this.leftOpcChannel, 7 * ledsInSegment, true),
-        new Segment(this.leftOpcChannel, 8 * ledsInSegment, false),
+        new ThinDigit(this.leftOpcChannel, 20),
 
-        // 1s
-        new Segment(this.leftOpcChannel,  9 * ledsInSegment, false),
-        new Segment(this.leftOpcChannel, 10 * ledsInSegment, true),
-        new Segment(this.leftOpcChannel, 11 * ledsInSegment, true),
-        new Segment(this.leftOpcChannel, 12 * ledsInSegment, false),
-        new Segment(this.leftOpcChannel, 13 * ledsInSegment, true),
-        new Segment(this.leftOpcChannel, 14 * ledsInSegment, true),
-        new Segment(this.leftOpcChannel, 15 * ledsInSegment, false),
+        // 100s
+        new ThinOne(this.leftOpcChannel, 40),
       ]
     );
 
-    this.rightDisplay = new NumberDisplay(
+    this.rightDisplay = new ThinNumberDisplay(
       this.rightOpcChannel,
       [
-        // 100s
-        new Segment(this.rightOpcChannel, 0 * ledsInSegment, true),
-        new Segment(this.rightOpcChannel, 1 * ledsInSegment, true),
+        // 1s
+        new ThinDigit(this.rightOpcChannel, 0),
 
         // 10s
-        new Segment(this.rightOpcChannel, 2 * ledsInSegment, false),
-        new Segment(this.rightOpcChannel, 3 * ledsInSegment, true),
-        new Segment(this.rightOpcChannel, 4 * ledsInSegment, true),
-        new Segment(this.rightOpcChannel, 5 * ledsInSegment, false),
-        new Segment(this.rightOpcChannel, 6 * ledsInSegment, true),
-        new Segment(this.rightOpcChannel, 7 * ledsInSegment, true),
-        new Segment(this.rightOpcChannel, 8 * ledsInSegment, false),
+        new ThinDigit(this.rightOpcChannel, 20),
 
-        // 1s
-        new Segment(this.rightOpcChannel,  9 * ledsInSegment, false),
-        new Segment(this.rightOpcChannel, 10 * ledsInSegment, true),
-        new Segment(this.rightOpcChannel, 11 * ledsInSegment, true),
-        new Segment(this.rightOpcChannel, 12 * ledsInSegment, false),
-        new Segment(this.rightOpcChannel, 13 * ledsInSegment, true),
-        new Segment(this.rightOpcChannel, 14 * ledsInSegment, true),
-        new Segment(this.rightOpcChannel, 15 * ledsInSegment, false),
+        // 100s
+        new ThinOne(this.rightOpcChannel, 40),
       ]
     );
+
+    // TODO: logo and timer
 
     this.scoreboard = new Scoreboard(this.leftDisplay, this.rightDisplay);
   }

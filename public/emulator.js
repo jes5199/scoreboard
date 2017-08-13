@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -190,6 +190,112 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _Scoreboard = __webpack_require__(5);
+
+var _Scoreboard2 = _interopRequireDefault(_Scoreboard);
+
+var _OpcChannel = __webpack_require__(4);
+
+var _OpcChannel2 = _interopRequireDefault(_OpcChannel);
+
+var _ThinNumberDisplay = __webpack_require__(7);
+
+var _ThinNumberDisplay2 = _interopRequireDefault(_ThinNumberDisplay);
+
+var _ThinDigit = __webpack_require__(6);
+
+var _ThinDigit2 = _interopRequireDefault(_ThinDigit);
+
+var _ThinOne = __webpack_require__(8);
+
+var _ThinOne2 = _interopRequireDefault(_ThinOne);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var WiringDiagram = function WiringDiagram(opcHost) {
+  _classCallCheck(this, WiringDiagram);
+
+  // TODO: MQTT/OPC shared driver
+  this.opcHost = opcHost;
+  this.rightOpcChannel = new _OpcChannel2.default(this.opcHost, 0, 47);
+  this.logoOpcChannel = new _OpcChannel2.default(this.opcHost, 1, 15);
+  this.timerOpcChannel = new _OpcChannel2.default(this.opcHost, 2, 15);
+  this.leftOpcChannel = new _OpcChannel2.default(this.opcHost, 3, 47);
+
+  this.leftDisplay = new _ThinNumberDisplay2.default(this.leftOpcChannel, [
+  // 1s
+  new _ThinDigit2.default(this.leftOpcChannel, 0),
+
+  // 10s
+  new _ThinDigit2.default(this.leftOpcChannel, 20),
+
+  // 100s
+  new _ThinOne2.default(this.leftOpcChannel, 40)]);
+
+  this.rightDisplay = new _ThinNumberDisplay2.default(this.rightOpcChannel, [
+  // 1s
+  new _ThinDigit2.default(this.rightOpcChannel, 0),
+
+  // 10s
+  new _ThinDigit2.default(this.rightOpcChannel, 20),
+
+  // 100s
+  new _ThinOne2.default(this.rightOpcChannel, 40)]);
+
+  // TODO: logo and timer
+
+  this.scoreboard = new _Scoreboard2.default(this.leftDisplay, this.rightDisplay);
+};
+
+exports.default = WiringDiagram;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _WiringDiagram = __webpack_require__(1);
+
+var _WiringDiagram2 = _interopRequireDefault(_WiringDiagram);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var fakeHost = {
+  connect: function connect() {},
+  sendPixels: function sendPixels(channel, colors) {
+    colors = Array.from(colors);
+    for (var i = 0; i < document.pixels[channel].length; i++) {
+      document.pixels[channel][i] = colors[i];
+    }
+  }
+};
+
+var scoreboard = new _WiringDiagram2.default(fakeHost).scoreboard;
+scoreboard.start();
+
+document.setLeft = function (x) {
+  scoreboard.setLeft(x);
+};
+
+document.setRight = function (x) {
+  scoreboard.setRight(x);
+};
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -244,110 +350,6 @@ var NumberDisplay = function () {
 }();
 
 exports.default = NumberDisplay;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Scoreboard = __webpack_require__(5);
-
-var _Scoreboard2 = _interopRequireDefault(_Scoreboard);
-
-var _OpcChannel = __webpack_require__(4);
-
-var _OpcChannel2 = _interopRequireDefault(_OpcChannel);
-
-var _Segment = __webpack_require__(6);
-
-var _Segment2 = _interopRequireDefault(_Segment);
-
-var _NumberDisplay = __webpack_require__(1);
-
-var _NumberDisplay2 = _interopRequireDefault(_NumberDisplay);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var WiringDiagram = function WiringDiagram(opcHost) {
-  _classCallCheck(this, WiringDiagram);
-
-  this.opcHost = opcHost;
-  this.leftOpcChannel = new _OpcChannel2.default(this.opcHost, 0, 368);
-  this.rightOpcChannel = new _OpcChannel2.default(this.opcHost, 1, 368);
-
-  var ledsInSegment = 7 + 9 + 7;
-
-  this.leftDisplay = new _NumberDisplay2.default(this.leftOpcChannel, [
-  // 100s
-  new _Segment2.default(this.leftOpcChannel, 0 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 1 * ledsInSegment, true),
-
-  // 10s
-  new _Segment2.default(this.leftOpcChannel, 2 * ledsInSegment, false), new _Segment2.default(this.leftOpcChannel, 3 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 4 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 5 * ledsInSegment, false), new _Segment2.default(this.leftOpcChannel, 6 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 7 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 8 * ledsInSegment, false),
-
-  // 1s
-  new _Segment2.default(this.leftOpcChannel, 9 * ledsInSegment, false), new _Segment2.default(this.leftOpcChannel, 10 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 11 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 12 * ledsInSegment, false), new _Segment2.default(this.leftOpcChannel, 13 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 14 * ledsInSegment, true), new _Segment2.default(this.leftOpcChannel, 15 * ledsInSegment, false)]);
-
-  this.rightDisplay = new _NumberDisplay2.default(this.rightOpcChannel, [
-  // 100s
-  new _Segment2.default(this.rightOpcChannel, 0 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 1 * ledsInSegment, true),
-
-  // 10s
-  new _Segment2.default(this.rightOpcChannel, 2 * ledsInSegment, false), new _Segment2.default(this.rightOpcChannel, 3 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 4 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 5 * ledsInSegment, false), new _Segment2.default(this.rightOpcChannel, 6 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 7 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 8 * ledsInSegment, false),
-
-  // 1s
-  new _Segment2.default(this.rightOpcChannel, 9 * ledsInSegment, false), new _Segment2.default(this.rightOpcChannel, 10 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 11 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 12 * ledsInSegment, false), new _Segment2.default(this.rightOpcChannel, 13 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 14 * ledsInSegment, true), new _Segment2.default(this.rightOpcChannel, 15 * ledsInSegment, false)]);
-
-  this.scoreboard = new _Scoreboard2.default(this.leftDisplay, this.rightDisplay);
-};
-
-exports.default = WiringDiagram;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _WiringDiagram = __webpack_require__(2);
-
-var _WiringDiagram2 = _interopRequireDefault(_WiringDiagram);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-document.leftColors = [];
-document.rightColors = [];
-
-var fakeHost = {
-  connect: function connect() {},
-  sendPixels: function sendPixels(channel, colors) {
-    colors = Array.from(colors);
-    if (channel == 0) {
-      document.leftColors = colors;
-    } else {
-      document.rightColors = colors;
-    }
-  }
-};
-
-var scoreboard = new _WiringDiagram2.default(fakeHost).scoreboard;
-scoreboard.start();
-
-document.setLeft = function (x) {
-  scoreboard.setLeft(x);
-};
-
-document.setRight = function (x) {
-  scoreboard.setRight(x);
-};
 
 /***/ }),
 /* 4 */
@@ -422,41 +424,45 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _NumberDisplay = __webpack_require__(1);
+var _NumberDisplay = __webpack_require__(3);
 
 var _NumberDisplay2 = _interopRequireDefault(_NumberDisplay);
 
-var _Numeric = __webpack_require__(11);
+var _Numeric = __webpack_require__(13);
 
 var _Numeric2 = _interopRequireDefault(_Numeric);
 
-var _TechnicolorSnow = __webpack_require__(13);
+var _TechnicolorSnow = __webpack_require__(15);
 
 var _TechnicolorSnow2 = _interopRequireDefault(_TechnicolorSnow);
 
-var _Fireflow = __webpack_require__(8);
+var _Fireflow = __webpack_require__(10);
 
 var _Fireflow2 = _interopRequireDefault(_Fireflow);
 
-var _DifferenceShader = __webpack_require__(7);
+var _DifferenceShader = __webpack_require__(9);
 
 var _DifferenceShader2 = _interopRequireDefault(_DifferenceShader);
 
-var _WhiteSpark = __webpack_require__(14);
+var _WhiteSpark = __webpack_require__(17);
 
 var _WhiteSpark2 = _interopRequireDefault(_WhiteSpark);
 
-var _RedCells = __webpack_require__(12);
+var _RedCells = __webpack_require__(14);
 
 var _RedCells2 = _interopRequireDefault(_RedCells);
 
-var _MergePatterns = __webpack_require__(10);
+var _MergePatterns = __webpack_require__(12);
 
 var _MergePatterns2 = _interopRequireDefault(_MergePatterns);
 
-var _MaskPattern = __webpack_require__(9);
+var _MaskPattern = __webpack_require__(11);
 
 var _MaskPattern2 = _interopRequireDefault(_MaskPattern);
+
+var _ThinNumeric = __webpack_require__(16);
+
+var _ThinNumeric2 = _interopRequireDefault(_ThinNumeric);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -478,7 +484,7 @@ var Scoreboard = function () {
     this.leftDisplay = leftDisplay;
     this.rightDisplay = rightDisplay;
 
-    this.pattern = new _MaskPattern2.default(new _MergePatterns2.default([new _Fireflow2.default(this), new _DifferenceShader2.default(this), new _RedCells2.default(this), new _WhiteSpark2.default(this)]), new _MergePatterns2.default([new _Numeric2.default(this.leftDisplay), new _Numeric2.default(this.rightDisplay)]));
+    this.pattern = new _MaskPattern2.default(new _MergePatterns2.default([new _Fireflow2.default(this), new _DifferenceShader2.default(this)]), new _MergePatterns2.default([new _ThinNumeric2.default(this.leftDisplay), new _ThinNumeric2.default(this.rightDisplay)]));
 
     this.main = this.main.bind(this);
   }
@@ -517,9 +523,12 @@ var Scoreboard = function () {
     key: 'renderPattern',
     value: function renderPattern() {
       var pixels = this.pattern.render(new Date().getTime() / 1000);
+
+      console.log(pixels);
+
       pixels.write({
-        "0": this.leftDisplay.channel,
-        "1": this.rightDisplay.channel
+        "3": this.leftDisplay.channel,
+        "0": this.rightDisplay.channel
       });
     }
   }, {
@@ -565,7 +574,7 @@ var Scoreboard = function () {
 }();
 
 exports.default = Scoreboard;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20).setImmediate))
 
 /***/ }),
 /* 6 */
@@ -582,105 +591,192 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-// Represents a segment in a NumberDisplay
-
-var Segment = function () {
-  function Segment(channel, offset, is_vertical) {
-    _classCallCheck(this, Segment);
+var ThinDigit = function () {
+  function ThinDigit(channel, offset) {
+    _classCallCheck(this, ThinDigit);
 
     this.channel = channel;
     this.offset = offset;
-    this.is_vertical = is_vertical;
 
     this.colorCount = 3;
-    this.pixelCount = 7 + 9 + 7;
+    this.pixelCount = 20;
+
+    this.width = 4;
+    this.height = 7;
   }
 
-  _createClass(Segment, [{
-    key: "width",
-    value: function width() {
-      if (this.is_vertical) {
-        return 3;
-      } else {
-        return 9;
-      }
-    }
-  }, {
-    key: "height",
-    value: function height() {
-      if (this.is_vertical) {
-        return 9;
-      } else {
-        return 3;
-      }
-    }
-  }, {
+  _createClass(ThinDigit, [{
     key: "livePixel",
     value: function livePixel(x, y) {
-      var bottom = this.height() - 1;
-      var right = this.width() - 1;
+      var bottom = this.height - 1;
+      var right = this.width - 1;
 
-      if (x == 0 && y == 0) {
+      if (x < 0 || y < 0) {
         return false;
       }
-      if (x == right && y == 0) {
+      if (x > right || y > bottom) {
         return false;
       }
-      if (x == 0 && y == bottom) {
+
+      // two blank 2x2 squares inside the 8s
+      if ((x == 1 || x == 2) && (y == 1 || y == 2)) {
         return false;
       }
-      if (x == right && y == bottom) {
+      if ((x == 4 || x == 5) && (y == 1 || y == 2)) {
         return false;
       }
 
       return true;
     }
   }, {
-    key: "channelNumber",
-    value: function channelNumber() {
-      return this.channel.channelNumber;
-    }
-  }, {
     key: "pixelIdForXY",
     value: function pixelIdForXY(x, y) {
-      if (this.is_vertical) {
-        if (x == 0) {
-          return this.offset + y - 1;
-        } else if (x == 1) {
-          return this.offset + 15 - y;
-        } else if (x == 2) {
-          return this.offset + y + 15;
-        }
-      } else {
-        if (y == 0) {
-          return this.offset + x - 1;
-        } else if (y == 1) {
-          return this.offset + 15 - x;
-        } else if (y == 2) {
-          return this.offset + x + 15;
-        }
-      }
+      var ids = [[17, 16, 15, 14], [18, -1, -1, 13], [19, -1, -1, 12], [3, 2, 1, 0], [4, -1, -1, 11], [5, -1, -1, 10], [6, 7, 8, 9]];
+      var r = ids[y][x];
+      return r + this.offset;
     }
   }, {
     key: "paint",
     value: function paint(pixels, f) {
-      for (var x = 0; x < this.width(); x++) {
-        for (var y = 0; y < this.height(); y++) {
+      for (var x = 0; x < this.width; x++) {
+        for (var y = 0; y < this.height; y++) {
           if (this.livePixel(x, y)) {
-            pixels.set(this.channelNumber(), this.pixelIdForXY(x, y), f(x, y));
+            pixels.set(this.channel.channelNumber, this.pixelIdForXY(x, y), f(x, y));
           }
         }
       }
+      return pixels;
     }
   }]);
 
-  return Segment;
+  return ThinDigit;
 }();
 
-exports.default = Segment;
+exports.default = ThinDigit;
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var DigitOffset = [[7, 0], // 1s place
+[2, 0], // 10s place
+[0, 0]];
+
+var ThinNumberDisplay = function () {
+  function ThinNumberDisplay(channel, digits) {
+    _classCallCheck(this, ThinNumberDisplay);
+
+    this.channel = channel;
+    this.digits = digits;
+    this.number = 0;
+  }
+
+  _createClass(ThinNumberDisplay, [{
+    key: "update",
+    value: function update(number) {
+      this.number = number;
+    }
+  }, {
+    key: "paint",
+    value: function paint(pixels, f) {
+      for (var i = 0; i < this.digits.length; i++) {
+        this.digits[i].paint(pixels, function (x, y) {
+          var offset = DigitOffset[i];
+          return f(x + offset[0], y + offset[1]);
+        });
+      }
+      return pixels;
+    }
+  }]);
+
+  return ThinNumberDisplay;
+}();
+
+exports.default = ThinNumberDisplay;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var ThinOne = function () {
+  function ThinOne(channel, offset) {
+    _classCallCheck(this, ThinOne);
+
+    this.channel = channel;
+    this.offset = offset;
+
+    this.colorCount = 3;
+    this.pixelCount = 20;
+
+    this.width = 1;
+    this.height = 7;
+  }
+
+  _createClass(ThinOne, [{
+    key: "livePixel",
+    value: function livePixel(x, y) {
+      var bottom = this.height - 1;
+      var right = this.width - 1;
+
+      if (x < 0 || y < 0) {
+        return false;
+      }
+      if (x > right || y > bottom) {
+        return false;
+      }
+
+      return true;
+    }
+  }, {
+    key: "pixelIdForXY",
+    value: function pixelIdForXY(x, y) {
+      var ids = [0, 1, 2, 3, 4, 5, 6];
+      var r = ids[y];
+      return r + this.offset;
+    }
+  }, {
+    key: "paint",
+    value: function paint(pixels, f) {
+      for (var x = 0; x < this.width; x++) {
+        for (var y = 0; y < this.height; y++) {
+          if (this.livePixel(x, y)) {
+            pixels.set(this.channel.channelNumber, this.pixelIdForXY(x, y), f(x, y));
+          }
+        }
+      }
+      return pixels;
+    }
+  }]);
+
+  return ThinOne;
+}();
+
+exports.default = ThinOne;
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -736,7 +832,7 @@ var DifferenceShader = function () {
 exports.default = DifferenceShader;
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -804,7 +900,7 @@ var Fireflow = function () {
 exports.default = Fireflow;
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -847,7 +943,7 @@ var MaskPattern = function () {
 exports.default = MaskPattern;
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -892,7 +988,7 @@ var MergePatterns = function () {
 exports.default = MergePatterns;
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -980,7 +1076,7 @@ var Numeric = function () {
 exports.default = Numeric;
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1069,7 +1165,7 @@ var RedCells = function () {
 exports.default = RedCells;
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1119,7 +1215,97 @@ var TechnicolorSnow = function () {
 exports.default = TechnicolorSnow;
 
 /***/ }),
-/* 14 */
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Pixels = __webpack_require__(0);
+
+var _Pixels2 = _interopRequireDefault(_Pixels);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var NumberShapes = {
+  "0": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
+  "1": [[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "2": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
+  "3": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1]],
+  "4": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "5": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1]],
+  "6": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
+  "7": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "8": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
+  "9": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 1]]
+};
+
+var ThinNumeric = function () {
+  function ThinNumeric(numberDisplay) {
+    _classCallCheck(this, ThinNumeric);
+
+    this.numberDisplay = numberDisplay;
+  }
+
+  _createClass(ThinNumeric, [{
+    key: "render",
+    value: function render(time) {
+      var pixels = new _Pixels2.default();
+      var number = this.numberDisplay.number;
+
+      var off = [0, 0, 0, 0];
+      var on = [1, 1, 1, 1];
+
+      // 100s place
+      this.numberDisplay.digits[2].paint(pixels, function (x, y) {
+        if (number >= 100) {
+          return on;
+        } else {
+          return off;
+        }
+      });
+
+      // 10s place
+      var tens = Math.floor(number / 10) % 10;
+      var tensBmp = NumberShapes[tens];
+      this.numberDisplay.digits[1].paint(pixels, function (x, y) {
+        if (tensBmp[y][x]) {
+          return on;
+        } else {
+          return off;
+        }
+      });
+
+      // 1s place
+      var ones = number % 10;
+      var onesBmp = NumberShapes[ones];
+      this.numberDisplay.digits[0].paint(pixels, function (x, y) {
+        if (onesBmp[y][x]) {
+          return on;
+        } else {
+          return off;
+        }
+      });
+
+      return pixels;
+    }
+  }]);
+
+  return ThinNumeric;
+}();
+
+exports.default = ThinNumeric;
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1197,7 +1383,7 @@ var WhiteSpark = function () {
 exports.default = WhiteSpark;
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1383,7 +1569,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -1573,10 +1759,10 @@ process.umask = function() { return 0; };
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(18), __webpack_require__(15)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(21), __webpack_require__(18)))
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -1629,13 +1815,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(16);
+__webpack_require__(19);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports) {
 
 var g;
