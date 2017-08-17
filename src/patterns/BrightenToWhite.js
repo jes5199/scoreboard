@@ -18,7 +18,7 @@ class BrightenToWhite {
     }
     this.lastRenderMillis = now;
 
-    let brightness = 0.0 + (now - this.fadeStartMillis) / 1500;
+    let brightness = 0.0 + (now - this.fadeStartMillis) / 750;
 
     for(var channel in inPixels.dataByChannel) {
       let channelData = inPixels.dataByChannel[channel];
