@@ -27,10 +27,10 @@ client.subscribe("asOne/score/logo")
 client.subscribe("asOne/score/state")
 
 var channelToTopic = {
-  "0": "asOne/score/rightBPM/direct",
-  "1": "asOne/score/logo/direct",
-  "2": "asOne/score/timer/direct",
-  "3": "asOne/score/leftBPM/direct",
+  "1": "asOne/score/rightBPM/direct",
+  "2": "asOne/score/logo/direct",
+  "3": "asOne/score/timer/direct",
+  "4": "asOne/score/leftBPM/direct",
 };
 
 // TOOD multiplex/handoff between these

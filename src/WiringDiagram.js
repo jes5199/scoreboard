@@ -11,10 +11,10 @@ class WiringDiagram {
   constructor(opcHost) {
     // TODO: MQTT/OPC shared driver
     this.opcHost = opcHost;
-    this.rightOpcChannel = new OpcChannel(this.opcHost, 0, 47);
-    this.logoOpcChannel = new OpcChannel(this.opcHost, 1, 15);
-    this.timerOpcChannel = new OpcChannel(this.opcHost, 2, 26);
-    this.leftOpcChannel = new OpcChannel(this.opcHost, 3, 47);
+    this.rightOpcChannel = new OpcChannel(this.opcHost, 1, 47);
+    this.logoOpcChannel = new OpcChannel(this.opcHost, 2, 15);
+    this.timerOpcChannel = new OpcChannel(this.opcHost, 3, 26);
+    this.leftOpcChannel = new OpcChannel(this.opcHost, 4, 47);
 
     this.leftDisplay = new ThinNumberDisplay(
       this.leftOpcChannel,

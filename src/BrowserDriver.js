@@ -4,8 +4,8 @@ var fakeHost = {
   connect: function(){},
   sendPixels: function(channel, colors) {
     colors = Array.from(colors);
-    for(let i = 0; i < document.pixels[channel].length; i++) {
-      document.pixels[channel][i] = colors[i];
+    for(let i = 0; i < document.pixels[channel - 1].length; i++) {
+      document.pixels[channel - 1][i] = colors[i];
     }
   }
 }
