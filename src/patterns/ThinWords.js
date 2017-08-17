@@ -1,7 +1,7 @@
 import Pixels from '../Pixels.js'
 import ThinFont from './fonts/Thin.js'
 
-let vocabulary = [
+let titles = [
   "AS1 ",
   "AS1 ",
   "AS1 ",
@@ -12,21 +12,25 @@ let vocabulary = [
   " AS  ONE",
   "  ASONE ",
   "  AS ONE",
-  "PLAY",
-  "PLAY",
-  "PLAY",
+];
+
+let words = [
+  "PLAYTHIS",
+  "PLAYHERE",
+  "LOVEPLAY",
   "FUCK YOU",
   "HARTBEAT",
   "HARTBEAT",
   "HARTBEAT",
-  "LOVE",
+  "ONE LOVE",
+  " ONELOVE",
   "SOULMATE",
+  "FIREPOOF",
   "FIRE",
   "BURN",
   "SYNC  UP",
   "GAMEOVER",
-  "SEXY",
-  "HARTRATE",
+  "SEXYTIME",
   "HI    HI",
   ];
 
@@ -39,13 +43,16 @@ class ThinWords {
     this.word = "TEST";
     this.half = 0;
     this.lastHalfWordTime = 0;
+    this.title = 0;
   }
 
   render(time) {
     let now = new Date().getTime();
     if(now - this.lastWordTime > 8000) {
+      this.title = !this.title;
       this.lastWordTime = now;
       this.lastHalfWordTime = now;
+      let vocabulary = this.title ? titles : words;
       this.word = vocabulary[Math.floor(Math.random() * vocabulary.length)];
       this.half = 0;
     } else if(now - this.lastHalfWordTime > 2000) {

@@ -19,7 +19,7 @@ class FadeIn {
     }
     this.lastRenderMillis = now;
 
-    alpha = 0.15 + 0.85 * (now - this.fadeStartMillis) / 2000;
+    alpha = 0.15 + 0.85 * (now - this.fadeStartMillis) / 1500;
     alpha = Math.max(0, Math.min(1, alpha));
 
     var displays = this.displays;

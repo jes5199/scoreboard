@@ -1332,7 +1332,7 @@ var FadeIn = function () {
       }
       this.lastRenderMillis = now;
 
-      alpha = 0.15 + 0.85 * (now - this.fadeStartMillis) / 2000;
+      alpha = 0.15 + 0.85 * (now - this.fadeStartMillis) / 1500;
       alpha = Math.max(0, Math.min(1, alpha));
 
       var displays = this.displays;
@@ -1977,7 +1977,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var vocabulary = ["AS1 ", "AS1 ", "AS1 ", "AS1 ", "AS  ONE ", "AS   ONE", " AS ONE ", " AS  ONE", "  ASONE ", "  AS ONE", "PLAY", "PLAY", "PLAY", "FUCK YOU", "HARTBEAT", "HARTBEAT", "HARTBEAT", "LOVE", "SOULMATE", "FIRE", "BURN", "SYNC  UP", "GAMEOVER", "SEXY", "HARTRATE", "HI    HI"];
+var titles = ["AS1 ", "AS1 ", "AS1 ", "AS1 ", "AS  ONE ", "AS   ONE", " AS ONE ", " AS  ONE", "  ASONE ", "  AS ONE"];
+
+var words = ["PLAYTHIS", "PLAYHERE", "LOVEPLAY", "FUCK YOU", "HARTBEAT", "HARTBEAT", "HARTBEAT", "ONE LOVE", " ONELOVE", "SOULMATE", "FIREPOOF", "FIRE", "BURN", "SYNC  UP", "GAMEOVER", "SEXYTIME", "HI    HI"];
 
 var ThinWords = function () {
   function ThinWords(leftNumberDisplay, rightNumberDisplay) {
@@ -1989,6 +1991,7 @@ var ThinWords = function () {
     this.word = "TEST";
     this.half = 0;
     this.lastHalfWordTime = 0;
+    this.title = 0;
   }
 
   _createClass(ThinWords, [{
@@ -1996,8 +1999,10 @@ var ThinWords = function () {
     value: function render(time) {
       var now = new Date().getTime();
       if (now - this.lastWordTime > 8000) {
+        this.title = !this.title;
         this.lastWordTime = now;
         this.lastHalfWordTime = now;
+        var vocabulary = this.title ? titles : words;
         this.word = vocabulary[Math.floor(Math.random() * vocabulary.length)];
         this.half = 0;
       } else if (now - this.lastHalfWordTime > 2000) {
