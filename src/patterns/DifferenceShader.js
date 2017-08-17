@@ -3,8 +3,6 @@ import Pixels from '../Pixels.js'
 class DifferenceShader {
   constructor(scoreboard) {
     this.scoreboard = scoreboard;
-    var nowMillis = (new Date()).getTime();
-    this.lastMillis = [nowMillis, nowMillis];
   }
 
   render(time) {
@@ -13,15 +11,16 @@ class DifferenceShader {
     var difference = this.scoreboard.leftDisplay.number - this.scoreboard.rightDisplay.number;
     for(var d = 0; d < numberDisplays.length; d++) {
       var numberDisplay = numberDisplays[d];
-      var nowMillis = (new Date()).getTime();
-      var t = Math.min(1, Math.abs(difference) / 60) * Math.sign(difference);
-      if(d) { t = -t; }
+      if(d) { difference = -difference; }
+      let red = Math.max(0, Math.min(difference / 10, 1));
+      let blue = Math.max(0, Math.min(-difference / 10, 1));
+      let color = Math.max(red, blue);
       numberDisplay.paint(pixels, function(x,y) {
         return [
-          Math.max(0, t) + Math.max(0, -t * 0.5),
-          0,
-          Math.max(0, -t),
-          Math.abs(t * 0.75)
+          Math.max(red, blue / 3),
+          blue / 3,
+          blue,
+          color
         ];
       });
     }

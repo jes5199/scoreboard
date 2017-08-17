@@ -1179,8 +1179,6 @@ var DifferenceShader = function () {
     _classCallCheck(this, DifferenceShader);
 
     this.scoreboard = scoreboard;
-    var nowMillis = new Date().getTime();
-    this.lastMillis = [nowMillis, nowMillis];
   }
 
   _createClass(DifferenceShader, [{
@@ -1189,16 +1187,25 @@ var DifferenceShader = function () {
       var pixels = new _Pixels2.default();
       var numberDisplays = [this.scoreboard.leftDisplay, this.scoreboard.rightDisplay];
       var difference = this.scoreboard.leftDisplay.number - this.scoreboard.rightDisplay.number;
-      for (var d = 0; d < numberDisplays.length; d++) {
-        var numberDisplay = numberDisplays[d];
-        var nowMillis = new Date().getTime();
-        var t = Math.min(1, Math.abs(difference) / 60) * Math.sign(difference);
+
+      var _loop = function _loop() {
+        numberDisplay = numberDisplays[d];
+
         if (d) {
-          t = -t;
+          difference = -difference;
         }
+        var red = Math.max(0, Math.min(difference / 10, 1));
+        var blue = Math.max(0, Math.min(-difference / 10, 1));
+        var color = Math.max(red, blue);
         numberDisplay.paint(pixels, function (x, y) {
-          return [Math.max(0, t) + Math.max(0, -t * 0.5), 0, Math.max(0, -t), Math.abs(t * 0.75)];
+          return [Math.max(red, blue / 3), blue / 3, blue, color];
         });
+      };
+
+      for (var d = 0; d < numberDisplays.length; d++) {
+        var numberDisplay;
+
+        _loop();
       }
       return pixels;
     }
