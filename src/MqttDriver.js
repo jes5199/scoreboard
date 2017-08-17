@@ -24,6 +24,7 @@ client.subscribe("asOne/score/leftBPM")
 client.subscribe("asOne/score/rightBPM")
 client.subscribe("asOne/score/timer")
 client.subscribe("asOne/score/logo")
+client.subscribe("asOne/score/state")
 
 var channelToTopic = {
   "0": "asOne/score/rightBPM/direct",
@@ -56,5 +57,7 @@ client.on('message', function (topic, message) {
     scoreboard.setTimer(message[0]);
   } else if(topic == "asOne/score/logo") {
     scoreboard.setLogoColor([message[0], message[1], message[2]]);
+  } else if(topic == "asOne/score/state") {
+    scoreboard.setLogoColor(message[0]);
   }
 });

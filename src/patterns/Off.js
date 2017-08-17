@@ -1,21 +1,17 @@
 import Pixels from '../Pixels.js'
 
-class TechnicolorSnow {
+class Off {
   constructor(scoreboard) {
     this.scoreboard = scoreboard;
   }
 
   render(time) {
     var pixels = new Pixels();
-    var numberDisplays = [this.scoreboard.leftDisplay, this.scoreboard.rightDisplay];
     var displays = [this.scoreboard.leftDisplay, this.scoreboard.rightDisplay, this.scoreboard.logoDisplay, this.scoreboard.timerDisplay];
     for(var d = 0; d < displays.length; d++) {
       displays[d].paint(pixels, function(x,y) {
         return [
-          Math.random(),
-          Math.random(),
-          Math.random(),
-          1,
+          0, 0, 0, 1,
         ];
       });
     }
@@ -23,4 +19,4 @@ class TechnicolorSnow {
   }
 }
 
-export default TechnicolorSnow;
+export default Off;

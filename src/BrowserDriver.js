@@ -13,6 +13,10 @@ var fakeHost = {
 var scoreboard = (new WiringDiagram(fakeHost)).scoreboard;
 scoreboard.start();
 
+document.setState = function(x) {
+  scoreboard.setState(x);
+}
+
 document.setLeft = function(x) {
   scoreboard.setLeft(x);
 }

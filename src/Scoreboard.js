@@ -12,11 +12,14 @@ import TinyNumeric from './patterns/TinyNumeric.js'
 import BlinkyTimer from './patterns/BlinkyTimer.js'
 import HueFade from './patterns/HueFade.js'
 import ThinWords from './patterns/ThinWords.js'
+import StatePatternSwitch from './patterns/StatePatternSwitch.js'
+import Off from './patterns/Off.js'
 
 class Scoreboard {
   constructor(leftDisplay, rightDisplay, timerDisplay, logoDisplay) {
     this.leftScore = 0;
     this.rightScore = 0;
+    this.state = 0; // idle
 
     this.fps = 32; // frames per second
     this.leftNextFrameTime = 0;
@@ -34,11 +37,6 @@ class Scoreboard {
       new MergePatterns([ new ThinNumeric(this.leftDisplay), new ThinNumeric(this.rightDisplay) ])
     );
 
-    let idlePattern = new MaskPattern(
-      new Fireflow(this),
-      new ThinWords(this.leftDisplay, this.rightDisplay)
-    );
-
     let timerPattern = new MaskPattern(
       new BlinkyTimer(this.timerDisplay),
       new TinyNumeric(this.timerDisplay)
@@ -46,10 +44,22 @@ class Scoreboard {
 
     let logoPattern = new HueFade(this.logoDisplay);
 
-    //this.pattern = new MergePatterns([ bpmPattern, timerPattern, logoPattern ]);
-    this.pattern = idlePattern;
+    let activePattern = new MergePatterns([ bpmPattern, timerPattern, logoPattern ]);
+
+    let idlePattern = new MaskPattern(
+      new MergePatterns([new Off(this), new Fireflow(this)]),
+      new MergePatterns([new ThinWords(this.leftDisplay, this.rightDisplay), new Off(this)])
+    );
+
+    let wonPattern = new TechnicolorSnow(this); // FIXME: fade numbers to rainbows
+
+    this.pattern = new StatePatternSwitch(this, [idlePattern, activePattern, wonPattern])
 
     this.main = this.main.bind(this);
+  }
+
+  setState(state) {
+    this.state = state;
   }
 
   setLeft(score) {

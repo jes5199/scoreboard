@@ -179,6 +179,7 @@ function begin() {
 }
 
 function draw() {
+  document.setState(document.getElementById('state').value);
   document.setLeft(document.getElementById('leftInput').value);
   document.setRight(document.getElementById('rightInput').value);
   document.setTimer(60 - (Math.floor(Date.now() / 1000) % 60));
@@ -257,6 +258,7 @@ function draw() {
 <body onload="begin()">
   <canvas id="glcanvas" width=800 height=400></canvas>
   <div>
+    <input id="state" type="number" value="0" min="0" max="2"/> 
     <input id="leftInput" type="number" value="40" min="0"/> <input type="number" id="rightInput" value="89" min="0"/>
     </div
 </body>
