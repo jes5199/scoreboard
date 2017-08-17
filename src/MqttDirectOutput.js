@@ -13,6 +13,10 @@ class MqttDirectOutput {
     let topic = this.channelToTopic[channel];
     this.client.publish(topic, new Buffer(colors));
   }
+
+  isAlive {
+    return true; // FIXME check connection
+  }
 }
 
 export default MqttDirectOutput;

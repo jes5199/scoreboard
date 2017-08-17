@@ -23,10 +23,6 @@ class OpcHost {
   }
 
   sendPixels(channel, colors) {
-    if(!this.connected) {
-      this.connect();
-      return;
-    }
     let command = 0; // set Pixels
     let size_high = colors.length / 256;
     let size_low = colors.length % 256;
@@ -65,6 +61,10 @@ class OpcHost {
   onClose() {
     this.connected = false;
     this.connecting = false;
+  }
+
+  isAlive() {
+    return this.connected;
   }
 }
 

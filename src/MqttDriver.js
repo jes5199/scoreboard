@@ -1,6 +1,7 @@
 import WiringDiagram from './WiringDiagram.js'
 import OpcHost from './OpcHost.js'
 import MqttDirectOutput from './MqttDirectOutput.js'
+import MultiOutput from './MultiOutput.js'
 
 var program = require('commander');
 
@@ -33,9 +34,9 @@ var channelToTopic = {
   "4": "asOne/score/leftBPM/direct",
 };
 
-// TOOD multiplex/handoff between these
 var mqttDirect = new MqttDirectOutput(client, channelToTopic);
 var opcHost = new OpcHost(program.opc, 7890)
+var multiOut = new MultiOutput([opcHost, mqttDirect]);
 
 // - 0: use processor-based FastLED library
 // - 1: use UART to drive LEDs
@@ -44,7 +45,7 @@ var opcHost = new OpcHost(program.opc, 7890)
 // - 4: use UART with gamma correction and temporal dithering
 mqttDirect.setAcceleration(4); // :D
 
-var scoreboard = (new WiringDiagram(mqttDirect)).scoreboard;
+var scoreboard = (new WiringDiagram(multiOut)).scoreboard;
 scoreboard.start();
 
 client.on('message', function (topic, message) {
