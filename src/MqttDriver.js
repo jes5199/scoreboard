@@ -27,6 +27,8 @@ client.subscribe("asOne/score/timer")
 client.subscribe("asOne/score/logo")
 client.subscribe("asOne/score/state")
 
+client.subscribe("asOne/scoreboard/ipAddress");
+
 var channelToTopic = {
   "1": "asOne/score/rightBPM/direct",
   "2": "asOne/score/logo/direct",
@@ -60,5 +62,8 @@ client.on('message', function (topic, message) {
     scoreboard.setLogoColor([message[0], message[1], message[2]]);
   } else if(topic == "asOne/score/state") {
     scoreboard.setLogoColor(message[0]);
+  } else if(topic == "asOne/scoreboard/ipAddress") {
+    var host = message[0] + "." + message[1] + "." + message[2] + "." + message[3];
+    opcHost.setHost(host);
   }
 });

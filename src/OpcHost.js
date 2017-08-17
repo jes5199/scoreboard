@@ -17,9 +17,14 @@ class OpcHost {
     this.client = new net.Socket();
     this.client.on("error", this.onConnectError);
     this.client.on("connect", this.onConnected);
+    this.client.on("close", this.onClose);
 
     this.connect();
     this.reconnect();
+  }
+
+  setHost(host) {
+    this.host = host;
   }
 
   sendPixels(channel, colors) {
