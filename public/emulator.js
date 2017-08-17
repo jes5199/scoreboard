@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -189,36 +189,89 @@ exports.default = Pixels;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+var ThinFont = {
+  "0": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
+  "1": [[0, 0, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "2": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
+  "3": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1]],
+  "4": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "5": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1]],
+  "6": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
+  "7": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "8": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
+  "9": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 1]],
+  "A": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "B": [[1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0]],
+  "C": [[0, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [0, 1, 1, 1]],
+  "D": [[1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0]],
+  "E": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
+  "F": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]],
+  "G": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 0], [1, 0, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0]],
+  "H": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "I": [[0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "J": [[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0]],
+  "K": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "L": [[1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
+  "M": [// this sucks
+  [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 1], [0, 1, 1, 0], [0, 0, 0, 0], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "N": [[0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "O": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0]],
+  "P": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]],
+  "Q": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 0], [0, 1, 0, 1]],
+  "R": [[1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "S": [[0, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [0, 1, 1, 0], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 0]],
+  "T": [[0, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 0, 0, 0], [1, 0, 0, 0], [0, 1, 1, 0]],
+  "U": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 1]],
+  "V": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0]],
+  "W": [[1, 0, 0, 1], [1, 0, 0, 1], [0, 0, 0, 0], [0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [0, 0, 0, 0]],
+  "X": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "Y": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 0]],
+  "Z": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
+  " ": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+};
 
-var _Scoreboard = __webpack_require__(6);
+exports.default = ThinFont;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Scoreboard = __webpack_require__(7);
 
 var _Scoreboard2 = _interopRequireDefault(_Scoreboard);
 
-var _OpcChannel = __webpack_require__(5);
+var _OpcChannel = __webpack_require__(6);
 
 var _OpcChannel2 = _interopRequireDefault(_OpcChannel);
 
-var _ThinNumberDisplay = __webpack_require__(8);
+var _ThinNumberDisplay = __webpack_require__(9);
 
 var _ThinNumberDisplay2 = _interopRequireDefault(_ThinNumberDisplay);
 
-var _ThinDigit = __webpack_require__(7);
+var _ThinDigit = __webpack_require__(8);
 
 var _ThinDigit2 = _interopRequireDefault(_ThinDigit);
 
-var _ThinOne = __webpack_require__(9);
+var _ThinOne = __webpack_require__(10);
 
 var _ThinOne2 = _interopRequireDefault(_ThinOne);
 
-var _TinyNumberDisplay = __webpack_require__(11);
+var _TinyNumberDisplay = __webpack_require__(12);
 
 var _TinyNumberDisplay2 = _interopRequireDefault(_TinyNumberDisplay);
 
-var _TinyDigit = __webpack_require__(10);
+var _TinyDigit = __webpack_require__(11);
 
 var _TinyDigit2 = _interopRequireDefault(_TinyDigit);
 
-var _LogoDisplay = __webpack_require__(3);
+var _LogoDisplay = __webpack_require__(4);
 
 var _LogoDisplay2 = _interopRequireDefault(_LogoDisplay);
 
@@ -271,13 +324,13 @@ var WiringDiagram = function WiringDiagram(opcHost) {
 exports.default = WiringDiagram;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _WiringDiagram = __webpack_require__(1);
+var _WiringDiagram = __webpack_require__(2);
 
 var _WiringDiagram2 = _interopRequireDefault(_WiringDiagram);
 
@@ -313,7 +366,7 @@ document.setLogoColor = function (x) {
 };
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -366,7 +419,7 @@ var LogoDisplay = function () {
 exports.default = LogoDisplay;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -432,7 +485,7 @@ var NumberDisplay = function () {
 exports.default = NumberDisplay;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -492,7 +545,7 @@ var OpcChannel = function () {
 exports.default = OpcChannel;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -504,57 +557,61 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _NumberDisplay = __webpack_require__(4);
+var _NumberDisplay = __webpack_require__(5);
 
 var _NumberDisplay2 = _interopRequireDefault(_NumberDisplay);
 
-var _Numeric = __webpack_require__(18);
+var _Numeric = __webpack_require__(19);
 
 var _Numeric2 = _interopRequireDefault(_Numeric);
 
-var _TechnicolorSnow = __webpack_require__(20);
+var _TechnicolorSnow = __webpack_require__(21);
 
 var _TechnicolorSnow2 = _interopRequireDefault(_TechnicolorSnow);
 
-var _Fireflow = __webpack_require__(14);
+var _Fireflow = __webpack_require__(15);
 
 var _Fireflow2 = _interopRequireDefault(_Fireflow);
 
-var _DifferenceShader = __webpack_require__(13);
+var _DifferenceShader = __webpack_require__(14);
 
 var _DifferenceShader2 = _interopRequireDefault(_DifferenceShader);
 
-var _WhiteSpark = __webpack_require__(23);
+var _WhiteSpark = __webpack_require__(25);
 
 var _WhiteSpark2 = _interopRequireDefault(_WhiteSpark);
 
-var _RedCells = __webpack_require__(19);
+var _RedCells = __webpack_require__(20);
 
 var _RedCells2 = _interopRequireDefault(_RedCells);
 
-var _MergePatterns = __webpack_require__(17);
+var _MergePatterns = __webpack_require__(18);
 
 var _MergePatterns2 = _interopRequireDefault(_MergePatterns);
 
-var _MaskPattern = __webpack_require__(16);
+var _MaskPattern = __webpack_require__(17);
 
 var _MaskPattern2 = _interopRequireDefault(_MaskPattern);
 
-var _ThinNumeric = __webpack_require__(21);
+var _ThinNumeric = __webpack_require__(22);
 
 var _ThinNumeric2 = _interopRequireDefault(_ThinNumeric);
 
-var _TinyNumeric = __webpack_require__(22);
+var _TinyNumeric = __webpack_require__(24);
 
 var _TinyNumeric2 = _interopRequireDefault(_TinyNumeric);
 
-var _BlinkyTimer = __webpack_require__(12);
+var _BlinkyTimer = __webpack_require__(13);
 
 var _BlinkyTimer2 = _interopRequireDefault(_BlinkyTimer);
 
-var _HueFade = __webpack_require__(15);
+var _HueFade = __webpack_require__(16);
 
 var _HueFade2 = _interopRequireDefault(_HueFade);
+
+var _ThinWords = __webpack_require__(23);
+
+var _ThinWords2 = _interopRequireDefault(_ThinWords);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -580,11 +637,14 @@ var Scoreboard = function () {
 
     var bpmPattern = new _MaskPattern2.default(new _MergePatterns2.default([new _Fireflow2.default(this), new _DifferenceShader2.default(this)]), new _MergePatterns2.default([new _ThinNumeric2.default(this.leftDisplay), new _ThinNumeric2.default(this.rightDisplay)]));
 
+    var idlePattern = new _MaskPattern2.default(new _Fireflow2.default(this), new _ThinWords2.default(this.leftDisplay, this.rightDisplay));
+
     var timerPattern = new _MaskPattern2.default(new _BlinkyTimer2.default(this.timerDisplay), new _TinyNumeric2.default(this.timerDisplay));
 
     var logoPattern = new _HueFade2.default(this.logoDisplay);
 
-    this.pattern = new _MergePatterns2.default([bpmPattern, timerPattern, logoPattern]);
+    //this.pattern = new MergePatterns([ bpmPattern, timerPattern, logoPattern ]);
+    this.pattern = idlePattern;
 
     this.main = this.main.bind(this);
   }
@@ -686,10 +746,10 @@ var Scoreboard = function () {
 }();
 
 exports.default = Scoreboard;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(28).setImmediate))
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -767,7 +827,7 @@ var ThinDigit = function () {
 exports.default = ThinDigit;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -818,7 +878,7 @@ var ThinNumberDisplay = function () {
 exports.default = ThinNumberDisplay;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -888,7 +948,7 @@ var ThinOne = function () {
 exports.default = ThinOne;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -963,7 +1023,7 @@ var TinyDigit = function () {
 exports.default = TinyDigit;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1013,7 +1073,7 @@ var TinyNumberDisplay = function () {
 exports.default = TinyNumberDisplay;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1073,7 +1133,7 @@ var BlinkyTimer = function () {
 exports.default = BlinkyTimer;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1129,7 +1189,7 @@ var DifferenceShader = function () {
 exports.default = DifferenceShader;
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1197,7 +1257,7 @@ var Fireflow = function () {
 exports.default = Fireflow;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1256,7 +1316,7 @@ var HueFade = function () {
 exports.default = HueFade;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1299,7 +1359,7 @@ var MaskPattern = function () {
 exports.default = MaskPattern;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1344,7 +1404,7 @@ var MergePatterns = function () {
 exports.default = MergePatterns;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1432,7 +1492,7 @@ var Numeric = function () {
 exports.default = Numeric;
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1521,7 +1581,7 @@ var RedCells = function () {
 exports.default = RedCells;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1571,7 +1631,7 @@ var TechnicolorSnow = function () {
 exports.default = TechnicolorSnow;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1587,22 +1647,13 @@ var _Pixels = __webpack_require__(0);
 
 var _Pixels2 = _interopRequireDefault(_Pixels);
 
+var _Thin = __webpack_require__(1);
+
+var _Thin2 = _interopRequireDefault(_Thin);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var NumberShapes = {
-  "0": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
-  "1": [[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
-  "2": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
-  "3": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1]],
-  "4": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
-  "5": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1]],
-  "6": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
-  "7": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
-  "8": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
-  "9": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 1]]
-};
 
 var ThinNumeric = function () {
   function ThinNumeric(numberDisplay) {
@@ -1612,7 +1663,7 @@ var ThinNumeric = function () {
   }
 
   _createClass(ThinNumeric, [{
-    key: "render",
+    key: 'render',
     value: function render(time) {
       var pixels = new _Pixels2.default();
       var number = this.numberDisplay.number;
@@ -1631,7 +1682,7 @@ var ThinNumeric = function () {
 
       // 10s place
       var tens = Math.floor(number / 10) % 10;
-      var tensBmp = NumberShapes[tens];
+      var tensBmp = _Thin2.default[tens];
       this.numberDisplay.digits[1].paint(pixels, function (x, y) {
         if (tensBmp[y][x]) {
           return on;
@@ -1642,7 +1693,7 @@ var ThinNumeric = function () {
 
       // 1s place
       var ones = number % 10;
-      var onesBmp = NumberShapes[ones];
+      var onesBmp = _Thin2.default[ones];
       this.numberDisplay.digits[0].paint(pixels, function (x, y) {
         if (onesBmp[y][x]) {
           return on;
@@ -1661,7 +1712,128 @@ var ThinNumeric = function () {
 exports.default = ThinNumeric;
 
 /***/ }),
-/* 22 */
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Pixels = __webpack_require__(0);
+
+var _Pixels2 = _interopRequireDefault(_Pixels);
+
+var _Thin = __webpack_require__(1);
+
+var _Thin2 = _interopRequireDefault(_Thin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var vocabulary = ["AS1 ", "AS1 ", "AS1 ", "AS1 ", "AS  ONE ", "AS   ONE", " AS ONE ", " AS  ONE", "  ASONE ", "  AS ONE", "PLAY", "PLAY", "PLAY", "FUCK YOU", "HARTBEAT", "HARTBEAT", "HARTBEAT", "LOVE", "SOULMATE", "FIRE", "BURN", "SYNC  UP", "GAMEOVER", "SEXY", "HARTRATE", "HI    HI"];
+
+var ThinWords = function () {
+  function ThinWords(leftNumberDisplay, rightNumberDisplay) {
+    _classCallCheck(this, ThinWords);
+
+    this.leftNumberDisplay = leftNumberDisplay;
+    this.rightNumberDisplay = rightNumberDisplay;
+    this.lastWordTime = 0;
+    this.word = "TEST";
+    this.half = 0;
+    this.lastHalfWordTime = 0;
+  }
+
+  _createClass(ThinWords, [{
+    key: 'render',
+    value: function render(time) {
+      var now = new Date().getTime();
+      if (now - this.lastWordTime > 8000) {
+        this.lastWordTime = now;
+        this.lastHalfWordTime = now;
+        this.word = vocabulary[Math.floor(Math.random() * vocabulary.length)];
+        this.half = 0;
+      } else if (now - this.lastHalfWordTime > 2000) {
+        this.lastHalfWordTime = now;
+        this.half = !this.half;
+      }
+      var idx = this.word.length > 4 ? Math.floor(this.half * this.word.length / 2) : 0;
+      var show = this.word.substr(idx, 4);
+
+      var pixels = new _Pixels2.default();
+
+      var off = [0, 0, 0, 0];
+      var on = [1, 1, 1, 1];
+
+      // 100s places are just off
+      this.leftNumberDisplay.digits[2].paint(pixels, function (x, y) {
+        return off;
+      });
+      this.rightNumberDisplay.digits[2].paint(pixels, function (x, y) {
+        return off;
+      });
+
+      // L 10s place
+      var leftTens = show[0];
+      var leftTensBmp = _Thin2.default[leftTens];
+      this.leftNumberDisplay.digits[1].paint(pixels, function (x, y) {
+        if (leftTensBmp[y][x]) {
+          return on;
+        } else {
+          return off;
+        }
+      });
+
+      // L 1s place
+      var leftOnes = show[1];
+      var leftOnesBmp = _Thin2.default[leftOnes];
+      this.leftNumberDisplay.digits[0].paint(pixels, function (x, y) {
+        if (leftOnesBmp[y][x]) {
+          return on;
+        } else {
+          return off;
+        }
+      });
+
+      // R 10s place
+      var rightTens = show[2];
+      var rightTensBmp = _Thin2.default[rightTens];
+      this.rightNumberDisplay.digits[1].paint(pixels, function (x, y) {
+        if (rightTensBmp[y][x]) {
+          return on;
+        } else {
+          return off;
+        }
+      });
+
+      // R 1s place
+      var rightOnes = show[3];
+      var rightOnesBmp = _Thin2.default[rightOnes];
+      this.rightNumberDisplay.digits[0].paint(pixels, function (x, y) {
+        if (rightOnesBmp[y][x]) {
+          return on;
+        } else {
+          return off;
+        }
+      });
+
+      return pixels;
+    }
+  }]);
+
+  return ThinWords;
+}();
+
+exports.default = ThinWords;
+
+/***/ }),
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1742,7 +1914,7 @@ var TinyNumeric = function () {
 exports.default = TinyNumeric;
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1820,7 +1992,7 @@ var WhiteSpark = function () {
 exports.default = WhiteSpark;
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -2006,7 +2178,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -2196,10 +2368,10 @@ process.umask = function() { return 0; };
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27), __webpack_require__(24)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(29), __webpack_require__(26)))
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -2252,13 +2424,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(25);
+__webpack_require__(27);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports) {
 
 var g;

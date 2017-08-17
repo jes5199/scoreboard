@@ -11,6 +11,7 @@ import ThinNumeric from './patterns/ThinNumeric.js'
 import TinyNumeric from './patterns/TinyNumeric.js'
 import BlinkyTimer from './patterns/BlinkyTimer.js'
 import HueFade from './patterns/HueFade.js'
+import ThinWords from './patterns/ThinWords.js'
 
 class Scoreboard {
   constructor(leftDisplay, rightDisplay, timerDisplay, logoDisplay) {
@@ -33,6 +34,11 @@ class Scoreboard {
       new MergePatterns([ new ThinNumeric(this.leftDisplay), new ThinNumeric(this.rightDisplay) ])
     );
 
+    let idlePattern = new MaskPattern(
+      new Fireflow(this),
+      new ThinWords(this.leftDisplay, this.rightDisplay)
+    );
+
     let timerPattern = new MaskPattern(
       new BlinkyTimer(this.timerDisplay),
       new TinyNumeric(this.timerDisplay)
@@ -40,7 +46,8 @@ class Scoreboard {
 
     let logoPattern = new HueFade(this.logoDisplay);
 
-    this.pattern = new MergePatterns([ bpmPattern, timerPattern, logoPattern ]);
+    //this.pattern = new MergePatterns([ bpmPattern, timerPattern, logoPattern ]);
+    this.pattern = idlePattern;
 
     this.main = this.main.bind(this);
   }
