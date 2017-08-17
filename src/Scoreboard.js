@@ -14,6 +14,8 @@ import HueFade from './patterns/HueFade.js'
 import ThinWords from './patterns/ThinWords.js'
 import StatePatternSwitch from './patterns/StatePatternSwitch.js'
 import Off from './patterns/Off.js'
+import FadeIn from './patterns/FadeIn.js'
+import BrightenToWhite from './patterns/BrightenToWhite.js'
 
 class Scoreboard {
   constructor(leftDisplay, rightDisplay, timerDisplay, logoDisplay) {
@@ -32,6 +34,8 @@ class Scoreboard {
     this.timerDisplay = timerDisplay;
     this.logoDisplay = logoDisplay;
 
+    this.allDisplays = [this.leftDisplay, this.logoDisplay, this.timerDisplay, this.rightDisplay];
+
     let bpmPattern = new MaskPattern(
       new MergePatterns([ new Fireflow(this), new DifferenceShader(this)]),
       new MergePatterns([ new ThinNumeric(this.leftDisplay), new ThinNumeric(this.rightDisplay) ])
@@ -47,11 +51,20 @@ class Scoreboard {
     let activePattern = new MergePatterns([ bpmPattern, timerPattern, logoPattern ]);
 
     let idlePattern = new MaskPattern(
-      new MergePatterns([new Off(this), new Fireflow(this)]),
-      new MergePatterns([new ThinWords(this.leftDisplay, this.rightDisplay), new Off(this)])
+      new MergePatterns([
+        new Off([this.logoDisplay, this.timerDisplay]),
+        new Fireflow(this)]),
+      new MergePatterns([
+        new ThinWords(this.leftDisplay, this.rightDisplay),
+        new Off([this.logoDisplay, this.timerDisplay])])
     );
 
-    let wonPattern = new TechnicolorSnow(this); // FIXME: fade numbers to rainbows
+    let wonPattern =
+      new MergePatterns([
+        new BrightenToWhite(activePattern),
+        new MaskPattern(new TechnicolorSnow(this.allDisplays), new FadeIn(this.allDisplays)),
+        //new TechnicolorSnow(this.allDisplays)
+      ]);
 
     this.pattern = new StatePatternSwitch(this, [idlePattern, activePattern, wonPattern])
 
@@ -97,12 +110,11 @@ class Scoreboard {
   renderPattern() {
     var pixels = this.pattern.render(new Date().getTime() / 1000);
 
-    pixels.write({
-      "0": this.rightDisplay.channel,
-      "1": this.logoDisplay.channel,
-      "2": this.timerDisplay.channel,
-      "3": this.leftDisplay.channel,
-    });
+    let output = {};
+    for(var d = 0; d < this.allDisplays.length; d++) {
+      output[this.allDisplays[d].channel.channelNumber] = this.allDisplays[d].channel;
+    }
+    pixels.write(output);
   }
 
   main() {
