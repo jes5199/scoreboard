@@ -11,7 +11,10 @@ class MqttDirectOutput {
 
   sendPixels(channel, colors) {
     let topic = this.channelToTopic[channel];
-    this.client.publish(topic, new Buffer(colors));
+    let buffer = new Buffer(colors);
+    //console.log(topic + " " + buffer.length);
+    //console.log(buffer);
+    this.client.publish(topic, buffer);
   }
 
   isAlive() {

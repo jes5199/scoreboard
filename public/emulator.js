@@ -588,11 +588,9 @@ var Scoreboard = function () {
   function Scoreboard(leftDisplay, rightDisplay, timerDisplay, logoDisplay) {
     _classCallCheck(this, Scoreboard);
 
-    this.leftScore = 0;
-    this.rightScore = 0;
     this.state = 0; // idle
 
-    this.fps = 32; // frames per second
+    this.fps = 10; // frames per second
     this.leftNextFrameTime = 0;
     this.rightNextFrameTime = new Date().getTime() + this.frameDuration() / 2; // interlace left and right updates
 
@@ -604,6 +602,9 @@ var Scoreboard = function () {
     this.logoDisplay = logoDisplay;
 
     this.allDisplays = [this.leftDisplay, this.logoDisplay, this.timerDisplay, this.rightDisplay];
+
+    this.setLeft(60);
+    this.setRight(70);
 
     var bpmPattern = new _MaskPattern2.default(new _MergePatterns2.default([new _Fireflow2.default(this), new _DifferenceShader2.default(this)]), new _MergePatterns2.default([new _ThinNumeric2.default(this.leftDisplay), new _ThinNumeric2.default(this.rightDisplay)]));
 

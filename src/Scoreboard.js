@@ -19,11 +19,9 @@ import BrightenToWhite from './patterns/BrightenToWhite.js'
 
 class Scoreboard {
   constructor(leftDisplay, rightDisplay, timerDisplay, logoDisplay) {
-    this.leftScore = 0;
-    this.rightScore = 0;
     this.state = 0; // idle
 
-    this.fps = 32; // frames per second
+    this.fps = 10; // frames per second
     this.leftNextFrameTime = 0;
     this.rightNextFrameTime = (new Date()).getTime() + this.frameDuration() / 2; // interlace left and right updates
 
@@ -35,6 +33,9 @@ class Scoreboard {
     this.logoDisplay = logoDisplay;
 
     this.allDisplays = [this.leftDisplay, this.logoDisplay, this.timerDisplay, this.rightDisplay];
+
+    this.setLeft(60);
+    this.setRight(70);
 
     let bpmPattern = new MaskPattern(
       new MergePatterns([ new Fireflow(this), new DifferenceShader(this)]),
@@ -63,8 +64,8 @@ class Scoreboard {
       new MergePatterns([
         new BrightenToWhite(activePattern),
         new MaskPattern(new TechnicolorSnow(this.allDisplays), new FadeIn(this.allDisplays)),
-        //new TechnicolorSnow(this.allDisplays)
       ]);
+
 
     this.pattern = new StatePatternSwitch(this, [idlePattern, activePattern, wonPattern])
 

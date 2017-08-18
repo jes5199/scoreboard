@@ -13233,7 +13233,10 @@ var MqttDirectOutput = function () {
     key: "sendPixels",
     value: function sendPixels(channel, colors) {
       var topic = this.channelToTopic[channel];
-      this.client.publish(topic, new Buffer(colors));
+      var buffer = new Buffer(colors);
+      //console.log(topic + " " + buffer.length);
+      //console.log(buffer);
+      this.client.publish(topic, buffer);
     }
   }, {
     key: "isAlive",
@@ -14736,7 +14739,7 @@ client.subscribe("asOne/score/timer");
 client.subscribe("asOne/score/logo");
 client.subscribe("asOne/score/state");
 
-client.subscribe("asOne/scoreboard/ipAddress");
+client.subscribe("asOne/openPixelControl/scoreboard/ipAddress");
 
 var channelToTopic = {
   "1": "asOne/score/rightBPM/direct",
@@ -14754,13 +14757,13 @@ var multiOut = new _MultiOutput2.default([opcHost, mqttDirect]);
 // - 2: use UART with gamma correction
 // - 3: use UART with gamma correction and linear temporal interpolation
 // - 4: use UART with gamma correction and temporal dithering
-mqttDirect.setAcceleration(4); // :D
+mqttDirect.setAcceleration(2); // :D
 
 var scoreboard = new _WiringDiagram2.default(multiOut).scoreboard;
 scoreboard.start();
 
 client.on('message', function (topic, message) {
-  console.log([topic, message]);
+  //console.log([topic, message]);
   if (topic == "asOne/score/leftBPM") {
     scoreboard.setLeft(message[0]);
   } else if (topic == "asOne/score/rightBPM") {
@@ -14771,10 +14774,12 @@ client.on('message', function (topic, message) {
     scoreboard.setLogoColor([message[0], message[1], message[2]]);
   } else if (topic == "asOne/score/state") {
     scoreboard.setLogoColor(message[0]);
-  } else if (topic == "asOne/scoreboard/ipAddress") {
+  } else if (topic == "asOne/openPixelControl/scoreboard/ipAddress") {
     var host = message[0] + "." + message[1] + "." + message[2] + "." + message[3];
-    console.log("scoreboard seen on " + host);
-    opcHost.setHost(host);
+    if (host != opcHost.host) {
+      console.log("scoreboard seen on " + host);
+      opcHost.setHost(host);
+    }
   }
 });
 
@@ -14997,11 +15002,9 @@ var Scoreboard = function () {
   function Scoreboard(leftDisplay, rightDisplay, timerDisplay, logoDisplay) {
     _classCallCheck(this, Scoreboard);
 
-    this.leftScore = 0;
-    this.rightScore = 0;
     this.state = 0; // idle
 
-    this.fps = 32; // frames per second
+    this.fps = 10; // frames per second
     this.leftNextFrameTime = 0;
     this.rightNextFrameTime = new Date().getTime() + this.frameDuration() / 2; // interlace left and right updates
 
@@ -15013,6 +15016,9 @@ var Scoreboard = function () {
     this.logoDisplay = logoDisplay;
 
     this.allDisplays = [this.leftDisplay, this.logoDisplay, this.timerDisplay, this.rightDisplay];
+
+    this.setLeft(60);
+    this.setRight(70);
 
     var bpmPattern = new _MaskPattern2.default(new _MergePatterns2.default([new _Fireflow2.default(this), new _DifferenceShader2.default(this)]), new _MergePatterns2.default([new _ThinNumeric2.default(this.leftDisplay), new _ThinNumeric2.default(this.rightDisplay)]));
 

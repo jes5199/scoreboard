@@ -45,13 +45,14 @@ var multiOut = new MultiOutput([opcHost, mqttDirect]);
 // - 2: use UART with gamma correction
 // - 3: use UART with gamma correction and linear temporal interpolation
 // - 4: use UART with gamma correction and temporal dithering
-mqttDirect.setAcceleration(4); // :D
+mqttDirect.setAcceleration(2); // :D
 
 var scoreboard = (new WiringDiagram(multiOut)).scoreboard;
 scoreboard.start();
 
+
 client.on('message', function (topic, message) {
-  console.log([topic, message]);
+  //console.log([topic, message]);
   if(topic == "asOne/score/leftBPM") {
     scoreboard.setLeft(message[0]);
   } else if(topic == "asOne/score/rightBPM") {
@@ -64,7 +65,9 @@ client.on('message', function (topic, message) {
     scoreboard.setLogoColor(message[0]);
   } else if(topic == "asOne/openPixelControl/scoreboard/ipAddress") {
     var host = message[0] + "." + message[1] + "." + message[2] + "." + message[3];
-    console.log("scoreboard seen on " + host);
-    opcHost.setHost(host);
+    if(host != opcHost.host) {
+      console.log("scoreboard seen on " + host);
+      opcHost.setHost(host);
+    }
   }
 });
