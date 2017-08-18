@@ -14725,7 +14725,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var program = __webpack_require__(82);
 
-program.option('-m, --mqtt <hostname>', 'MQTT host').option('-o, --opc <opc>', 'Open Pixel Control host').parse(process.argv);
+program.option('-m, --mqtt <hostname>', 'MQTT host').option('-o, --opc <opc>', 'Open Pixel Control host').option('-f, --fps <num>', 'Frames Per Second target').parse(process.argv);
 
 if (!program.mqtt) {
   program.mqtt = "localhost";
@@ -14768,12 +14768,15 @@ var multiOut = new _MultiOutput2.default([opcHost, mqttDirect]);
 // - 4: use UART with gamma correction and temporal dithering
 function setMqttSettings() {
   mqttDirect.setAcceleration(4); // :D
-  setTimeout(setMqttSettings, 1000);
+  setTimeout(setMqttSettings, 5000);
 }
 
 setMqttSettings();
 
 var scoreboard = new _WiringDiagram2.default(multiOut).scoreboard;
+if (program.fps) {
+  scoreboard.setFPS(program.fps);
+}
 scoreboard.start();
 
 client.on('message', function (topic, message) {
@@ -15055,6 +15058,14 @@ var Scoreboard = function () {
     key: 'setState',
     value: function setState(state) {
       this.state = state;
+    }
+  }, {
+    key: 'setFPS',
+    value: function setFPS(fps) {
+      if (fps != this.fps) {
+        this.fps = fps;
+        console.log("Set FPS to " + fps);
+      }
     }
   }, {
     key: 'setLeft',

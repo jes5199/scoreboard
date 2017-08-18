@@ -629,6 +629,14 @@ var Scoreboard = function () {
       this.state = state;
     }
   }, {
+    key: 'setFPS',
+    value: function setFPS(fps) {
+      if (fps != this.fps) {
+        this.fps = fps;
+        console.log("Set FPS to " + fps);
+      }
+    }
+  }, {
     key: 'setLeft',
     value: function setLeft(score) {
       this.leftScore = score;

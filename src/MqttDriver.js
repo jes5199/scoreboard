@@ -8,6 +8,7 @@ var program = require('commander');
 program
   .option('-m, --mqtt <hostname>', 'MQTT host')
   .option('-o, --opc <opc>', 'Open Pixel Control host')
+  .option('-f, --fps <num>', 'Frames Per Second target')
   .parse(process.argv);
 
 if(!program.mqtt) {program.mqtt = "localhost";}
@@ -47,12 +48,15 @@ var multiOut = new MultiOutput([opcHost, mqttDirect]);
 // - 4: use UART with gamma correction and temporal dithering
 function setMqttSettings(){
   mqttDirect.setAcceleration(4); // :D
-  setTimeout(setMqttSettings, 1000);
+  setTimeout(setMqttSettings, 5000);
 }
 
 setMqttSettings();
 
 var scoreboard = (new WiringDiagram(multiOut)).scoreboard;
+if(program.fps) {
+  scoreboard.setFPS(program.fps);
+}
 scoreboard.start();
 
 client.on('message', function (topic, message) {

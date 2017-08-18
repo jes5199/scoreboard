@@ -76,6 +76,13 @@ class Scoreboard {
     this.state = state;
   }
 
+  setFPS(fps) {
+    if(fps != this.fps) {
+      this.fps = fps;
+      console.log("Set FPS to " + fps);
+    }
+  }
+
   setLeft(score) {
     this.leftScore = score;
     this.leftDisplay.update(this.leftScore);
