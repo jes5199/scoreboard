@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -189,89 +189,36 @@ exports.default = Pixels;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var ThinFont = {
-  "0": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
-  "1": [[0, 0, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
-  "2": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
-  "3": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1]],
-  "4": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
-  "5": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1]],
-  "6": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
-  "7": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
-  "8": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
-  "9": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 1]],
-  "A": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
-  "B": [[1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0]],
-  "C": [[0, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [0, 1, 1, 1]],
-  "D": [[1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0]],
-  "E": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
-  "F": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]],
-  "G": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 0], [1, 0, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0]],
-  "H": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
-  "I": [[0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
-  "J": [[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0]],
-  "K": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
-  "L": [[1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
-  "M": [// this sucks
-  [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 1], [0, 1, 1, 0], [0, 0, 0, 0], [1, 0, 0, 1], [1, 0, 0, 1]],
-  "N": [[0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
-  "O": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0]],
-  "P": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]],
-  "Q": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 0], [0, 1, 0, 1]],
-  "R": [[1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
-  "S": [[0, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [0, 1, 1, 0], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 0]],
-  "T": [[0, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 0, 0, 0], [1, 0, 0, 0], [0, 1, 1, 0]],
-  "U": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 1]],
-  "V": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0]],
-  "W": [[1, 0, 0, 1], [1, 0, 0, 1], [0, 0, 0, 0], [0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [0, 0, 0, 0]],
-  "X": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
-  "Y": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 0]],
-  "Z": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
-  " ": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
-};
 
-exports.default = ThinFont;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Scoreboard = __webpack_require__(7);
+var _Scoreboard = __webpack_require__(6);
 
 var _Scoreboard2 = _interopRequireDefault(_Scoreboard);
 
-var _OpcChannel = __webpack_require__(6);
+var _OpcChannel = __webpack_require__(5);
 
 var _OpcChannel2 = _interopRequireDefault(_OpcChannel);
 
-var _ThinNumberDisplay = __webpack_require__(9);
+var _ThinNumberDisplay = __webpack_require__(8);
 
 var _ThinNumberDisplay2 = _interopRequireDefault(_ThinNumberDisplay);
 
-var _ThinDigit = __webpack_require__(8);
+var _ThinDigit = __webpack_require__(7);
 
 var _ThinDigit2 = _interopRequireDefault(_ThinDigit);
 
-var _ThinOne = __webpack_require__(10);
+var _ThinOne = __webpack_require__(9);
 
 var _ThinOne2 = _interopRequireDefault(_ThinOne);
 
-var _TinyNumberDisplay = __webpack_require__(12);
+var _TinyNumberDisplay = __webpack_require__(11);
 
 var _TinyNumberDisplay2 = _interopRequireDefault(_TinyNumberDisplay);
 
-var _TinyDigit = __webpack_require__(11);
+var _TinyDigit = __webpack_require__(10);
 
 var _TinyDigit2 = _interopRequireDefault(_TinyDigit);
 
-var _LogoDisplay = __webpack_require__(4);
+var _LogoDisplay = __webpack_require__(3);
 
 var _LogoDisplay2 = _interopRequireDefault(_LogoDisplay);
 
@@ -324,13 +271,13 @@ var WiringDiagram = function WiringDiagram(opcHost) {
 exports.default = WiringDiagram;
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _WiringDiagram = __webpack_require__(2);
+var _WiringDiagram = __webpack_require__(1);
 
 var _WiringDiagram2 = _interopRequireDefault(_WiringDiagram);
 
@@ -370,7 +317,7 @@ document.setLogoColor = function (x) {
 };
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -423,7 +370,7 @@ var LogoDisplay = function () {
 exports.default = LogoDisplay;
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -489,7 +436,7 @@ var NumberDisplay = function () {
 exports.default = NumberDisplay;
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -549,7 +496,7 @@ var OpcChannel = function () {
 exports.default = OpcChannel;
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -561,75 +508,75 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _NumberDisplay = __webpack_require__(5);
+var _NumberDisplay = __webpack_require__(4);
 
 var _NumberDisplay2 = _interopRequireDefault(_NumberDisplay);
 
-var _Numeric = __webpack_require__(21);
+var _Numeric = __webpack_require__(20);
 
 var _Numeric2 = _interopRequireDefault(_Numeric);
 
-var _TechnicolorSnow = __webpack_require__(25);
+var _TechnicolorSnow = __webpack_require__(24);
 
 var _TechnicolorSnow2 = _interopRequireDefault(_TechnicolorSnow);
 
-var _Fireflow = __webpack_require__(17);
+var _Fireflow = __webpack_require__(16);
 
 var _Fireflow2 = _interopRequireDefault(_Fireflow);
 
-var _DifferenceShader = __webpack_require__(15);
+var _DifferenceShader = __webpack_require__(14);
 
 var _DifferenceShader2 = _interopRequireDefault(_DifferenceShader);
 
-var _WhiteSpark = __webpack_require__(29);
+var _WhiteSpark = __webpack_require__(28);
 
 var _WhiteSpark2 = _interopRequireDefault(_WhiteSpark);
 
-var _RedCells = __webpack_require__(23);
+var _RedCells = __webpack_require__(22);
 
 var _RedCells2 = _interopRequireDefault(_RedCells);
 
-var _MergePatterns = __webpack_require__(20);
+var _MergePatterns = __webpack_require__(19);
 
 var _MergePatterns2 = _interopRequireDefault(_MergePatterns);
 
-var _MaskPattern = __webpack_require__(19);
+var _MaskPattern = __webpack_require__(18);
 
 var _MaskPattern2 = _interopRequireDefault(_MaskPattern);
 
-var _ThinNumeric = __webpack_require__(26);
+var _ThinNumeric = __webpack_require__(25);
 
 var _ThinNumeric2 = _interopRequireDefault(_ThinNumeric);
 
-var _TinyNumeric = __webpack_require__(28);
+var _TinyNumeric = __webpack_require__(27);
 
 var _TinyNumeric2 = _interopRequireDefault(_TinyNumeric);
 
-var _BlinkyTimer = __webpack_require__(13);
+var _BlinkyTimer = __webpack_require__(12);
 
 var _BlinkyTimer2 = _interopRequireDefault(_BlinkyTimer);
 
-var _HueFade = __webpack_require__(18);
+var _HueFade = __webpack_require__(17);
 
 var _HueFade2 = _interopRequireDefault(_HueFade);
 
-var _ThinWords = __webpack_require__(27);
+var _ThinWords = __webpack_require__(26);
 
 var _ThinWords2 = _interopRequireDefault(_ThinWords);
 
-var _StatePatternSwitch = __webpack_require__(24);
+var _StatePatternSwitch = __webpack_require__(23);
 
 var _StatePatternSwitch2 = _interopRequireDefault(_StatePatternSwitch);
 
-var _Off = __webpack_require__(22);
+var _Off = __webpack_require__(21);
 
 var _Off2 = _interopRequireDefault(_Off);
 
-var _FadeIn = __webpack_require__(16);
+var _FadeIn = __webpack_require__(15);
 
 var _FadeIn2 = _interopRequireDefault(_FadeIn);
 
-var _BrightenToWhite = __webpack_require__(14);
+var _BrightenToWhite = __webpack_require__(13);
 
 var _BrightenToWhite2 = _interopRequireDefault(_BrightenToWhite);
 
@@ -776,10 +723,10 @@ var Scoreboard = function () {
 }();
 
 exports.default = Scoreboard;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(32).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33).setImmediate))
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -857,7 +804,7 @@ var ThinDigit = function () {
 exports.default = ThinDigit;
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -908,7 +855,7 @@ var ThinNumberDisplay = function () {
 exports.default = ThinNumberDisplay;
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -978,7 +925,7 @@ var ThinOne = function () {
 exports.default = ThinOne;
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1053,7 +1000,7 @@ var TinyDigit = function () {
 exports.default = TinyDigit;
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1103,7 +1050,7 @@ var TinyNumberDisplay = function () {
 exports.default = TinyNumberDisplay;
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1163,7 +1110,7 @@ var BlinkyTimer = function () {
 exports.default = BlinkyTimer;
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1226,7 +1173,7 @@ var BrightenToWhite = function () {
 exports.default = BrightenToWhite;
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1289,7 +1236,7 @@ var DifferenceShader = function () {
 exports.default = DifferenceShader;
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1351,7 +1298,7 @@ var FadeIn = function () {
 exports.default = FadeIn;
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1419,7 +1366,7 @@ var Fireflow = function () {
 exports.default = Fireflow;
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1478,7 +1425,7 @@ var HueFade = function () {
 exports.default = HueFade;
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1521,7 +1468,7 @@ var MaskPattern = function () {
 exports.default = MaskPattern;
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1566,7 +1513,7 @@ var MergePatterns = function () {
 exports.default = MergePatterns;
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1654,7 +1601,7 @@ var Numeric = function () {
 exports.default = Numeric;
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1701,7 +1648,7 @@ var Off = function () {
 exports.default = Off;
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1790,7 +1737,7 @@ var RedCells = function () {
 exports.default = RedCells;
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1825,7 +1772,7 @@ var StatePatternSwitch = function () {
 exports.default = StatePatternSwitch;
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1872,7 +1819,7 @@ var TechnicolorSnow = function () {
 exports.default = TechnicolorSnow;
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1888,9 +1835,9 @@ var _Pixels = __webpack_require__(0);
 
 var _Pixels2 = _interopRequireDefault(_Pixels);
 
-var _Thin = __webpack_require__(1);
+var _ThinNumeric = __webpack_require__(30);
 
-var _Thin2 = _interopRequireDefault(_Thin);
+var _ThinNumeric2 = _interopRequireDefault(_ThinNumeric);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1923,7 +1870,7 @@ var ThinNumeric = function () {
 
       // 10s place
       var tens = Math.floor(number / 10) % 10;
-      var tensBmp = _Thin2.default[tens];
+      var tensBmp = _ThinNumeric2.default[tens];
       this.numberDisplay.digits[1].paint(pixels, function (x, y) {
         if (tensBmp[y][x]) {
           return on;
@@ -1934,7 +1881,7 @@ var ThinNumeric = function () {
 
       // 1s place
       var ones = number % 10;
-      var onesBmp = _Thin2.default[ones];
+      var onesBmp = _ThinNumeric2.default[ones];
       this.numberDisplay.digits[0].paint(pixels, function (x, y) {
         if (onesBmp[y][x]) {
           return on;
@@ -1953,7 +1900,7 @@ var ThinNumeric = function () {
 exports.default = ThinNumeric;
 
 /***/ }),
-/* 27 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1969,7 +1916,7 @@ var _Pixels = __webpack_require__(0);
 
 var _Pixels2 = _interopRequireDefault(_Pixels);
 
-var _Thin = __webpack_require__(1);
+var _Thin = __webpack_require__(29);
 
 var _Thin2 = _interopRequireDefault(_Thin);
 
@@ -1977,9 +1924,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var titles = ["AS1 ", "AS1 ", "AS1 ", "AS1 ", "AS  ONE ", "AS   ONE", " AS ONE ", " AS  ONE", "  ASONE ", "  AS ONE"];
+var titles = ["AS1 ", "AS1 ", "AS1 ", "AS1 ", "AS1 ", "AS1 ", "AS  ONE ", "AS   ONE", " AS ONE ", " AS  ONE", "  ASONE ", "  AS ONE"];
 
-var words = ["PLAYTHIS", "PLAYHERE", "LOVEPLAY", "FUCK YOU", "HARTBEAT", "HARTBEAT", "HARTBEAT", "ONE LOVE", " ONELOVE", "SOULMATE", "FIREPOOF", "FIRE", "BURN", "SYNC  UP", "GAMEOVER", "SEXYTIME", "HI    HI"];
+var words = [
+// Ws and Ms are kind of illegible but sometimes it might be ok
+
+"HARTBEAT", "HARTBEAT", "HARTBEAT", "HARTBEAT", "HARTBEAT", "HARTBEAT", "SYNC  UP", "BLOOOOOD", "SYNCBEAT", "FIREPOOF", "FIRE", "BURN", "REALFIRE", "FLAAAAME", "PLAYTHIS", "PLAYHERE", "PLAYGAME", "GAMEOVER", "GOODGAME", "GOODLUCK", "COOLHACK", "GOODIDEA", "FINDLOVE", "GOODDATE", "LOVEGAME", "LOVETEST", "LOVEPLAY", "SEXYTIME", "SEX PRTY", "GOODFUCK", "MAKEBABY", "BOOB IES", "PEEE NIS", "LIMPDICK", "EAT POOP", "FUCK YOU", "FUCKYALL", "FKYRBURN", "FKYRDAY ", "DARNIT! ", "DANGIT! ", "HOT DAMM", "OH  SHIT", "UHOHOHNO", "THATBLEW", " EATDUST", "WHATTHE?", "HUH?WHAT", "!!!!!?!?", "ONE LOVE", " ONELOVE", "TRUELOVE", "SOULMATE", "BESTBUDS", " 2X LUVS", "LOVEYOUS", "HI    HI", "HELOJACK", "MARYME? ", "FREEWIFI", "FREELOFI", "FREEHIFI", "FREEBEER", "FREEDRUG", "FREECATS", "FREEHUGS", "FREE BOB", "OPEN", "TAXIFARE", "FONECALL", "LANDLINE", "TAKEDRUG", "TAKEACID", "HUG COPS", "HUG LARY", "WASPEGGS", "NITEMARE", "HOT DICE", "LIMPDICE", "MOONROCK", "NOT  NOW", "MANALIVE", "HOLDSPCE", "JERKSONG", "GPE RULS", "JOY!LIFE", "TIMETRVL", "JES 5199"];
 
 var ThinWords = function () {
   function ThinWords(leftNumberDisplay, rightNumberDisplay) {
@@ -2079,7 +2029,7 @@ var ThinWords = function () {
 exports.default = ThinWords;
 
 /***/ }),
-/* 28 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2160,7 +2110,7 @@ var TinyNumeric = function () {
 exports.default = TinyNumeric;
 
 /***/ }),
-/* 29 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2238,7 +2188,90 @@ var WhiteSpark = function () {
 exports.default = WhiteSpark;
 
 /***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var ThinFont = {
+  "0": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
+  "1": [[0, 0, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "2": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
+  "3": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1]],
+  "4": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "5": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1]],
+  "6": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
+  "7": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "8": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
+  "9": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 1]],
+  "A": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "B": [[1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0]],
+  "C": [[0, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [0, 1, 1, 1]],
+  "D": [[1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0]],
+  "E": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
+  "F": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]],
+  "G": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 0], [1, 0, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0]],
+  "H": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "I": [[0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "J": [[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0]],
+  "K": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "L": [[1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
+  "M": [// this sucks
+  [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 1], [0, 1, 1, 0], [0, 0, 0, 0], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "N": [[0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "O": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0]],
+  "P": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]],
+  "Q": [[0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 0], [0, 1, 0, 1]],
+  "R": [[1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "S": [[0, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [0, 1, 1, 0], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 0]],
+  "T": [[0, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 0], [1, 0, 0, 0], [1, 0, 0, 0], [0, 1, 1, 0]],
+  "U": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 1]],
+  "V": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0]],
+  "W": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0], [1, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
+  "X": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 0], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1]],
+  "Y": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [0, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 0]],
+  "Z": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
+  " ": [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+  "?": [[0, 1, 1, 0], [1, 0, 0, 1], [0, 0, 0, 1], [0, 0, 1, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1, 0]],
+  "!": [[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 1]]
+};
+
+exports.default = ThinFont;
+
+/***/ }),
 /* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// The only difference between these numbers and the ones in fonts/Thin.js
+// is the number 1, which is serifed when used with letters
+
+var ThinNumericFont = {
+  "0": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
+  "1": [[0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "2": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1]],
+  "3": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1]],
+  "4": [[1, 0, 0, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "5": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [1, 1, 1, 1]],
+  "6": [[1, 1, 1, 1], [1, 0, 0, 0], [1, 0, 0, 0], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
+  "7": [[1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 0, 0, 1]],
+  "8": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1]],
+  "9": [[1, 1, 1, 1], [1, 0, 0, 1], [1, 0, 0, 1], [1, 1, 1, 1], [0, 0, 0, 1], [0, 0, 0, 1], [0, 1, 1, 1]]
+};
+
+exports.default = ThinNumericFont;
+
+/***/ }),
+/* 31 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -2424,7 +2457,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -2614,10 +2647,10 @@ process.umask = function() { return 0; };
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33), __webpack_require__(30)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34), __webpack_require__(31)))
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -2670,13 +2703,13 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(31);
+__webpack_require__(32);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports) {
 
 var g;

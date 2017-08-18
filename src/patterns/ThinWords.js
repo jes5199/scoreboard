@@ -6,6 +6,8 @@ let titles = [
   "AS1 ",
   "AS1 ",
   "AS1 ",
+  "AS1 ",
+  "AS1 ",
   "AS  ONE ",
   "AS   ONE",
   " AS ONE ",
@@ -15,24 +17,40 @@ let titles = [
 ];
 
 let words = [
-  "PLAYTHIS",
-  "PLAYHERE",
-  "LOVEPLAY",
-  "FUCK YOU",
-  "HARTBEAT",
-  "HARTBEAT",
-  "HARTBEAT",
-  "ONE LOVE",
-  " ONELOVE",
-  "SOULMATE",
-  "FIREPOOF",
-  "FIRE",
-  "BURN",
-  "SYNC  UP",
-  "GAMEOVER",
-  "SEXYTIME",
-  "HI    HI",
-  ];
+  // Ws and Ms are kind of illegible but sometimes it might be ok
+
+  "HARTBEAT", "HARTBEAT", "HARTBEAT", "HARTBEAT", "HARTBEAT", "HARTBEAT",
+  "SYNC  UP", "BLOOOOOD", "SYNCBEAT",
+  "FIREPOOF", "FIRE", "BURN", "REALFIRE", "FLAAAAME",
+
+  "PLAYTHIS", "PLAYHERE", "PLAYGAME",
+  "GAMEOVER", "GOODGAME", "GOODLUCK",
+  "COOLHACK", "GOODIDEA",
+
+  "FINDLOVE", "GOODDATE", "LOVEGAME", "LOVETEST",
+  "LOVEPLAY", "SEXYTIME", "SEX PRTY", "GOODFUCK", "MAKEBABY",
+
+  "BOOB IES", "PEEE NIS", "LIMPDICK", "EAT POOP",
+  "FUCK YOU", "FUCKYALL", "FKYRBURN", "FKYRDAY ",
+  "DARNIT! ", "DANGIT! ", "HOT DAMM",
+  "OH  SHIT", "UHOHOHNO", "THATBLEW",
+  " EATDUST",
+  "WHATTHE?", "HUH?WHAT", "!!!!!?!?",
+
+  "ONE LOVE", " ONELOVE",
+  "TRUELOVE", "SOULMATE", "BESTBUDS", " 2X LUVS", "LOVEYOUS",
+
+  "HI    HI", "HELOJACK", "MARYME? ",
+
+  "FREEWIFI", "FREELOFI", "FREEHIFI", "FREEBEER", "FREEDRUG",
+  "FREECATS", "FREEHUGS", "FREE BOB",
+  "OPEN", "TAXIFARE", "FONECALL", "LANDLINE",
+
+  "TAKEDRUG", "TAKEACID", "HUG COPS", "HUG LARY",
+  "WASPEGGS", "NITEMARE", "HOT DICE", "LIMPDICE",
+  "MOONROCK", "NOT  NOW", "MANALIVE", "HOLDSPCE", "JERKSONG", "GPE RULS",
+  "JOY!LIFE", "TIMETRVL", "JES 5199",
+];
 
 
 class ThinWords {
