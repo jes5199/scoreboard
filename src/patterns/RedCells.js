@@ -16,9 +16,9 @@ class RedCells{
     this.lastMillis = [0,0];
   }
 
-  moveCells(d, bpm) {
+  moveCells(time, d, bpm) {
     var cells = d ? this.rightCells : this.leftCells;
-    var nowMillis = (new Date()).getTime();
+    var nowMillis = time * 1000;
     if( nowMillis >= this.lastMillis[d] + (1000 / bpm)) {
       this.lastMillis[d] = nowMillis;
 
@@ -40,7 +40,7 @@ class RedCells{
     var numberDisplays = [this.scoreboard.leftDisplay, this.scoreboard.rightDisplay];
     var cellpos = this;
     for(var d = 0; d < numberDisplays.length; d++) {
-      this.moveCells(d, numberDisplays[this.d].number);
+      this.moveCells(time, d, numberDisplays[this.d].number);
       var numberDisplay = numberDisplays[d];
       var number = numberDisplay.number;
       var angle = 0.25 * Math.PI / 2 * (d * 2 - 1);

@@ -47,7 +47,7 @@ class ThinWords {
   }
 
   render(time) {
-    let now = new Date().getTime();
+    let now = time * 1000;
     if(now - this.lastWordTime > 8000) {
       this.title = !this.title;
       this.lastWordTime = now;

@@ -1198,7 +1198,7 @@ var BrightenToWhite = function () {
       var outPixels = new _Pixels2.default();
       var inPixels = this.pattern.render(time);
 
-      var now = new Date().getTime();
+      var now = time * 1000;
 
       if (now - this.lastRenderMillis > 500) {
         this.fadeStartMillis = now;
@@ -1325,7 +1325,7 @@ var FadeIn = function () {
 
       var alpha = 0;
 
-      var now = new Date().getTime();
+      var now = time * 1000;
 
       if (now - this.lastRenderMillis > 500) {
         this.fadeStartMillis = now;
@@ -1383,8 +1383,8 @@ var Fireflow = function () {
 
   _createClass(Fireflow, [{
     key: 'moveOffset',
-    value: function moveOffset(n, bpm) {
-      var nowMillis = new Date().getTime();
+    value: function moveOffset(time, n, bpm) {
+      var nowMillis = time * 1000;
       var diffMillis = nowMillis - this.lastMillis[n];
       this.offsets[n] += bpm / 60 * diffMillis / 1000 / 2;
       this.lastMillis[n] = nowMillis;
@@ -1399,7 +1399,7 @@ var Fireflow = function () {
         var numberDisplay = numberDisplays[d];
         var number = numberDisplay.number;
         var angle = 0.30 * Math.PI / 2 * (d * 2 - 1);
-        this.moveOffset(d, number);
+        this.moveOffset(time, d, number);
         var offset = this.offsets[d];
         numberDisplay.paint(pixels, function (x, y) {
           //var ty = (Math.sin(angle) * x + Math.cos(angle) * y) / 4 + time * Math.PI * number / 60;
@@ -1741,9 +1741,9 @@ var RedCells = function () {
 
   _createClass(RedCells, [{
     key: 'moveCells',
-    value: function moveCells(d, bpm) {
+    value: function moveCells(time, d, bpm) {
       var cells = d ? this.rightCells : this.leftCells;
-      var nowMillis = new Date().getTime();
+      var nowMillis = time * 1000;
       if (nowMillis >= this.lastMillis[d] + 1000 / bpm) {
         this.lastMillis[d] = nowMillis;
 
@@ -1766,7 +1766,7 @@ var RedCells = function () {
       var numberDisplays = [this.scoreboard.leftDisplay, this.scoreboard.rightDisplay];
       var cellpos = this;
       for (var d = 0; d < numberDisplays.length; d++) {
-        this.moveCells(d, numberDisplays[this.d].number);
+        this.moveCells(time, d, numberDisplays[this.d].number);
         var numberDisplay = numberDisplays[d];
         var number = numberDisplay.number;
         var angle = 0.25 * Math.PI / 2 * (d * 2 - 1);
@@ -1997,7 +1997,7 @@ var ThinWords = function () {
   _createClass(ThinWords, [{
     key: 'render',
     value: function render(time) {
-      var now = new Date().getTime();
+      var now = time * 1000;
       if (now - this.lastWordTime > 8000) {
         this.title = !this.title;
         this.lastWordTime = now;
@@ -2193,8 +2193,8 @@ var WhiteSpark = function () {
 
   _createClass(WhiteSpark, [{
     key: 'moveSpark',
-    value: function moveSpark(bpm) {
-      var nowMillis = new Date().getTime();
+    value: function moveSpark(time, bpm) {
+      var nowMillis = time * 1000;
       if (nowMillis >= this.lastMillis + 1000 / bpm) {
         this.lastMillis = nowMillis;
         this.x += Math.random() * (this.d ? -1 : 1);
@@ -2215,7 +2215,7 @@ var WhiteSpark = function () {
       var pixels = new _Pixels2.default();
       var numberDisplays = [this.scoreboard.leftDisplay, this.scoreboard.rightDisplay];
       var whitespark = this;
-      this.moveSpark(numberDisplays[this.d].number);
+      this.moveSpark(time, numberDisplays[this.d].number);
       for (var d = 0; d < numberDisplays.length; d++) {
         var numberDisplay = numberDisplays[d];
         var number = numberDisplay.number;

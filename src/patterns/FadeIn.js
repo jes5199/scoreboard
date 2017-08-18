@@ -12,7 +12,7 @@ class FadeIn {
 
     var alpha = 0;
 
-    var now = (new Date()).getTime();
+    var now = time * 1000;
 
     if(now - this.lastRenderMillis > 500) {
       this.fadeStartMillis = now;

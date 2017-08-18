@@ -11,7 +11,7 @@ class BrightenToWhite {
     var outPixels = new Pixels();
     var inPixels = this.pattern.render(time);
 
-    var now = (new Date()).getTime();
+    var now = time * 1000;
 
     if(now - this.lastRenderMillis > 500) {
       this.fadeStartMillis = now;

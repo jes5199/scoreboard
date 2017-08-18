@@ -9,8 +9,8 @@ class WhiteSpark {
     this.lastMillis = 0;
   }
 
-  moveSpark(bpm) {
-    var nowMillis = (new Date()).getTime();
+  moveSpark(time, bpm) {
+    var nowMillis = time * 1000;
     if( nowMillis >= this.lastMillis + (1000 / bpm)) {
       this.lastMillis = nowMillis;
       this.x += Math.random() * (this.d ? -1 : 1);
@@ -30,7 +30,7 @@ class WhiteSpark {
     var pixels = new Pixels();
     var numberDisplays = [this.scoreboard.leftDisplay, this.scoreboard.rightDisplay];
     var whitespark = this;
-    this.moveSpark(numberDisplays[this.d].number);
+    this.moveSpark(time, numberDisplays[this.d].number);
     for(var d = 0; d < numberDisplays.length; d++) {
       var numberDisplay = numberDisplays[d];
       var number = numberDisplay.number;

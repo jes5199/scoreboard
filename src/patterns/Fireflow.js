@@ -8,8 +8,8 @@ class Fireflow {
     this.lastMillis = [nowMillis, nowMillis];
   }
 
-  moveOffset(n, bpm) {
-    var nowMillis = (new Date()).getTime();
+  moveOffset(time, n, bpm) {
+    var nowMillis = time * 1000;
     var diffMillis = (nowMillis - this.lastMillis[n])
     this.offsets[n] += bpm / 60 * diffMillis / 1000 / 2;
     this.lastMillis[n] = nowMillis;
@@ -23,7 +23,7 @@ class Fireflow {
       var numberDisplay = numberDisplays[d];
       var number = numberDisplay.number;
       var angle = 0.30 * Math.PI / 2 * (d * 2 - 1);
-      this.moveOffset(d, number);
+      this.moveOffset(time, d, number);
       var offset = this.offsets[d];
       numberDisplay.paint(pixels, function(x,y) {
         //var ty = (Math.sin(angle) * x + Math.cos(angle) * y) / 4 + time * Math.PI * number / 60;
