@@ -1,6 +1,7 @@
 class MultiOutput {
   constructor(outputs) {
     this.outputs = outputs;
+    this.lastAlive = -1;
   }
 
   sendPixels(channel, colors) {
@@ -9,6 +10,10 @@ class MultiOutput {
       let output = this.outputs[i];
       // delegate sendPixels there
       if(output.isAlive()) {
+        if(this.lastAlive != i) {
+          console.log("switched to output " + output.constructor.name);
+          this.lastAlive = i;
+        }
         return output.sendPixels(channel, colors);
       }
     }

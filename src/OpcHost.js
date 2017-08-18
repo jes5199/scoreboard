@@ -7,7 +7,6 @@ class OpcHost {
 
     this.connected = false;
     this.connecting = false;
-    this.reconnecting = true;
 
     this.onConnected = this.onConnected.bind(this);
     this.onClose = this.onClose.bind(this);
@@ -42,9 +41,8 @@ class OpcHost {
   }
 
   reconnect() {
-    if(this.reconnecting) {return;}
-    this.connect();
     setTimeout(this.reconnect, 1000);
+    this.connect();
   }
 
   connect() {

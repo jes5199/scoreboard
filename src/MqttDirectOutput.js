@@ -14,7 +14,7 @@ class MqttDirectOutput {
     this.client.publish(topic, new Buffer(colors));
   }
 
-  isAlive {
+  isAlive() {
     return true; // FIXME check connection
   }
 }
