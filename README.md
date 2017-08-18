@@ -21,5 +21,5 @@ open public/simulator.html
 npm install
 # each of these commands needs to run in a separate tmux pane or whatever:
 mosca # mqtt broker. could be running on another machine
-node bin/mqtt.js --opc 192.168.0.12 --mqtt localhost # or wherever these processes are actually running
+node bin/mqtt.js --fps 5 --mqtt localhost
 ```
