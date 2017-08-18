@@ -45,11 +45,15 @@ var multiOut = new MultiOutput([opcHost, mqttDirect]);
 // - 2: use UART with gamma correction
 // - 3: use UART with gamma correction and linear temporal interpolation
 // - 4: use UART with gamma correction and temporal dithering
-mqttDirect.setAcceleration(2); // :D
+function setMqttSettings(){
+  mqttDirect.setAcceleration(3); // :D
+  setTimeout(setMqttSettings, 1000);
+}
+
+setMqttSettings();
 
 var scoreboard = (new WiringDiagram(multiOut)).scoreboard;
 scoreboard.start();
-
 
 client.on('message', function (topic, message) {
   //console.log([topic, message]);

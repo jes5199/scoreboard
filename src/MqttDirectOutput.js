@@ -3,6 +3,8 @@ class MqttDirectOutput {
     this.client = client;
     this.channelToTopic = channelToTopic;
     this.client.publish("asOne/scoreboard/directOnly", new Buffer([1]));
+    this.fps = 10;
+    this.topicLastSent = {};
   }
 
   setAcceleration(level) {
@@ -12,9 +14,14 @@ class MqttDirectOutput {
   sendPixels(channel, colors) {
     let topic = this.channelToTopic[channel];
     let buffer = new Buffer(colors);
-    //console.log(topic + " " + buffer.length);
-    //console.log(buffer);
-    this.client.publish(topic, buffer);
+    let now = (new Date()).getTime();
+
+    if(now - (this.topicLastSent[topic] || 0) > 1000 / this.fps) {
+      this.topicLastSent[topic] = now;
+      //console.log(topic + " " + buffer.length);
+      //console.log(buffer);
+      this.client.publish(topic, buffer);
+    }
   }
 
   isAlive() {

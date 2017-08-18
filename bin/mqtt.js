@@ -13222,6 +13222,8 @@ var MqttDirectOutput = function () {
     this.client = client;
     this.channelToTopic = channelToTopic;
     this.client.publish("asOne/scoreboard/directOnly", new Buffer([1]));
+    this.fps = 10;
+    this.topicLastSent = {};
   }
 
   _createClass(MqttDirectOutput, [{
@@ -13234,9 +13236,14 @@ var MqttDirectOutput = function () {
     value: function sendPixels(channel, colors) {
       var topic = this.channelToTopic[channel];
       var buffer = new Buffer(colors);
-      //console.log(topic + " " + buffer.length);
-      //console.log(buffer);
-      this.client.publish(topic, buffer);
+      var now = new Date().getTime();
+
+      if (now - (this.topicLastSent[topic] || 0) > 1000 / this.fps) {
+        this.topicLastSent[topic] = now;
+        //console.log(topic + " " + buffer.length);
+        //console.log(buffer);
+        this.client.publish(topic, buffer);
+      }
     }
   }, {
     key: "isAlive",
@@ -14757,7 +14764,12 @@ var multiOut = new _MultiOutput2.default([opcHost, mqttDirect]);
 // - 2: use UART with gamma correction
 // - 3: use UART with gamma correction and linear temporal interpolation
 // - 4: use UART with gamma correction and temporal dithering
-mqttDirect.setAcceleration(2); // :D
+function setMqttSettings() {
+  mqttDirect.setAcceleration(3); // :D
+  setTimeout(setMqttSettings, 1000);
+}
+
+setMqttSettings();
 
 var scoreboard = new _WiringDiagram2.default(multiOut).scoreboard;
 scoreboard.start();
@@ -15004,7 +15016,7 @@ var Scoreboard = function () {
 
     this.state = 0; // idle
 
-    this.fps = 15; // frames per second
+    this.fps = 30; // frames per second
     this.leftNextFrameTime = 0;
     this.rightNextFrameTime = new Date().getTime() + this.frameDuration() / 2; // interlace left and right updates
 
