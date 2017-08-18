@@ -590,7 +590,7 @@ var Scoreboard = function () {
 
     this.state = 0; // idle
 
-    this.fps = 10; // frames per second
+    this.fps = 15; // frames per second
     this.leftNextFrameTime = 0;
     this.rightNextFrameTime = new Date().getTime() + this.frameDuration() / 2; // interlace left and right updates
 
