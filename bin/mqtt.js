@@ -14773,6 +14773,7 @@ client.on('message', function (topic, message) {
     scoreboard.setLogoColor(message[0]);
   } else if (topic == "asOne/scoreboard/ipAddress") {
     var host = message[0] + "." + message[1] + "." + message[2] + "." + message[3];
+    console.log("scoreboard seen on " + host);
     opcHost.setHost(host);
   }
 });
