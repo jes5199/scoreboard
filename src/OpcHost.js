@@ -36,6 +36,7 @@ class OpcHost {
     try {
       this.client.write(Buffer.concat([header, new Buffer(colors)]));
     } catch (e) {
+      console.log("disconnected");
       this.connected = false;
     }
   }
@@ -54,6 +55,7 @@ class OpcHost {
 
   onConnectError() {
     this.connecting = false;
+    this.connected = false;
   }
 
   onConnected() {

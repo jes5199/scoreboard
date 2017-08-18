@@ -46,7 +46,7 @@ var multiOut = new MultiOutput([opcHost, mqttDirect]);
 // - 3: use UART with gamma correction and linear temporal interpolation
 // - 4: use UART with gamma correction and temporal dithering
 function setMqttSettings(){
-  mqttDirect.setAcceleration(3); // :D
+  mqttDirect.setAcceleration(4); // :D
   setTimeout(setMqttSettings, 1000);
 }
 

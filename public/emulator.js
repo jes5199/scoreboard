@@ -588,9 +588,9 @@ var Scoreboard = function () {
   function Scoreboard(leftDisplay, rightDisplay, timerDisplay, logoDisplay) {
     _classCallCheck(this, Scoreboard);
 
-    this.state = 0; // idle
+    this.state = 1; // idle
 
-    this.fps = 30; // frames per second
+    this.fps = 10; // frames per second
     this.leftNextFrameTime = 0;
     this.rightNextFrameTime = new Date().getTime() + this.frameDuration() / 2; // interlace left and right updates
 

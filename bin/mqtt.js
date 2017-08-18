@@ -13361,6 +13361,7 @@ var OpcHost = function () {
       try {
         this.client.write(Buffer.concat([header, new Buffer(colors)]));
       } catch (e) {
+        console.log("disconnected");
         this.connected = false;
       }
     }
@@ -13384,6 +13385,7 @@ var OpcHost = function () {
     key: "onConnectError",
     value: function onConnectError() {
       this.connecting = false;
+      this.connected = false;
     }
   }, {
     key: "onConnected",
@@ -14765,7 +14767,7 @@ var multiOut = new _MultiOutput2.default([opcHost, mqttDirect]);
 // - 3: use UART with gamma correction and linear temporal interpolation
 // - 4: use UART with gamma correction and temporal dithering
 function setMqttSettings() {
-  mqttDirect.setAcceleration(3); // :D
+  mqttDirect.setAcceleration(4); // :D
   setTimeout(setMqttSettings, 1000);
 }
 
@@ -15014,9 +15016,9 @@ var Scoreboard = function () {
   function Scoreboard(leftDisplay, rightDisplay, timerDisplay, logoDisplay) {
     _classCallCheck(this, Scoreboard);
 
-    this.state = 0; // idle
+    this.state = 1; // idle
 
-    this.fps = 30; // frames per second
+    this.fps = 10; // frames per second
     this.leftNextFrameTime = 0;
     this.rightNextFrameTime = new Date().getTime() + this.frameDuration() / 2; // interlace left and right updates
 
