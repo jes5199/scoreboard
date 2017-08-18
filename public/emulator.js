@@ -588,7 +588,7 @@ var Scoreboard = function () {
   function Scoreboard(leftDisplay, rightDisplay, timerDisplay, logoDisplay) {
     _classCallCheck(this, Scoreboard);
 
-    this.state = 1; // idle
+    this.state = 0; // idle
 
     this.fps = 10; // frames per second
     this.leftNextFrameTime = 0;
